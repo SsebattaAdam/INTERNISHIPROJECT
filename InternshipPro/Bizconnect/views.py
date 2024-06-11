@@ -1,4 +1,4 @@
-# InternishipApp/views.py
+# Bizconnect/views.py
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 

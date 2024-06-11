@@ -1,5 +1,5 @@
 """
-URL configuration for InternishipPro project.
+URL configuration for InternshipPro project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/5.0/topics/http/urls/
@@ -21,5 +21,5 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-     path('', include('InternishipApp.urls')),
+     path('', include('Bizconnect.urls')),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
