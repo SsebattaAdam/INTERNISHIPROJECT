@@ -18,4 +18,13 @@ def service_detail(request):
 
 def get_startednow(request):
     return render(request, 'get_started.html')
+
+def register_entreprenuer(request):
+    return render(request, 'entreprenuer/register_entreprenuer.html')
+
+def register_investor(request):
+    return render(request, 'investor/register_investor.html')
+
+def register_expert(request):
+    return render(request, 'expert/register_expert.html')
 # Create your views here.
