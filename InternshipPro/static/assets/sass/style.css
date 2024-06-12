@@ -4200,6 +4200,39 @@ Management
 }
 
 /*==========================================================================
+Register Membership
+========================================================================== */
+.register {
+  background: #F5F5F5;
+  padding: 57px 90px;
+}
+.register-form-group input, select {
+  width: 100%;
+  height: 58px;
+  background: white;
+  padding-left: 25px;
+  border: 2px solid white;
+  border-radius: 3px;
+  transition: all 0.2s ease-in-out;
+}
+.register-form-group input:focus {
+  border-color: #FE8C12;
+}
+.register-form-group textarea {
+  width: 100%;
+  background: white;
+  padding-left: 25px;
+  height: 170px;
+  border: 2px solid white;
+  border-radius: 3px;
+  transition: all 0.2s ease-in-out;
+  padding-top: 15px;
+}
+.register-form-group textarea:focus {
+  border-color: #FE8C12;
+}
+
+/*==========================================================================
 Contact
 ========================================================================== */
 .contact__area-content {
@@ -4268,7 +4301,7 @@ Contact
   background: #F5F5F5;
   padding: 57px 90px;
 }
-.contact__area-right-form-group input {
+.contact__area-right-form-group input, select {
   width: 100%;
   height: 58px;
   background: white;
@@ -4277,7 +4310,7 @@ Contact
   border-radius: 3px;
   transition: all 0.2s ease-in-out;
 }
-.contact__area-right-form-group input:focus {
+.contact__area-right-form-group input:focus, select:focus {
   border-color: #FE8C12;
 }
 .contact__area-right-form-group textarea {
