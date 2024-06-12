@@ -55,7 +55,7 @@
 						<div class="col-xl-7 col-lg-7 col-md-8">
 							<div class="header__area-top-bar-left st-center">
 								<ul>
-									<li><a href="#"><i class="flaticon-email"></i>bioven@gmail.com</a>
+									<li><a href="#"><i class="flaticon-email"></i>bizconnect@gmail.com</a>
 									</li>
 									<li><a href="#"><i class="flaticon-clock"></i>Mon - Fri : 9Am - 5Pm</a>
 									</li>
@@ -98,17 +98,17 @@
 							<div class="header__area-center d-flex align-items-center justify-content-end">
 								<div class="header__area-main-menu">
 									<ul id="mobilemenu">
-										<li class="header__area-main-menu-icon"><a href="#">Home</a>
+										<li class="header__area-main-menu-icon"><a href="{% url 'index' %}">Home</a>
 											<ul class="sub-menu">
-												<li><a href="index.html">Home One</a>
+												<li><a href="{% url 'index' %}">Home One</a>
 												</li>
 											</ul>
 										</li>
 										<li class="header__area-main-menu-icon"><a href="#">Services</a>
 											<ul class="sub-menu">
-												<li><a href="services.html">Services</a>
+												<li><a href="{% url 'service' %}">Services</a>
 												</li>
-												<li><a href="services-details.html">Services Details</a>
+												<li><a href="{% url 'service_details' %}">Services Details</a>
 												</li>
 											</ul>
 										</li>
@@ -152,13 +152,17 @@
 									</div>
 								</div>
 								<div class="header__area-left">
-									<div class="header__area-left-contact d-flex align-items-center">
-										<div class="header__area-left-contact-icon">	<i class="flaticon-telephone"></i>
+									<a href="{% url 'get_started' %}">
+										<div class="header__area-left-contact d-flex align-items-center">
+										
+											<div class="header__area-left-contact-icon">	<i class="fas fa-globe"></i>
+											</div>
+											<div class="header__area-left-contact-content">	<span>BixConnect</span>
+												<p>Get started</p>
+											</div>
 										</div>
-										<div class="header__area-left-contact-content">	<span>Tell With US</span>
-											<p>+123-568-4758</p>
-										</div>
-									</div>
+									</a>
+									
 								</div>
 							</div>
 						</div>
@@ -289,60 +293,7 @@
 	<!-- Features Area End -->
     {% block content %}
 	<!-- About Area Start -->
-	<div class="about__area section-padding">
-		<div class="container">
-			<div class="row align-items-center">
-				<div class="col-xl-6 col-lg-5 lg-mb-40">
-					<div class="about__area-left wow fadeInUp" data-wow-delay="1s">
-						<div class="about__area-left-image mr-50 ml-50 mb-80">
-							<img src="assets/img/about-1.jpg" alt="">
-							<div class="about__area-left-image-small-img">
-								<img src="assets/img/about-2.jpg" alt="">
-							</div>
-						</div>
-					</div>					
-				</div>
-				<div class="col-xl-6 col-lg-7">
-					<div class="about__area-right wow fadeInUp" data-wow-delay="1.5s">
-						<div class="about__area-right-content">
-							<span class="section-top mb-15">Company About</span>
-							<h2 class="mb-40">We take care of your business to grow</h2>
-							<p class="mb-25">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation</p>
-						</div>
-						<div class="about__area-right-list mb-40">
-							<div class="row">
-								<div class="col-sm-6 mb-15">
-									<p><i class="flaticon-check"></i>Business Structures</p>
-								</div>
-								<div class="col-sm-6 mb-15">
-									<p><i class="flaticon-check"></i>Support Customization</p>
-								</div>
-								<div class="col-sm-6 sm-mb-15">
-									<p><i class="flaticon-check"></i>Strong Business Planing</p>
-								</div>
-								<div class="col-sm-6">
-									<p><i class="flaticon-check"></i>Security & Location</p>
-								</div>
-							</div>
-						</div>
-						<div class="about__area-right-bottom pt-40">
-							<div class="row align-items-center">
-								<div class="col-sm-6 sm-mb-20">
-									<a class="theme-btn" href="about.html">Read More <i class="flaticon-arrow-right"></i></a>
-								</div>
-								<div class="col-sm-6">
-									<div class="about__area-right-bottom-signature">
-										<img src="assets/img/signature.png" alt="">
-									</div>
-								</div>
-							</div>									
-						</div>
-					</div>					
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- About Area End -->
+		<!-- About Area End -->
 	<!-- Services Area Start -->
 	<div class="services__area section-padding">
 		<div class="container">
@@ -407,6 +358,7 @@
 		</div>
 	</div>
 	<!-- Services Area End -->	
+
 	<!-- Portfolio Area Start -->
 	<div class="portfolio__area section-padding pb-0">
 		<div class="container">
