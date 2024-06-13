@@ -71,13 +71,20 @@
                         <img src="assets/img/blog-1.png" alt="">
                     </div>
                     <div class="blog__area-item-content pt-0">
-                        <a href="{% url "register_entreprenuers" %}">
+
+                        <a href="{% url 'register_entreprenuers' %}">
                             <div class="blog__area-item-content-date" style="padding: 20px; margin: 10px 0;">
                                 <span style="font-size: 1.6em; "><i class="fas fa-user"></i>Sign Up as </span>								
                             </div>
                         </a>
                         
                         <h5><a href="blog-details.html">Entrepreneurs</a></h5>
+
+                        <div class="blog__area-item-content-date">
+                            <span><i class="fas fa-user"></i>Sign Up as </span>								
+                        </div>
+                        <h3><a href="{% url 'index4Interprenuers' %}">Interprenue</a></h3>
+
                         <ul>
                             <li><i class="fas fa-info-circle"></i> Create Acccount to continue</li>
                         </ul>
