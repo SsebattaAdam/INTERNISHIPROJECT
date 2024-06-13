@@ -34,6 +34,8 @@
     <link rel="stylesheet" href="{% static 'assets/fonts/flaticon.css' %}">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{% static 'assets/sass/style.css' %}">
+    <!-- Include your custom CSS -->
+  
 </head>
 
 <body>
@@ -59,42 +61,46 @@
     </div>
 </div>
 
-<div class="col-xl-8 col-lg-8">
-    <div class="contact__area-right wow fadeInUp" data-wow-delay="0.8s">
-        <h3 class="mb-35">Get In Touch</h3>                        
-        <div class="contact__area-right-form">
-            <form action="#">
-                <div class="row">
-                    <div class="col-md-6 mb-30">
-                        <div class="contact__area-right-form-group">
-                            <input type="text" name="name" placeholder="Your Name">
+<div class="container section-padding">
+    <div class="col-xl-8 col-lg-8">
+        <div class="contact__area-right wow fadeInUp" data-wow-delay="0.8s">
+            <h3 class="mb-35">Get In Touch</h3>                        
+            <div class="contact__area-right-form">
+                <form action="#">
+                    <div class="row">
+                        <div class="col-md-6 mb-30">
+                            <div class="contact__area-right-form-group">
+                                <input type="text" name="name" placeholder="Your Name">
+                            </div>
+                        </div>
+                        <div class="col-md-6 md-mb-30">
+                            <div class="contact__area-right-form-group">
+                                <input type="text" name="email" placeholder="Email Address">
+                            </div>
+                        </div>
+                        <div class="col-md-12 mb-30">
+                            <div class="contact__area-right-form-group">
+                                <input type="text" name="subject" placeholder="Subject">
+                            </div>
+                        </div>
+                        <div class="col-md-12 mb-30">
+                            <div class="contact__area-right-form-group">
+                                <textarea name="message" placeholder="Message"></textarea>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="contact__area-right-form-group">
+                                <button class="theme-btn" type="submit">Submit Now</button>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-md-6 md-mb-30">
-                        <div class="contact__area-right-form-group">
-                            <input type="text" name="email" placeholder="Email Address">
-                        </div>
-                    </div>
-                    <div class="col-md-12 mb-30">
-                        <div class="contact__area-right-form-group">
-                            <input type="text" name="subject" placeholder="Subject">
-                        </div>
-                    </div>
-                    <div class="col-md-12 mb-30">
-                        <div class="contact__area-right-form-group">
-                            <textarea name="message" placeholder="Message"></textarea>
-                        </div>
-                    </div>
-                    <div class="col-md-12">
-                        <div class="contact__area-right-form-group">
-                            <button class="theme-btn" type="submit">Submit Now</button>
-                        </div>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>                    
+                </form>
+            </div>
+        </div>                    
+    </div>
+
 </div>
+
 
 
 {% comment %} <div class="blog__area section-padding">
