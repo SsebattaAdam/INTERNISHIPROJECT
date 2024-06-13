@@ -4,6 +4,7 @@
 
 
 <!-- Mirrored from html.themeori.net/bioven/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 10 Jun 2024 12:15:45 GMT -->
+
 <head>
     <!-- Start Meta -->
     <meta charset="UTF-8">
@@ -34,235 +35,283 @@
     <link rel="stylesheet" href="{% static 'assets/fonts/flaticon.css' %}">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{% static 'assets/sass/style.css' %}">
+
+    <style>
+        /* This is the custom checkbox */
+        /* Hide the default checkbox */
+        input[type="checkbox"] {
+            display: none;
+        }
+
+        /* Create a custom checkbox */
+        .custom-checkbox {
+            display: inline-block;
+            width: 15px;
+            height: 15px;
+            background-color: #fff;
+            border: 2px solid #ccc;
+            border-radius: 4px;
+            position: relative;
+            cursor: pointer;
+            margin-right: 8px;
+        }
+
+        /* Style the custom checkmark */
+        .custom-checkbox::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 15px;
+            height: 15px;
+            background-color: #FE8C12; /* Custom color for the checkmark */
+            transform: translate(-50%, -50%) scale(0);
+            transition: transform 0.2s;
+            border-radius: 2px;
+        }
+
+        /* Show the checkmark when the checkbox is checked */
+        input[type="checkbox"]:checked + .custom-checkbox::after {
+            transform: translate(-50%, -50%) scale(1);
+        }
+    </style>
 </head>
 
 <body>
- {% block content %}
- <div class="solution__area">
-    <div class="container">
-        <div class="solution__area-bg" data-background="assets/img/solution.png">
-            <div class="row align-items-center">
-                <div class="col-xl-9 col-lg-9 lg-mb-30">
-                    <p style="color: white; font-weight: bold; font-family: Arial; font-size: 14px;">REGISTER</p>
-                    <div class="solution__area-left lg-center">
-                        
-                        <h2 class="mb-45">Manage Promote and Grow</h2>	
-                    </div>					
-                </div>
-                <div class="col-xl-3 col-lg-3">
-                    <div class="solution__area-right t-right lg-center">
-                        <a class="theme-bg-btn" href="contact.html">Select The option <i class="flaticon-arrow-right"></i></a>						
-                    </div>					
+    {% block content %}
+    <div class="solution__area">
+        <div class="container">
+            <div class="solution__area-bg" data-background="assets/img/solution.png">
+                <div class="row align-items-center">
+                    <div class="col-xl-9 col-lg-9 lg-mb-30">
+                        <p style="color: white; font-weight: bold; font-family: Arial; font-size: 16px;">REGISTER</p>
+                        <div class="solution__area-left lg-center">
+
+                            <h2 class="mb-45">Experts Membership</h2>
+                        </div>
+                    </div>
+                    
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<div class="container section-padding">
-    <div class="row">
-        <div class="col-xl-12 col-lg-8">
-            <div class="register wow fadeInUp" data-wow-delay="0.8s">
-                <h3 class="mb-35">Get In Touch</h3>                        
-                <div class="register-form">
-                    <form action="#">
-                        <div class="row">
-                            <div class="col-md-6 mb-30">
-                                <div class="register-form-group">
-                                    <input type="text" name="surname" placeholder="Surname">
-                                </div>
-                            </div>
-                            <div class="col-md-6 md-mb-30">
-                                <div class="register-form-group">
-                                    <input type="text" name="firstname" placeholder="First Name">
-                                </div>
-                            </div>
-                            <div class="col-md-3 mb-30">
-                                <div class="register-form-group">
-                                    <select id="gender" name="gender">
-                                        <option value="">Select</option>
-                                        <option value="male">Male</option>
-                                        <option value="female">Female</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-5 md-mb-30">
-                                <div class="register-form-group">
-                                    <input type="email" name="email" placeholder="Email Address">
-                                </div>
-                            </div>
-                            <div class="col-md-4 md-mb-30">
-                                <div class="register-form-group">
-                                    <input type="number" name="contact" placeholder="Contact">
-                                </div>
-                            </div>
-                            <div class="col-md-6 md-mb-30">
-                                <div class="register-form-group">
-                                    <select id="district" name="district">
-                                        <option value="">Select District</option>
-                                        <option value="bundibugyo">Bundibugyo</option>
-                                        <option value="gulu">Gulu</option>
-                                        <option value="jinja">Jinja</option>
-                                        <option value="kabarole">Kabarole</option>
-                                        <option value="kampala">Kampala</option>
-                                        <option value="lira">Lira</option>
-                                        <option value="masaka">Masaka</option>
-                                        <option value="mpigi">Mpigi</option>
-                                        <option value="mukono">Mukono</option>
-                                        <option value="soroti">Soroti</option>
-                                        <option value="wakiso">Wakiso</option>
-                                    </select>  
-                                </div>
-                            </div>
-                            <div class="col-md-9 md-mb-30">
-                                <div class="register-form-group">
-                                    <input type="text" name="company" placeholder="Company Name">
-                                </div>
-                            </div>
-                            <div class="col-md-12 mb-30">
-                                <div class="register-form-group">
-                                    <input type="text" name="role" placeholder="Role in Company">
-                                </div>
-                            </div>
-                            <div class="col-md-12 mb-30">
-                                <div class="register-form-group">
-                                    <textarea name="message" placeholder="Message"></textarea>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="register-form-group">
-                                    <button class="theme-btn" type="submit">Submit Now</button>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>                    
-        </div>
-    </div>
-</div>
-
-
-{% comment %} <div class="blog__area section-padding">
-    <div class="container">
+    <div class="container section-padding">
         <div class="row">
-            <div class="col-xl-4 col-lg-4 col-md-6 mb-30">
-                <div class="blog__area-item wow fadeInUp" data-wow-delay="0.4s">
-                    <div class="blog__area-item-image">
-                        <img src="assets/img/blog-1.png" alt="">
-                    </div>
-                    <div class="blog__area-item-content pt-0">
-                        <div class="blog__area-item-content-date">
-                            <span><i class="fas fa-user"></i>Sign Up as </span>								
-                        </div>
-                        <h3><a href="blog-details.html">Entrepreneursue</a></h3>
-                        <ul>
-                            <li><i class="fas fa-info-circle"></i>About what Entrepreneursue</li>
-                            <li><i class="fas fa-user"></i> Create Acccount to continue</li>
-                        </ul>
-                        <div class="blog__area-item-content-btn">
-                            <a href="blog-details.html">Read More</a>
-                        </div>
+            <div class="col-xl-12 col-lg-8">
+                <div class="register wow fadeInUp" data-wow-delay="0.8s">
+                    <h4 class="mb-35">All Fields are required.</h4>
+                    <div class="register-form">
+                        <form action="#" method="post">
+                            <div class="row">
+                                <div class="col-md-6 mb-30">
+                                    <div class="register-form-group">
+                                        <input type="text" name="surname" placeholder="Surname">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 md-mb-30">
+                                    <div class="register-form-group">
+                                        <input type="text" name="firstname" placeholder="First Name">
+                                    </div>
+                                </div>
+                                <div class="col-md-3 mb-30">
+                                    <div class="register-form-group">
+                                        <select id="gender" name="gender">
+                                            <option value="">Select Gender</option>
+                                            <option value="male">Male</option>
+                                            <option value="female">Female</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-5 md-mb-30">
+                                    <div class="register-form-group">
+                                        <input type="email" name="email" placeholder="Email Address">
+                                    </div>
+                                </div>
+                                <div class="col-md-4 md-mb-30">
+                                    <div class="register-form-group">
+                                        <input type="tel" name="contact" placeholder="Contact">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 md-mb-30">
+                                    <div class="register-form-group">
+                                        <select id="district" name="district">
+                                            <option value="">Select District</option>
+                                            <option id="bundibugyo" value="bundibugyo">Bundibugyo</option>
+                                            <option id="gulu" value="gulu">Gulu</option>
+                                            <option id="jinja" value="jinja">Jinja</option>
+                                            <option id="kabarole" value="kabarole">Kabarole</option>
+                                            <option id="kampala" value="kampala">Kampala</option>
+                                            <option id="lira" value="lira">Lira</option>
+                                            <option id="masaka" value="masaka">Masaka</option>
+                                            <option id="mpigi" value="mpigi">Mpigi</option>
+                                            <option id="mukono" value="mukono">Mukono</option>
+                                            <option id="soroti" value="soroti">Soroti</option>
+                                            <option id="wakiso" value="wakiso">Wakiso</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-30">
+                                    <div class="register-form-group">
+                                        <select id="role" name="role">
+                                            <option value="">Select Country</option>
+                                            <option id="uganda" value="uganda">Uganda</option>
+                                            <option id="tanzania" value="tanzania">Tanzania</option>
+                                            <option id="kenya" value="kenya">Kenya</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <h6 class="mb-30 col-md-2">Experienced in:</h6>
+                                <div class="col-md-10 mb-30">
+                                    <label for="tourism" class="mr-5">
+                                        <input type="checkbox" id="tourism" name="tourism" value="tourism">
+                                        <span class="custom-checkbox"></span> Tourism and Hospitality
+                                    </label>
+                                    <label for="media" class="mr-5">
+                                        <input type="checkbox" id="media" name="media" value="media">
+                                        <span class="custom-checkbox"></span> Media and IT services
+                                    </label>
+                                    <label for="commercial" class="mr-5">
+                                        <input type="checkbox" id="commercial" name="commercial" value="commercial">
+                                        <span class="custom-checkbox"></span> Commercial Agriculture
+                                    </label>
+                                    <label for="estate" class="mr-5">
+                                        <input type="checkbox" id="estate" name="estate" value="estate">
+                                        <span class="custom-checkbox"></span> Real Estate
+                                    </label>
+                                    <label for="manufacturing" class="mr-5">
+                                        <input type="checkbox" id="manufacturing" name="manufacturing" value="manufacturing">
+                                        <span class="custom-checkbox"></span> Manufacturing
+                                    </label>
+                                    <label for="education" class="mr-5">
+                                        <input type="checkbox" id="education" name="education" value="education">
+                                        <span class="custom-checkbox"></span> Education
+                                    </label>
+                                    <label for="health" class="mr-5">
+                                        <input type="checkbox" id="health" name="health" value="health">
+                                        <span class="custom-checkbox"></span> Health Care
+                                    </label>
+                                    <label for="wholesale">
+                                        <input type="checkbox" id="wholesale" name="wholesale" value="wholesale">
+                                        <span class="custom-checkbox"></span> Wholesale Trade
+                                    </label>
+                                </div>
+                                <h6 class="mb-30 col-md-3">Fields of Knowledge/Expertise:</h6>
+                                <div class="col-md-8 mb-30">
+                                    <label for="leadership" class="mr-5">
+                                        <input type="checkbox" id="leadership" name="leadership" value="leadership">
+                                        <span class="custom-checkbox"></span> Leadership Skills
+                                    </label>
+                                    <label for="HR" class="mr-5">
+                                        <input type="checkbox" id="HR" name="HR" value="HR">
+                                        <span class="custom-checkbox"></span> Human Resource
+                                    </label>
+                                    <label for="sales" class="mr-5">
+                                        <input type="checkbox" id="sales" name="sales" value="sales">
+                                        <span class="custom-checkbox"></span> Sales and Marketing
+                                    </label>
+                                    <label for="IT" class="mr-5">
+                                        <input type="checkbox" id="IT" name="IT" value="IT">
+                                        <span class="custom-checkbox"></span> IT and Communications
+                                    </label>
+                                    <label for="incubation" class="mr-5">
+                                        <input type="checkbox" id="incubation" name="incubation" value="incubation">
+                                        <span class="custom-checkbox"></span> Incubation and Development
+                                    </label>
+                                    <label for="marketing" class="mr-5">
+                                        <input type="checkbox" id="marketing" name="marketing" value="marketing">
+                                        <span class="custom-checkbox"></span> Digital Marketing
+                                    </label>
+                                    <label for="packaging" class="mr-5">
+                                        <input type="checkbox" id="packaging" name="packaging" value="packaging">
+                                        <span class="custom-checkbox"></span> Product Packaging
+                                    </label>
+                                    <label for="financial" class="mr-5">
+                                        <input type="checkbox" id="financial" name="financial" value="fianacial">
+                                        <span class="custom-checkbox"></span> Financial Modeling and Planning
+                                    </label>
+                                    <label for="innovation" class="mr-5">
+                                        <input type="checkbox" id="innovation" name="innovation" value="innovation">
+                                        <span class="custom-checkbox"></span> Business Modeling and Innovation
+                                    </label>
+                                    <label for="writing-support" class="mr-5">
+                                        <input type="checkbox" id="writing-support" name="writing-support" value="writing-support">
+                                        <span class="custom-checkbox"></span> Business plan writing support
+                                    </label>
+                                </div>
+                                
+                                <div class="col-md-12 mb-30">
+                                    <div class="register-form-group">
+                                        <textarea name="achievements"
+                                            placeholder="Past Achievements engaged in"></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12 mb-30">
+                                    <div class="register-form-group">
+                                        <textarea name="References"
+                                            placeholder="References to verify the above inforamtion"></textarea>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <div class="register-form-group">
+                                        <button class="theme-btn" type="submit">Submit Now</button>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="register-form-group">
+                                        <button class="theme-btn" style="background: #030A15;" type="button" onclick="javascript:history.back()">Back</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
-            <div class="col-xl-4 col-lg-4 col-md-6 md-mb-30">
-                <div class="blog__area-item wow fadeInUp" data-wow-delay="0.8s">
-                    <div class="blog__area-item-image">
-                        <img src="assets/img/blog-2.jpg" alt="">
-                    </div>
-                    <div class="blog__area-item-content pt-0">
-                        <div class="blog__area-item-content-date">
-                            <span><i class="fas fa-user"></i>Sign Up as </span>								
-                        </div>
-                        <h3><a href="blog-details.html">Investor</a></h3>
-                        <ul>
-                            <li><i class="fas fa-info-circle"></i>About what investors do</li>
-                            <li><i class="fas fa-user"></i> Create account to Continue</li>
-                        </ul>
-                        <div class="blog__area-item-content-btn">
-                            <a href="blog-details.html">Read More</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-4 col-lg-4 col-md-6 md-mb-30">
-                <div class="blog__area-item wow fadeInUp" data-wow-delay="1.2s">
-                    <div class="blog__area-item-image">
-                        <img src="assets/img/blog-3.png" alt="">
-                    </div>
-                    <div class="blog__area-item-content pt-0">
-                        <div class="blog__area-item-content-date">
-                            <span><i class="fas fa-user"></i>Sign Up as</span>								
-                        </div>
-                        <h3><a href="blog-details.html">Experts</a></h3>
-                        <ul>
-                            <li><i class="fas fa-info-circle"></i>About expert Activities</li>
-                            <li><i class="fas fa-user"></i> Create account to continue</li>
-                        </ul>
-                        <div class="blog__area-item-content-btn">
-                            <a href="blog-details.html">Read More</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
         </div>
-       
     </div>
-</div> {% endcomment %}
 
-
-
-
-<div class="management__area section-padding lg-center"  >
-    <div class="row align-items-center">
-        <div class="col-xl-8 col-lg-4 lg-mb-10">
-            <div class="management__area-title wow fadeInUp" data-wow-delay="0.05s" >
-                <span class="section-top mb-15">Register</span>
-                <h2 class="mb-45">Manage Promote and Grow Your Business Online</h2>		
-                <a class="theme-banner-btn" href="contact.html">Create Account Now <i class="flaticon-arrow-right"></i></a>				
-            </div>				
-        </div>
-        
+  
     </div>
-</div>
-</div>
 
 
-{% endblock%}
+    {% endblock%}
 
-	
-<!-- Scroll Top Start -->
-<div class="scroll-top">	<i class="flaticon-up-arrow"></i>
-</div>
-<!-- Scroll Top End -->
-  <!-- Main JS -->
-<script src="{% static 'assets/js/jquery-3.6.0.min.js' %}"></script>
-<!-- Bootstrap JS -->
-<script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
-<!-- Counterup -->
-<script src="{% static 'assets/js/jquery.counterup.min.js' %}"></script>
-<!-- Popper JS -->
-<script src="{% static 'assets/js/popper.min.js' %}"></script>
-<!-- Progressbar JS -->
-<script src="{% static 'assets/js/progressbar.min.js' %}"></script>
-<!-- Magnific JS -->
-<script src="{% static 'assets/js/jquery.magnific-popup.min.js' %}"></script>
-<!-- Swiper JS -->
-<script src="{% static 'assets/js/swiper-bundle.min.js' %}"></script>
-<!-- Waypoints -->
-<script src="{% static 'assets/js/jquery.waypoints.min.js' %}"></script>
-<!-- Mean menu -->
-<script src="{% static 'assets/js/jquery.meanmenu.min.js' %}"></script>
-<!-- Nice Select -->
-<script src="{% static 'assets/js/jquery.nice-select.min.js' %}"></script>
-<!-- WOW JS -->
-<script src="{% static 'assets/js/wow.min.js' %}"></script>
-<!-- Custom JS -->
-<script src="{% static 'assets/js/custom.js' %}"></script>
+
+    <!-- Scroll Top Start -->
+    <div class="scroll-top"> <i class="flaticon-up-arrow"></i>
+    </div>
+    <!-- Scroll Top End -->
+    <!-- Main JS -->
+    <script src="{% static 'assets/js/jquery-3.6.0.min.js' %}"></script>
+    <!-- Bootstrap JS -->
+    <script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
+    <!-- Counterup -->
+    <script src="{% static 'assets/js/jquery.counterup.min.js' %}"></script>
+    <!-- Popper JS -->
+    <script src="{% static 'assets/js/popper.min.js' %}"></script>
+    <!-- Progressbar JS -->
+    <script src="{% static 'assets/js/progressbar.min.js' %}"></script>
+    <!-- Magnific JS -->
+    <script src="{% static 'assets/js/jquery.magnific-popup.min.js' %}"></script>
+    <!-- Swiper JS -->
+    <script src="{% static 'assets/js/swiper-bundle.min.js' %}"></script>
+    <!-- Waypoints -->
+    <script src="{% static 'assets/js/jquery.waypoints.min.js' %}"></script>
+    <!-- Mean menu -->
+    <script src="{% static 'assets/js/jquery.meanmenu.min.js' %}"></script>
+    <!-- Nice Select -->
+    <script src="{% static 'assets/js/jquery.nice-select.min.js' %}"></script>
+    <!-- WOW JS -->
+    <script src="{% static 'assets/js/wow.min.js' %}"></script>
+    <!-- Custom JS -->
+    <script src="{% static 'assets/js/custom.js' %}"></script>
 </body>
 
 
 <!-- Mirrored from html.themeori.net/bioven/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 10 Jun 2024 12:15:45 GMT -->
+
 </html>
