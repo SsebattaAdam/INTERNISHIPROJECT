@@ -1,0 +1,101 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Meta tags -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Title -->
+    <title>Dashboard with Sidebar</title>
+    <!-- Favicons -->
+    <link rel="icon" type="image/png" href="{% static 'assets/img/favicon.png' %}">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="{% static 'assets/css/fontawesome.min.css' %}">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'assets/sass/style.css' %}">
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+                <div class="position-sticky">
+                    <div class="header__area-logo">
+                        <a href="index.html">
+                            <img src="{% static 'assets/img/logo.png' %}" alt="">
+                        </a>
+                    </div>
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="{% url 'index' %}">
+                                Home
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                Services
+                            </a>
+                            <ul class="nav flex-column ml-3">
+                                <li class="nav-item"><a class="nav-link" href="{% url 'service' %}">Services</a></li>
+                                <li class="nav-item"><a class="nav-link" href="{% url 'service_details' %}">Services Details</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                Page
+                            </a>
+                            <ul class="nav flex-column ml-3">
+                                <li class="nav-item"><a class="nav-link" href="{% url 'about' %}">About Us</a></li>
+                                <li class="nav-item"><a class="nav-link" href="portfolio.html">Portfolio</a></li>
+                                <li class="nav-item"><a class="nav-link" href="portfolio-details.html">Portfolio Details</a></li>
+                                <li class="nav-item"><a class="nav-link" href="team.html">Team</a></li>
+                                <li class="nav-item"><a class="nav-link" href="error.html">Error</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                News
+                            </a>
+                            <ul class="nav flex-column ml-3">
+                                <li class="nav-item"><a class="nav-link" href="blog-grid.html">Blog Grid</a></li>
+                                <li class="nav-item"><a class="nav-link" href="blog-standard.html">Blog Standard</a></li>
+                                <li class="nav-item"><a class="nav-link" href="blog-details.html">Blog Details</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="contact.html">Contact</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <!-- Main content -->
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h2">Dashboard</h1>
+                </div>
+                {% block content %}
+                <!-- Your main content goes here -->
+                {% endblock %}
+            </main>
+        </div>
+    </div>
+
+    <!-- Scroll Top Start -->
+    <div class="scroll-top"> <i class="flaticon-up-arrow"></i></div>
+    <!-- Scroll Top End -->
+
+    <!-- Main JS -->
+    <script src="{% static 'assets/js/jquery-3.6.0.min.js' %}"></script>
+    <!-- Bootstrap JS -->
+    <script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
+    <!-- Custom JS -->
+    <script src="{% static 'assets/js/custom.js' %}"></script>
+</body>
+
+</html>
