@@ -19,15 +19,21 @@ def service_detail(request):
 def get_startednow(request):
     return render(request, 'get_started.html')
 
-def index4Entreprenuer(request):
-    return render(request, 'interprenuer/index4Interprenuer.html'),
+
 def register_entreprenuer(request):
     return render(request, 'entreprenuer/register_entreprenuer.html')
+ 
+def homepage1(request):
+    return render(request, 'entreprenuer/homepage1.html')
 
 def register_investor(request):
     return render(request, 'investor/register_investor.html')
+def investorhomepage(request):
+    return render(request, 'investor/investorHomepage3.html')
 
 def register_expert(request):
     return render(request, 'expert/register_expert.html')
+def experthomepage(request):
+    return render(request, 'expert/expertHomepage2.html')
 
 # Create your views here.
