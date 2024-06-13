@@ -18,4 +18,7 @@ def service_detail(request):
 
 def get_startednow(request):
     return render(request, 'get_started.html')
+
+def index4Interprenuer(request):
+    return render(request, 'interprenuer/index4Interprenuer.html')
 # Create your views here.
