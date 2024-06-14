@@ -36,4 +36,6 @@ def register_expert(request):
 def experthomepage(request):
     return render(request, 'expert/expertHomepage2.html')
 
+def login(request):
+    return render(request, 'login.html')
 # Create your views here.
