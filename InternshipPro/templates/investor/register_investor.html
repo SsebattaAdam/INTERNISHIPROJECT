@@ -9,7 +9,7 @@
     <!-- Start Meta -->
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="description" content="Bioven - Business HTML 5 Template" />
+    <meta name="description" content="Bizconnect - Business Management platform" />
     <meta name="keywords" content="Creative, Digital, multipage, landing, freelancer template" />
     <meta name="author" content="ThemeOri">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -42,39 +42,6 @@
 
 
     <style>
-
-        input[type="checkbox"] {
-            display: none;
-        }
-
-        .custom-checkbox {
-            display: inline-block;
-            width: 15px;
-            height: 15px;
-            background-color: #fff;
-            border: 2px solid #ccc;
-            border-radius: 4px;
-            position: relative;
-            cursor: pointer;
-            margin-right: 8px;
-        }
-
-        .custom-checkbox::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 15px;
-            height: 15px;
-            background-color: #FE8C12; /* Custom color for the checkmark */
-            transform: translate(-50%, -50%) scale(0);
-            transition: transform 0.2s;
-            border-radius: 2px;
-        }
-
-        input[type="checkbox"]:checked + .custom-checkbox::after {
-            transform: translate(-50%, -50%) scale(1);
-        }
 
         .tab {
             overflow: hidden;
@@ -141,17 +108,17 @@
                                     <div class="row">
                                         <div class="col-md-6 mb-30">
                                             <div class="register-form-group">
-                                                <input type="text" name="surname" placeholder="Surname">
+                                                <input required type="text" name="surname" placeholder="Surname">
                                             </div>
                                         </div>
                                         <div class="col-md-6 md-mb-30">
                                             <div class="register-form-group">
-                                                <input type="text" name="firstname" placeholder="First Name">
+                                                <input required type="text" name="firstname" placeholder="First Name">
                                             </div>
                                         </div>
                                         <div class="col-md-5 mb-30">
                                             <div class="register-form-group">
-                                                <select id="gender" name="gender">
+                                                <select required id="gender" name="gender">
                                                     <option value="">Select Gender</option>
                                                     <option value="male">Male</option>
                                                     <option value="female">Female</option>
@@ -160,20 +127,20 @@
                                         </div>
                                         <div class="col-md-7 md-mb-30">
                                             <div class="register-form-group">
-                                                <input type="email" name="email-person"
+                                                <input required type="email" name="email-person"
                                                     placeholder="Email Address e.g. user@email.com">
                                             </div>
                                         </div>
                                         <div class="col-md-6 md-mb-30">
                                             <div class="register-form-group">
-                                                <input type="tel" name="contact-person"
+                                                <input required type="tel" name="contact-person"
                                                     placeholder="Contact e.g. 256 701 234 567">
                                             </div>
                                         </div>
 
                                         <div class="col-md-6 mb-30">
                                             <div class="register-form-group">
-                                                <select id="role" name="role">
+                                                <select required id="role" name="role">
                                                     <option value="">Select Country</option>
                                                     <option id="uganda" value="uganda">Uganda</option>
                                                     <option id="tanzania" value="tanzania">Tanzania</option>
@@ -222,12 +189,12 @@
                                         </div>
                                         <div class="col-md-9 mb-30">
                                             <div class="register-form-group">
-                                                <input type="text" name="capital" placeholder="Capital Availability">
+                                                <input required type="text" name="capital" placeholder="Capital Availability">
                                             </div>
                                         </div>
                                         <div class="col-md-12 mb-30">
                                             <div class="register-form-group">
-                                                <textarea name="information"
+                                                <textarea required name="information"
                                                     placeholder="Additional information"></textarea>
                                             </div>
                                         </div>
@@ -265,26 +232,26 @@
                                     <div class="row">
                                         <div class="col-md-6 mb-30">
                                             <div class="register-form-group">
-                                                <input type="text" name="company" placeholder="Company name">
+                                                <input required type="text" name="company" placeholder="Company name">
                                             </div>
                                         </div>
                                         
                                         <div class="col-md-5 md-mb-30">
                                             <div class="register-form-group">
-                                                <input type="email" name="email-company"
+                                                <input required type="email" name="email-company"
                                                     placeholder="Email Address e.g. user@email.com">
                                             </div>
                                         </div>
                                         <div class="col-md-6 md-mb-30">
                                             <div class="register-form-group">
-                                                <input type="tel" name="contact"
+                                                <input required type="tel" name="contact"
                                                     placeholder="Contact e.g. 256 701 234 567">
                                             </div>
                                         </div>
                                         
                                         <div class="col-md-6 mb-30">
                                             <div class="register-form-group">
-                                                <select id="role" name="role">
+                                                <select required id="role" name="role">
                                                     <option value="">Select Country</option>
                                                     <option id="uganda" value="uganda">Uganda</option>
                                                     <option id="tanzania" value="tanzania">Tanzania</option>
@@ -333,12 +300,12 @@
                                         </div>
                                         <div class="col-md-9 mb-30">
                                             <div class="register-form-group">
-                                                <input type="text" name="capital" placeholder="Capital Availability">
+                                                <input required type="text" name="capital" placeholder="Capital Availability">
                                             </div>
                                         </div>
                                         <div class="col-md-12 mb-30">
                                             <div class="register-form-group">
-                                                <textarea name="information"
+                                                <textarea required name="information"
                                                     placeholder="Additional inforamtion"></textarea>
                                             </div>
                                         </div>                                       

@@ -26,6 +26,9 @@ def register_entreprenuer(request):
 def homepage1(request):
     return render(request, 'entreprenuer/homepage1.html')
 
+def business_ideals(request):
+    return render(request, 'entreprenuer/business_ideals.html')
+
 def register_investor(request):
     return render(request, 'investor/register_investor.html')
 def investorhomepage(request):
