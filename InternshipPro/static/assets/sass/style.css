@@ -326,6 +326,90 @@ Theme Btn CSS
 }
 
 /*==========================================================================
+Custom Checkbox CSS
+========================================================================== */
+.custom_sidebar {
+  padding: 15px;
+}
+.custom_sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+.custom_sidebar ul li {
+  margin: 15px 0;
+}
+.custom_sidebar ul li a {
+  text-decoration: none;
+  display: block;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.custom_sidebar ul ul {
+  padding-left: 20px;
+  display: none; /* Hide dropdowns by default */
+}
+.custom_sidebar ul ul li {
+  margin: 10px 0;
+}
+.custom_sidebar ul li .dropdown-btn {
+  cursor: pointer;
+}
+.custom_sidebar ul li .dropdown-btn::after {
+  content: '\25BC'; /* Downward arrow */
+  float: right;
+}
+.custom_sidebar ul li .dropdown-btn.active::after {
+  content: '\25B2'; /* Upward arrow */
+}
+.small-dot {
+  font-size: 20px; /* Adjust the size as needed */
+  line-height: 1;
+  margin-right: 10px;
+}
+
+/*==========================================================================
+Custom Checkbox CSS
+========================================================================== */
+/* This is the custom checkbox */
+input[type="checkbox"] {
+  display: none;
+}
+
+/* Create a custom checkbox */
+.custom-checkbox {
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  background-color: #fff;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  position: relative;
+  cursor: pointer;
+  margin-right: 8px;
+}
+
+/* Style the custom checkmark */
+.custom-checkbox::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 15px;
+  height: 15px;
+  background-color: #fe8c12; /* Custom color for the checkmark */
+  transform: translate(-50%, -50%) scale(0);
+  transition: transform 0.2s;
+  border-radius: 2px;
+}
+
+/* Show the checkmark when the checkbox is checked */
+input[type="checkbox"]:checked + .custom-checkbox::after {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+
+/*==========================================================================
 Hedging CSS
 ========================================================================== */
 h1 {
