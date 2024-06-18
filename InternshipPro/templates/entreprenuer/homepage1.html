@@ -12,7 +12,7 @@
     <meta name="author" content="ThemeOri">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Title of Site -->
-    <title>Entrepreneurs | Bizconnect</title>
+    <title>{%block title%}Entrepreneurs | Bizconnect{% endblock title%}</title>
     <!-- Favicons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha256-lQPthLnNj1D8rDsy3i+2r5PpBqObJ8v2T1RQJ/6mPcI=" crossorigin="anonymous" />
 
@@ -20,6 +20,11 @@
     <link rel="icon" type="image/png" sizes="32x32" href="{% static 'assets/img/favicon-32x32.png' %}">
     <link rel="icon" type="image/png" sizes="16x16" href="{% static 'assets/img/favicon-16x16.png' %}">
     <link rel="manifest" href="{% static 'assets/img/site.webmanifest' %}">
+
+    <!-- FullCalendar -->
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.14/index.global.min.js'></script>
+    
+
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
     <!-- fontawesome -->
@@ -60,25 +65,15 @@
     <div class="custom_sidebar sidebar">
         <ul>
             <li><a href="{% url 'homepage1'%}">Dashboard</a></li>
-            <!-- <li>
-                <a href="javascript:void(0)" class="dropdown-btn">Profile</a>
-                <ul class="dropdown-container">
-                    <li><a href="/profile/edit"><span class="small-dot">&bull;</span>Edit Profile</a></li>
-                    <li><a href="/profile/business-idea"><span class="small-dot">&bull;</span>Business Idea Description</a></li>
-                    <li><a href="/profile/business-plan"><span class="small-dot">&bull;</span>Business Plan Documents</a></li>
-                    <li><a href="/profile/pitch-videos"><span class="small-dot">&bull;</span>Pitch Videos</a></li>
-                    <li><a href="/profile/investment-deals"><span class="small-dot">&bull;</span>Investment Deals</a></li>
-                    <li><a href="/profile/milestones"><span class="small-dot">&bull;</span>Milestones</a></li>
-                </ul>
-            </li> -->
+            
             <li>
                 <a href="{% url 'business_ideals'%}">Business Ideals</a>
             </li>
             <li>
                 <a href="javascript:void(0)" class="dropdown-btn">Expert Consultation</a>
                 <ul class="dropdown-container">
-                    <li><a href="/consultation/request"><span class="small-dot">&bull;</span>Service Requests</a></li>
-                    <li><a href="/consultation/schedule"><span class="small-dot">&bull;</span>Consultation Scheduling</a></li>
+                    <li><a href="{% url "service_requests" %}"><span class="small-dot">&bull;</span>Service Requests</a></li>
+                    <li><a href="{% url 'consultation_schedule' %}"><span class="small-dot">&bull;</span>Consultation Schedule</a></li>
                 </ul>
             </li>
             <li>
@@ -92,64 +87,66 @@
         </ul>
     </div>
   
-
+    {% block content %}
     <div class="content">
-       <p>welcome back </p>
-        <div class="features__area section-padding pb-0">
-            <div class="container">
-                <div class="row">
-                    <div class="col-xl-3 col-lg-3 col-md-6 lg-mb-30">
-                        <div class="features__area-item wow fadeInUp" data-wow-delay="0.3s">
-                            <div class="features__area-item-image" style="background-image: url(assets/img/features.jpg);"></div>
-                            <span>01</span>
-                            <div class="features__area-item-icon">
-                                <i class="flaticon-analysis"></i>
-                            </div>
-                            <div class="features__area-item-content">
-                                <h4>Strong Business Planing</h4>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-lg-3 col-md-6 md-mb-30">
-                        <div class="features__area-item wow fadeInUp" data-wow-delay="0.6s">
-                            <div class="features__area-item-image" style="background-image: url(assets/img/features.jpg);"></div>
-                            <span>02</span>
-                            <div class="features__area-item-icon">
-                                <i class="flaticon-data-scientist"></i>
-                            </div>
-                            <div class="features__area-item-content">
-                                <h4>Business Management</h4>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-lg-3 col-md-6 md-mb-30">
-                        <div class="features__area-item wow fadeInUp" data-wow-delay="0.9s">
-                            <div class="features__area-item-image" style="background-image: url(assets/img/features.jpg);"></div>
-                            <span>03</span>
-                            <div class="features__area-item-icon">
-                                <i class="flaticon-digital-marketing"></i>
-                            </div>
-                            <div class="features__area-item-content">
-                                <h4>Marketing Advice</h4>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-lg-3 col-md-6">
-                        <div class="features__area-item wow fadeInUp" data-wow-delay="1.2s">
-                            <div class="features__area-item-image" style="background-image: url(assets/img/features.jpg);"></div>
-                            <span>04</span>
-                            <div class="features__area-item-icon">
-                                <i class="flaticon-big-data"></i>
-                            </div>
-                            <div class="features__area-item-content">
-                                <h4>Expert User Research</h4>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+        <p>welcome back </p>
+         <div class="features__area section-padding pb-0">
+             <div class="container">
+                 <div class="row">
+                     <div class="col-xl-3 col-lg-3 col-md-6 lg-mb-30">
+                         <div class="features__area-item wow fadeInUp" data-wow-delay="0.3s">
+                             <div class="features__area-item-image" style="background-image: url(assets/img/features.jpg);"></div>
+                             <span>01</span>
+                             <div class="features__area-item-icon">
+                                 <i class="flaticon-analysis"></i>
+                             </div>
+                             <div class="features__area-item-content">
+                                 <h4>Strong Business Planing</h4>
+                             </div>
+                         </div>
+                     </div>
+                     <div class="col-xl-3 col-lg-3 col-md-6 md-mb-30">
+                         <div class="features__area-item wow fadeInUp" data-wow-delay="0.6s">
+                             <div class="features__area-item-image" style="background-image: url(assets/img/features.jpg);"></div>
+                             <span>02</span>
+                             <div class="features__area-item-icon">
+                                 <i class="flaticon-data-scientist"></i>
+                             </div>
+                             <div class="features__area-item-content">
+                                 <h4>Business Management</h4>
+                             </div>
+                         </div>
+                     </div>
+                     <div class="col-xl-3 col-lg-3 col-md-6 md-mb-30">
+                         <div class="features__area-item wow fadeInUp" data-wow-delay="0.9s">
+                             <div class="features__area-item-image" style="background-image: url(assets/img/features.jpg);"></div>
+                             <span>03</span>
+                             <div class="features__area-item-icon">
+                                 <i class="flaticon-digital-marketing"></i>
+                             </div>
+                             <div class="features__area-item-content">
+                                 <h4>Marketing Advice</h4>
+                             </div>
+                         </div>
+                     </div>
+                     <div class="col-xl-3 col-lg-3 col-md-6">
+                         <div class="features__area-item wow fadeInUp" data-wow-delay="1.2s">
+                             <div class="features__area-item-image" style="background-image: url(assets/img/features.jpg);"></div>
+                             <span>04</span>
+                             <div class="features__area-item-icon">
+                                 <i class="flaticon-big-data"></i>
+                             </div>
+                             <div class="features__area-item-content">
+                                 <h4>Expert User Research</h4>
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+             </div>
+         </div>
+     </div>
+    {% endblock content %}
+    
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
