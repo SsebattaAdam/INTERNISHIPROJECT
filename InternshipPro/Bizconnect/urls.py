@@ -19,7 +19,7 @@ urlpatterns = [
   path('membership/entreprenuers/', views.register_entreprenuer, name = 'register_entreprenuers'),
   path('membership/investors/', views.register_investor, name='register_investors'),
   path('membership/experts/', views.register_expert, name='register_experts'),
-  path('blog_entreprenuers/', views.index4Entreprenuer, name = 'index4Entreprenuers'),
+
   path('login/',views.login, name ='login')
 ]
 
