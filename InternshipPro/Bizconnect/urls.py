@@ -20,6 +20,15 @@ urlpatterns = [
   path('membership/investors/', views.register_investor, name='register_investors'),
   path('membership/experts/', views.register_expert, name='register_experts'),
   
-  path('login/',views.login, name ='login')
+  path('login/',views.login, name ='login'),
+
+  path('register/',  views.registration_form, name='registration_form'),
+
+  path('logout/', views.logout_view, name='logout'),
+  path('login/', views.login, name='login'),
+  path('loginForm/', views.custom_login, name='custom_login'),
+
+
+  path('register_expert/', views.register_expert, name='register_expert'),
 ]
 
