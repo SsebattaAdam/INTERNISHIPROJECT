@@ -9,14 +9,17 @@
     <!-- Start Meta -->
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="description" content="Bioven - Business HTML 5 Template" />
+    <meta name="description" content="Bizconnect - Business Management Platform" />
     <meta name="keywords" content="Creative, Digital, multipage, landing, freelancer template" />
     <meta name="author" content="ThemeOri">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Title of Site -->
-    <title>Bioven - Business HTML5 Template</title>
+    <title>Expert Membership | Bizconnect</title>
     <!-- Favicons -->
-    <link rel="icon" type="image/png" href="{% static 'assets/img/favicon.png' %}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'assets/img/apple-touch-icon.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'assets/img/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'assets/img/favicon-16x16.png' %}">
+    <link rel="manifest" href="{% static 'assets/img/site.webmanifest' %}">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
     <!-- fontawesome -->
@@ -36,45 +39,6 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{% static 'assets/sass/style.css' %}">
 
-    <style>
-        /* This is the custom checkbox */
-        /* Hide the default checkbox */
-        input[type="checkbox"] {
-            display: none;
-        }
-
-        /* Create a custom checkbox */
-        .custom-checkbox {
-            display: inline-block;
-            width: 15px;
-            height: 15px;
-            background-color: #fff;
-            border: 2px solid #ccc;
-            border-radius: 4px;
-            position: relative;
-            cursor: pointer;
-            margin-right: 8px;
-        }
-
-        /* Style the custom checkmark */
-        .custom-checkbox::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 15px;
-            height: 15px;
-            background-color: #FE8C12; /* Custom color for the checkmark */
-            transform: translate(-50%, -50%) scale(0);
-            transition: transform 0.2s;
-            border-radius: 2px;
-        }
-
-        /* Show the checkmark when the checkbox is checked */
-        input[type="checkbox"]:checked + .custom-checkbox::after {
-            transform: translate(-50%, -50%) scale(1);
-        }
-    </style>
 </head>
 
 <body>
@@ -107,17 +71,17 @@
                             <div class="row">
                                 <div class="col-md-6 mb-30">
                                     <div class="register-form-group">
-                                        <input type="text" name="surname" placeholder="Surname">
+                                        <input required type="text" name="surname" placeholder="Surname">
                                     </div>
                                 </div>
                                 <div class="col-md-6 md-mb-30">
                                     <div class="register-form-group">
-                                        <input type="text" name="firstname" placeholder="First Name">
+                                        <input required type="text" name="firstname" placeholder="First Name">
                                     </div>
                                 </div>
                                 <div class="col-md-3 mb-30">
                                     <div class="register-form-group">
-                                        <select id="gender" name="gender">
+                                        <select required id="gender" name="gender">
                                             <option value="">Select Gender</option>
                                             <option value="male">Male</option>
                                             <option value="female">Female</option>
@@ -126,17 +90,19 @@
                                 </div>
                                 <div class="col-md-5 md-mb-30">
                                     <div class="register-form-group">
-                                        <input type="email" name="email" placeholder="Email Address">
+                                        <input required type="email" name="email"
+                                            placeholder="Email Address e.g. user@email.com">
                                     </div>
                                 </div>
                                 <div class="col-md-4 md-mb-30">
                                     <div class="register-form-group">
-                                        <input type="tel" name="contact" placeholder="Contact">
+                                        <input required type="tel" name="contact"
+                                            placeholder="Contact e.g. 256 701 234 567">
                                     </div>
                                 </div>
                                 <div class="col-md-6 md-mb-30">
                                     <div class="register-form-group">
-                                        <select id="district" name="district">
+                                        <select required id="district" name="district">
                                             <option value="">Select District</option>
                                             <option id="bundibugyo" value="bundibugyo">Bundibugyo</option>
                                             <option id="gulu" value="gulu">Gulu</option>
@@ -243,7 +209,7 @@
                                 
                                 <div class="col-md-12 mb-30">
                                     <div class="register-form-group">
-                                        <textarea name="achievements"
+                                        <textarea required name="achievements"
                                             placeholder="Past Achievements engaged in"></textarea>
                                     </div>
                                 </div>
@@ -273,9 +239,6 @@
                 </div>
             </div>
         </div>
-    </div>
-
-  
     </div>
 
 
