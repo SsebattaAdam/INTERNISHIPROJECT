@@ -8,14 +8,17 @@
     <!-- Start Meta -->
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="description" content="Bioven - Business HTML 5 Template" />
+    <meta name="description" content="Bizconnect - Business Management Platform" />
     <meta name="keywords" content="Creative, Digital, multipage, landing, freelancer template" />
     <meta name="author" content="ThemeOri">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Title of Site -->
-    <title>Bioven - Business HTML5 Template</title>
+    <title>Bizconnect - Business Management Platform</title>
     <!-- Favicons -->
-    <link rel="icon" type="image/png" href="{% static 'assets/img/favicon.png' %}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'assets/img/apple-touch-icon.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'assets/img/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'assets/img/favicon-16x16.png' %}">
+    <link rel="manifest" href="{% static 'assets/img/site.webmanifest' %}">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
     <!-- fontawesome -->
@@ -88,8 +91,8 @@
 						<div class="col-xl-3 col-lg-2">
 							<div class="header__area-logo">
                                
-								<a href="index.html">
-									<img src="{% static 'assets/img/logo.png' %}" alt="">
+								<a href="{% url 'index' %}">
+									<img src="{% static 'assets/img/biz-logo.png' %}" alt="">
 								</a>
 							</div>
 							<div class="responsive-menu"></div>
@@ -157,7 +160,7 @@
 										
 											<div class="header__area-left-contact-icon">	<i class="fas fa-globe"></i>
 											</div>
-											<div class="header__area-left-contact-content">	<span>BixConnect</span>
+											<div class="header__area-left-contact-content">	
 												<p>Get started</p>
 											</div>
 										</div>
@@ -184,7 +187,7 @@
 							<div class="banner__area-content t-center">
 								<div class="banner__area-content-area">
 									<span>We're the best</span>
-									<h1>Best Solution each of Business Bioven</h1>
+									<h1>Best Solution each of Business Bizconnect</h1>
 								</div>
 								<div class="banner__area-button">
 									<div class="banner__area-btn mt-40 sm-mt-20">
@@ -824,9 +827,6 @@
 				<div class="col-xl-4 col-lg-4">
 					<div class="footer__area-widget-about">
 						<div class="footer__area-widget-content">
-							<div class="footer__area-widget-content-logo mb-20">
-								<a href="index.html"><img src="assets/img/footer-logo.png" alt=""></a>
-							</div>
 							<p class="mb-20">Aliquam pellentesque pellentesque neque vitae elementum.</p>
 							<div class="footer__area-widget-content-contact">
 								<div class="footer__area-widget-content-contact-info d-flex mb-15">
@@ -842,7 +842,7 @@
 										<i class="flaticon-email"></i>
 									</div>
 									<div class="footer__area-widget-content-contact-info-title">
-										<a href="#"><p>bioven@gmail.com</p></a>
+										<a href="#"><p>Bizconnect@gmail.com</p></a>
 									</div>
 								</div>
 								<div class="footer__area-widget-content-contact-info d-flex">
@@ -914,7 +914,7 @@
 				<div class="row align-items-center">
 					<div class="col-xl-6 col-lg-6 col-md-5 md-mb-20">
 						<div class="footer__area-copyright-left st-center">
-							<p>© 2022 Bioven - All rights reserved.</p>
+							<p>© 2024 Bizconnect - All rights reserved.</p>
 						</div>
 					</div>
 					<div class="col-xl-6 col-lg-6 col-md-7">

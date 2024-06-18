@@ -9,16 +9,19 @@
     <!-- Start Meta -->
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="description" content="Bioven - Business HTML 5 Template" />
+    <meta name="description" content="Bizconnect - Business Management Platform" />
     <meta name="keywords" content="Creative, Digital, multipage, landing, freelancer template" />
     <meta name="author" content="ThemeOri">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Title of Site -->
-    <title>Bioven - Business HTML5 Template</title>
+    <title>Entrepreneurs Membership | Bizconnect</title>
     <!-- Favicons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha256-lQPthLnNj1D8rDsy3i+2r5PpBqObJ8v2T1RQJ/6mPcI=" crossorigin="anonymous" />
 
-    <link rel="icon" type="image/png" href="{% static 'assets/img/favicon.png' %}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'assets/img/apple-touch-icon.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'assets/img/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'assets/img/favicon-16x16.png' %}">
+    <link rel="manifest" href="{% static 'assets/img/site.webmanifest' %}">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
     <!-- fontawesome -->
@@ -71,22 +74,26 @@
             <div class="col-xl-12">
                 <div class="register wow fadeInUp" data-wow-delay="0.8s">
                     <h4 class="mb-35">All Fields are required.</h4>
+                    {% if message %}
+        <p style="color: red;">{{ message }}</p>
+                 {% endif %}
                     <div class="register-form">
-                        <form action="#" method="post">
+                        <form action="{% url 'registration_form' %}" method="post">
+                            {% csrf_token %}
                             <div class="row">
                                 <div class="col-md-6 mb-30">
                                     <div class="register-form-group">
-                                        <input type="text" name="surname" placeholder="Surname">
+                                        <input required type="text" name="surname" placeholder="Surname">
                                     </div>
                                 </div>
                                 <div class="col-md-6 md-mb-30">
                                     <div class="register-form-group">
-                                        <input type="text" name="firstname" placeholder="First Name">
+                                        <input required type="text" name="firstname" placeholder="First Name">
                                     </div>
                                 </div>
                                 <div class="col-md-3 mb-30">
                                     <div class="register-form-group">
-                                        <select id="gender" name="gender">
+                                        <select required id="gender" name="gender">
                                             <option value="">Select Gender</option>
                                             <option value="male">Male</option>
                                             <option value="female">Female</option>
@@ -95,18 +102,18 @@
                                 </div>
                                 <div class="col-md-5 md-mb-30">
                                     <div class="register-form-group">
-                                        <input type="email" name="email"
+                                        <input required type="email" name="email"
                                             placeholder="Email Address e.g. user@email.com">
                                     </div>
                                 </div>
                                 <div class="col-md-4 md-mb-30">
                                     <div class="register-form-group">
-                                        <input type="tel" name="contact" placeholder="Contact e.g. 256 701 234 567">
+                                        <input required type="tel" name="contact" placeholder="Contact e.g. 256 701 234 567">
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-30">
                                     <div class="register-form-group">
-                                        <select id="district" name="district">
+                                        <select required id="district" name="district">
                                             <option value="">Select District</option>
                                         <option id="bundibugyo" value="bundibugyo">Bundibugyo</option>
                                         <option id="gulu" value="gulu">Gulu</option>
@@ -124,7 +131,7 @@
                                 </div>
                                 <div class="col-md-6 mb-30">
                                     <div class="register-form-group">
-                                        <select id="role" name="role">
+                                        <select id="role" name="country">
                                             <option value="">Select Country</option>
                                             <option id="uganda" value="uganda">Uganda</option>
                                             <option id="tanzania" value="tanzania">Tanzania</option>
@@ -134,12 +141,12 @@
                                 </div>
                                 <div class="col-md-9 mb-30">
                                     <div class="register-form-group">
-                                        <input type="text" name="company" placeholder="Company Name">
+                                        <input required type="text" name="company" placeholder="Company Name">
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-30">
                                     <div class="register-form-group">
-                                        <select id="role" name="role">
+                                        <select id="role" name="role_in_company">
                                             <option value="">Select Role in Company</option>
                                             <option value="founder">Founder</option>
                                             <option value="owner">Owner</option>
@@ -166,23 +173,6 @@
                 </div>
             </div>
         </div>
-    </div>
-
-
-    <!--  Footer  -->
-    {% comment %} <div class="management__area section-padding lg-center">
-        <div class="row align-items-center">
-            <div class="col-xl-8 col-lg-4 lg-mb-10">
-                <div class="management__area-title wow fadeInUp" data-wow-delay="0.05s">
-                    <span class="section-top mb-15">Register</span>
-                    <h2 class="mb-45">Manage Promote and Grow Your Business Online</h2>
-                    <a class="theme-banner-btn" href="contact.html">Create Account Now <i
-                            class="flaticon-arrow-right"></i></a>
-                </div>
-            </div>
-
-        </div>
-    </div> {% endcomment %}
     </div>
 
 

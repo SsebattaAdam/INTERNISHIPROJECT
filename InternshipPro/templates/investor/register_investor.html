@@ -9,14 +9,17 @@
     <!-- Start Meta -->
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="description" content="Bioven - Business HTML 5 Template" />
+    <meta name="description" content="Bizconnect - Business Management platform" />
     <meta name="keywords" content="Creative, Digital, multipage, landing, freelancer template" />
     <meta name="author" content="ThemeOri">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Title of Site -->
-    <title>Bioven - Business HTML5 Template</title>
+    <title>Investors Membership | Bizconnect</title>
     <!-- Favicons -->
-    <link rel="icon" type="image/png" href="{% static 'assets/img/favicon.png' %}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'assets/img/apple-touch-icon.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'assets/img/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'assets/img/favicon-16x16.png' %}">
+    <link rel="manifest" href="{% static 'assets/img/site.webmanifest' %}">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
     <!-- fontawesome -->
@@ -36,7 +39,7 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{% static 'assets/sass/style.css' %}">
     <!-- Include your custom CSS -->
-  
+
 
     <style>
 
@@ -57,7 +60,7 @@
 
         .tab button.active {
             background-color: #030A15;
-        } 
+        }
 
         .tab-content {
             display: none;
@@ -77,7 +80,7 @@
             <div class="solution__area-bg" data-background="assets/img/solution.png">
                 <div class="row align-items-center">
                     <div class="col-xl-9 col-lg-9 lg-mb-30">
-                        <p style="color: white; font-weight: bold; font-family: Arial; font-size: 14px;">REGISTER</p>
+                        <p style="color: white; font-weight: bold; font-family: Arial; font-size: 16px;">REGISTER</p>
                         <div class="solution__area-left lg-center">
 
                             <h2 class="mb-45">Investors Membership</h2>
@@ -86,177 +89,58 @@
                 </div>
             </div>
         </div>
-    </div> 
-
-    {% comment %} <div class="container section-padding">
-        <div class="row">
-            <div class="col-xl-12 col-lg-8">
-                <div class="register wow fadeInUp" data-wow-delay="0.8s">
-                    <h4 class="mb-35">All Fields are required.</h4>
-                    <div class="register-form">
-                        <form action="#" method="post">
-                            <div class="row">
-                                <div class="col-md-6 mb-30">
-                                    <div class="register-form-group">
-                                        <input type="text" name="surname" placeholder="Surname">
-                                    </div>
-                                </div>
-                                <div class="col-md-6 md-mb-30">
-                                    <div class="register-form-group">
-                                        <input type="text" name="firstname" placeholder="First Name">
-                                    </div>
-                                </div>
-                                <div class="col-md-3 mb-30">
-                                    <div class="register-form-group">
-                                        <select id="gender" name="gender">
-                                            <option value="">Select Gender</option>
-                                            <option value="male">Male</option>
-                                            <option value="female">Female</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-5 md-mb-30">
-                                    <div class="register-form-group">
-                                        <input type="email" name="email"
-                                            placeholder="Email Address e.g. user@email.com">
-                                    </div>
-                                </div>
-                                <div class="col-md-4 md-mb-30">
-                                    <div class="register-form-group">
-                                        <input type="tel" name="contact" placeholder="Contact e.g. 256 701 234 567">
-                                    </div>
-                                </div>
-                                <div class="col-md-6 mb-30">
-                                    <div class="register-form-group">
-                                        <select id="district" name="district">
-                                            <option value="">Select District</option>
-                                            <option id="bundibugyo" value="bundibugyo">Bundibugyo</option>
-                                            <option id="gulu" value="gulu">Gulu</option>
-                                            <option id="jinja" value="jinja">Jinja</option>
-                                            <option id="kabarole" value="kabarole">Kabarole</option>
-                                            <option id="kampala" value="kampala">Kampala</option>
-                                            <option id="lira" value="lira">Lira</option>
-                                            <option id="masaka" value="masaka">Masaka</option>
-                                            <option id="mpigi" value="mpigi">Mpigi</option>
-                                            <option id="mukono" value="mukono">Mukono</option>
-                                            <option id="soroti" value="soroti">Soroti</option>
-                                            <option id="wakiso" value="wakiso">Wakiso</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 mb-30">
-                                    <div class="register-form-group">
-                                        <select id="role" name="role">
-                                            <option value="">Select Country</option>
-                                            <option id="uganda" value="uganda">Uganda</option>
-                                            <option id="tanzania" value="tanzania">Tanzania</option>
-                                            <option id="kenya" value="kenya">Kenya</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-9 mb-30">
-                                    <div class="register-form-group">
-                                        <input type="text" name="company" placeholder="Company Name">
-                                    </div>
-                                </div>
-                                <div class="col-md-6 mb-30">
-                                    <div class="register-form-group">
-                                        <select id="role" name="role">
-                                            <option value="">Select Role in Company</option>
-                                            <option value="founder">Founder</option>
-                                            <option value="owner">Owner</option>
-                                            <option value="director">Director</option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                            </div>
-                            <div class="row">
-                                <div class="col-md-2">
-                                    <div class="register-form-group">
-                                        <button class="theme-btn" type="submit">Submit Now</button>
-                                    </div>
-                                </div>
-                                <div class="col-md-2">
-                                    <div class="register-form-group">
-                                        <button class="theme-btn" style="background: #030A15;" type="button"
-                                            onclick="javascript:history.back()">Back</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> {% endcomment %}
+    </div>
 
     <div class="container section-padding">
         <div class="tab row">
-            <button class="col-md-6 theme-btn tablinks active" onclick="openForm(event, 'Person')">Person</button>
-            <button class="col-md-6 theme-btn tablinks" onclick="openForm(event, 'Company')">Company</button>
+            <button class="col-md-6 theme-btn tablinks active" onclick="openForm(event, 'Person')"><h3 style="color: white;">Individual</h3></button>
+            <button class="col-md-6 theme-btn tablinks" onclick="openForm(event, 'Company')"><h3 style="color: white;">Organisation</h3></button>
         </div>
 
         <div id="Person" class="tab-content active">
-            <div >
+            <div>
                 <div class="row">
                     <div class="col-xl-12">
                         <div class="register wow fadeInUp" data-wow-delay="0.8s">
                             <h4 class="mb-35">All Fields are required.</h4>
                             <div class="register-form">
-                                <form action="#" method="post">
+                                <form id="personForm" action="#" method="post">
                                     <div class="row">
                                         <div class="col-md-6 mb-30">
                                             <div class="register-form-group">
-                                                <input type="text" name="surname" placeholder="Surname">
+                                                <input required type="text" name="surname" placeholder="Surname">
                                             </div>
                                         </div>
                                         <div class="col-md-6 md-mb-30">
                                             <div class="register-form-group">
-                                                <input type="text" name="firstname" placeholder="First Name">
+                                                <input required type="text" name="firstname" placeholder="First Name">
                                             </div>
                                         </div>
-                                        <div class="col-md-3 mb-30">
+                                        <div class="col-md-5 mb-30">
                                             <div class="register-form-group">
-                                                <select id="gender" name="gender">
+                                                <select required id="gender" name="gender">
                                                     <option value="">Select Gender</option>
                                                     <option value="male">Male</option>
                                                     <option value="female">Female</option>
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="col-md-5 md-mb-30">
+                                        <div class="col-md-7 md-mb-30">
                                             <div class="register-form-group">
-                                                <input type="email" name="email"
+                                                <input required type="email" name="email-person"
                                                     placeholder="Email Address e.g. user@email.com">
                                             </div>
                                         </div>
-                                        <div class="col-md-4 md-mb-30">
+                                        <div class="col-md-6 md-mb-30">
                                             <div class="register-form-group">
-                                                <input type="tel" name="contact" placeholder="Contact e.g. 256 701 234 567">
+                                                <input required type="tel" name="contact-person"
+                                                    placeholder="Contact e.g. 256 701 234 567">
                                             </div>
                                         </div>
+
                                         <div class="col-md-6 mb-30">
                                             <div class="register-form-group">
-                                                <select id="district" name="district">
-                                                    <option value="">Select District</option>
-                                                <option id="bundibugyo" value="bundibugyo">Bundibugyo</option>
-                                                <option id="gulu" value="gulu">Gulu</option>
-                                                <option id="jinja" value="jinja">Jinja</option>
-                                                <option id="kabarole" value="kabarole">Kabarole</option>
-                                                <option id="kampala" value="kampala">Kampala</option>
-                                                <option id="lira" value="lira">Lira</option>
-                                                <option id="masaka" value="masaka">Masaka</option>
-                                                <option id="mpigi" value="mpigi">Mpigi</option>
-                                                <option id="mukono" value="mukono">Mukono</option>
-                                                <option id="soroti" value="soroti">Soroti</option>
-                                                <option id="wakiso" value="wakiso">Wakiso</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 mb-30">
-                                            <div class="register-form-group">
-                                                <select id="role" name="role">
+                                                <select required id="role" name="role">
                                                     <option value="">Select Country</option>
                                                     <option id="uganda" value="uganda">Uganda</option>
                                                     <option id="tanzania" value="tanzania">Tanzania</option>
@@ -264,22 +148,57 @@
                                                 </select>
                                             </div>
                                         </div>
+                                        <h6 class="mb-30 col-md-2">Investment Preferences:</h6>
+                                        <div class="col-md-10 mb-30">
+                                            <label for="tourism" class="mr-5">
+                                                <input type="checkbox" id="tourism" name="tourism" value="tourism">
+                                                <span class="custom-checkbox"></span> Tourism and Hospitality
+                                            </label>
+                                            <label for="media" class="mr-5">
+                                                <input type="checkbox" id="media" name="media" value="media">
+                                                <span class="custom-checkbox"></span> Media and IT services
+                                            </label>
+                                            <label for="commercial" class="mr-5">
+                                                <input type="checkbox" id="commercial" name="commercial"
+                                                    value="commercial">
+                                                <span class="custom-checkbox"></span> Commercial Agriculture
+                                            </label>
+                                            <label for="estate" class="mr-5">
+                                                <input type="checkbox" id="estate" name="estate" value="estate">
+                                                <span class="custom-checkbox"></span> Real Estate
+                                            </label>
+                                            <label for="manufacturing" class="mr-5">
+                                                <input type="checkbox" id="manufacturing" name="manufacturing"
+                                                    value="manufacturing">
+                                                <span class="custom-checkbox"></span> Manufacturing
+                                            </label>
+                                            <label for="education" class="mr-5">
+                                                <input type="checkbox" id="education" name="education"
+                                                    value="education">
+                                                <span class="custom-checkbox"></span> Education
+                                            </label>
+                                            <label for="health" class="mr-5">
+                                                <input type="checkbox" id="health" name="health" value="health">
+                                                <span class="custom-checkbox"></span> Health Care
+                                            </label>
+                                            <label for="wholesale">
+                                                <input type="checkbox" id="wholesale" name="wholesale"
+                                                    value="wholesale">
+                                                <span class="custom-checkbox"></span> Wholesale Trade
+                                            </label>
+                                        </div>
                                         <div class="col-md-9 mb-30">
                                             <div class="register-form-group">
-                                                <input type="text" name="company" placeholder="Company Name">
+                                                <input required type="text" name="capital" placeholder="Capital Availability">
                                             </div>
                                         </div>
-                                        <div class="col-md-6 mb-30">
+                                        <div class="col-md-12 mb-30">
                                             <div class="register-form-group">
-                                                <select id="role" name="role">
-                                                    <option value="">Select Role in Company</option>
-                                                    <option value="founder">Founder</option>
-                                                    <option value="owner">Owner</option>
-                                                    <option value="director">Director</option>
-                                                </select>
+                                                <textarea required name="information"
+                                                    placeholder="Additional information"></textarea>
                                             </div>
                                         </div>
-                                        
+
                                     </div>
                                     <div class="row">
                                         <div class="col-xl-2 col-md-3 mb-20">
@@ -289,7 +208,8 @@
                                         </div>
                                         <div class="col-xl-2 col-md-2">
                                             <div class="register-form-group">
-                                                <button class="theme-btn" style="background: #030A15;" type="button" onclick="javascript:history.back()">Back</button>
+                                                <button class="theme-btn" style="background: #030A15;" type="button"
+                                                    onclick="javascript:history.back()">Back</button>
                                             </div>
                                         </div>
                                     </div>
@@ -302,65 +222,36 @@
         </div>
 
         <div id="Company" class="tab-content">
-            <div >
+            <div>
                 <div class="row">
                     <div class="col-xl-12">
                         <div class="register wow fadeInUp" data-wow-delay="0.8s">
                             <h4 class="mb-35">All Fields are required.</h4>
                             <div class="register-form">
-                                <form action="#" method="post">
+                                <form id="companyForm" action="#" method="post">
                                     <div class="row">
                                         <div class="col-md-6 mb-30">
                                             <div class="register-form-group">
-                                                <input type="text" name="surname" placeholder="Surname">
+                                                <input required type="text" name="company" placeholder="Company name">
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-md-5 md-mb-30">
+                                            <div class="register-form-group">
+                                                <input required type="email" name="email-company"
+                                                    placeholder="Email Address e.g. user@email.com">
                                             </div>
                                         </div>
                                         <div class="col-md-6 md-mb-30">
                                             <div class="register-form-group">
-                                                <input type="text" name="firstname" placeholder="First Name">
+                                                <input required type="tel" name="contact"
+                                                    placeholder="Contact e.g. 256 701 234 567">
                                             </div>
                                         </div>
-                                        <div class="col-md-3 mb-30">
-                                            <div class="register-form-group">
-                                                <select id="gender" name="gender">
-                                                    <option value="">Select Gender</option>
-                                                    <option value="male">Male</option>
-                                                    <option value="female">Female</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-5 md-mb-30">
-                                            <div class="register-form-group">
-                                                <input type="email" name="email"
-                                                    placeholder="Email Address e.g. user@email.com">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4 md-mb-30">
-                                            <div class="register-form-group">
-                                                <input type="tel" name="contact" placeholder="Contact e.g. 256 701 234 567">
-                                            </div>
-                                        </div>
+                                        
                                         <div class="col-md-6 mb-30">
                                             <div class="register-form-group">
-                                                <select id="district" name="district">
-                                                    <option value="">Select District</option>
-                                                <option id="bundibugyo" value="bundibugyo">Bundibugyo</option>
-                                                <option id="gulu" value="gulu">Gulu</option>
-                                                <option id="jinja" value="jinja">Jinja</option>
-                                                <option id="kabarole" value="kabarole">Kabarole</option>
-                                                <option id="kampala" value="kampala">Kampala</option>
-                                                <option id="lira" value="lira">Lira</option>
-                                                <option id="masaka" value="masaka">Masaka</option>
-                                                <option id="mpigi" value="mpigi">Mpigi</option>
-                                                <option id="mukono" value="mukono">Mukono</option>
-                                                <option id="soroti" value="soroti">Soroti</option>
-                                                <option id="wakiso" value="wakiso">Wakiso</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 mb-30">
-                                            <div class="register-form-group">
-                                                <select id="role" name="role">
+                                                <select required id="role" name="role">
                                                     <option value="">Select Country</option>
                                                     <option id="uganda" value="uganda">Uganda</option>
                                                     <option id="tanzania" value="tanzania">Tanzania</option>
@@ -368,22 +259,57 @@
                                                 </select>
                                             </div>
                                         </div>
+                                        <h6 class="mb-30 col-md-2">Investment Preferences:</h6>
+                                        <div class="col-md-10 mb-30">
+                                            <label for="tourism-company" class="mr-5">
+                                                <input type="checkbox" id="tourism-company" name="tourism-company" value="tourism">
+                                                <span class="custom-checkbox"></span> Tourism and Hospitality
+                                            </label>
+                                            <label for="media-company" class="mr-5">
+                                                <input type="checkbox" id="media-company" name="media-company" value="media">
+                                                <span class="custom-checkbox"></span> Media and IT services
+                                            </label>
+                                            <label for="commercial-company" class="mr-5">
+                                                <input type="checkbox" id="commercial-company" name="commercial-company"
+                                                    value="commercial">
+                                                <span class="custom-checkbox"></span> Commercial Agriculture
+                                            </label>
+                                            <label for="estate-company" class="mr-5">
+                                                <input type="checkbox" id="estate-company" name="estate-company" value="estate">
+                                                <span class="custom-checkbox"></span> Real Estate
+                                            </label>
+                                            <label for="manufacturing-company" class="mr-5">
+                                                <input type="checkbox" id="manufacturing-company" name="manufacturing-company"
+                                                    value="manufacturing">
+                                                <span class="custom-checkbox"></span> Manufacturing
+                                            </label>
+                                            <label for="education-company" class="mr-5">
+                                                <input type="checkbox" id="education-company" name="education-company"
+                                                    value="education">
+                                                <span class="custom-checkbox"></span> Education
+                                            </label>
+                                            <label for="health-company" class="mr-5">
+                                                <input type="checkbox" id="health-company" name="health-company" value="health">
+                                                <span class="custom-checkbox"></span> Health Care
+                                            </label>
+                                            <label for="wholesale-company">
+                                                <input type="checkbox" id="wholesale-company" name="wholesale-company"
+                                                    value="wholesale">
+                                                <span class="custom-checkbox"></span> Wholesale Trade
+                                            </label>
+                                        </div>
                                         <div class="col-md-9 mb-30">
                                             <div class="register-form-group">
-                                                <input type="text" name="company" placeholder="Company Name">
+                                                <input required type="text" name="capital" placeholder="Capital Availability">
                                             </div>
                                         </div>
-                                        <div class="col-md-6 mb-30">
+                                        <div class="col-md-12 mb-30">
                                             <div class="register-form-group">
-                                                <select id="role" name="role">
-                                                    <option value="">Select Role in Company</option>
-                                                    <option value="founder">Founder</option>
-                                                    <option value="owner">Owner</option>
-                                                    <option value="director">Director</option>
-                                                </select>
+                                                <textarea required name="information"
+                                                    placeholder="Additional inforamtion"></textarea>
                                             </div>
-                                        </div>
-                                        
+                                        </div>                                       
+
                                     </div>
                                     <div class="row">
                                         <div class="col-xl-2 col-md-3 mb-20">
@@ -393,7 +319,8 @@
                                         </div>
                                         <div class="col-xl-2 col-md-3">
                                             <div class="register-form-group">
-                                                <button class="theme-btn" style="background: #030A15;" type="button" onclick="javascript:history.back()">Back</button>
+                                                <button class="theme-btn" style="background: #030A15;" type="button"
+                                                    onclick="javascript:history.back()">Back</button>
                                             </div>
                                         </div>
                                     </div>
@@ -412,6 +339,8 @@
     <script>
         function openForm(evt, formName) {
             var i, tabcontent, tablinks;
+            document.getElementById('personForm').reset();
+            document.getElementById('companyForm').reset();
             tabcontent = document.getElementsByClassName("tab-content");
             for (i = 0; i < tabcontent.length; i++) {
                 tabcontent[i].style.display = "none";

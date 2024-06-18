@@ -4,44 +4,41 @@
 <html lang="en">
 
 <head>
-     <!-- Start Meta -->
-     <meta charset="UTF-8">
-     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-     <meta name="description" content="Bioven - Business HTML 5 Template" />
-     <meta name="keywords" content="Creative, Digital, multipage, landing, freelancer template" />
-     <meta name="author" content="ThemeOri">
-     <meta name="viewport" content="width=device-width, initial-scale=1">
-     <!-- Title of Site -->
-     <title>Bioven - Business HTML5 Template</title>
-     <!-- Favicons -->
-     <link rel="icon" type="image/png" href="{% static 'assets/img/favicon.png' %}">
-     <!-- Bootstrap CSS -->
-     <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
-     <!-- fontawesome -->
-     <link rel="stylesheet" href="{% static 'assets/css/fontawesome.min.css' %}">
-     <!-- Animate CSS -->
-     <link rel="stylesheet" href="{% static 'assets/css/animate.css' %}">
-     <!-- Swiper -->
-     <link rel="stylesheet" href="{% static 'assets/css/swiper-bundle.min.css' %}">
-     <!-- Magnific -->
-     <link rel="stylesheet" href="{% static 'assets/css/magnific-popup.css' %}">
-     <!-- Nice Select -->
-     <link rel="stylesheet" href="{% static 'assets/css/nice-select.css' %}">
-     <!-- Mean menu -->
-     <link rel="stylesheet" href="{% static 'assets/css/meanmenu.min.css' %}">
-     <!-- Flaticon -->
-     <link rel="stylesheet" href="{% static 'assets/fonts/flaticon.css' %}">
-     <!-- Custom CSS -->
-     <link rel="stylesheet" href="{% static 'assets/sass/style.css' %}">
-
- 
+    <!-- Start Meta -->
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Responsive Sidebar and Top Navbar</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-   
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="description" content="Bizconnect - Business Management Platform" />
+    <meta name="keywords" content="Creative, Digital, multipage, landing, freelancer template" />
+    <meta name="author" content="ThemeOri">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Title of Site -->
+    <title>Entrepreneurs | Bizconnect</title>
+    <!-- Favicons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha256-lQPthLnNj1D8rDsy3i+2r5PpBqObJ8v2T1RQJ/6mPcI=" crossorigin="anonymous" />
+
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'assets/img/apple-touch-icon.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'assets/img/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'assets/img/favicon-16x16.png' %}">
+    <link rel="manifest" href="{% static 'assets/img/site.webmanifest' %}">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
+    <!-- fontawesome -->
+    <link rel="stylesheet" href="{% static 'assets/css/fontawesome.min.css' %}">
+    <!-- Animate CSS -->
+    <link rel="stylesheet" href="{% static 'assets/css/animate.css' %}">
+    <!-- Swiper -->
+    <link rel="stylesheet" href="{% static 'assets/css/swiper-bundle.min.css' %}">
+    <!-- Magnific -->
+    <link rel="stylesheet" href="{% static 'assets/css/magnific-popup.css' %}">
+    <!-- Nice Select -->
+    <link rel="stylesheet" href="{% static 'assets/css/nice-select.css' %}">
+    <!-- Mean menu -->
+    <link rel="stylesheet" href="{% static 'assets/css/meanmenu.min.css' %}">
+    <!-- Flaticon -->
+    <link rel="stylesheet" href="{% static 'assets/fonts/flaticon.css' %}">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'assets/sass/style.css' %}">
+    <!-- Include your custom CSS -->
 </head>
 
 <body>
@@ -53,21 +50,46 @@
         <a href="#about"></a>
         <div class="topnav-right">
             <a href="#search">Profile</a>
-            <a href="#login">LogOut</a>
+            <a href="{% url 'logout' %}">LogOut</a>
         </div>
         <a href="javascript:void(0);" class="icon" onclick="myFunction()">
             <i class="fa fa-bars"></i>
         </a>
     </div>
 
-    <div class="sidebar">
-        <a href="#home">Wlcome Back</a>
-        <a href="#" > Upload Business Idea</a>
-        <a href="#news"> Business Doc Repo</a>
-        <a href="#contact">Consult An EXPERT</a>
-        <a href="#about"> Schedule appoitmnet</a>
-        <a href="#about"> Add Investiment Ideas</a>
-        <a href="#about"> LogOut</a>
+    <div class="custom_sidebar sidebar">
+        <ul>
+            <li><a href="{% url 'homepage1'%}">Dashboard</a></li>
+            <!-- <li>
+                <a href="javascript:void(0)" class="dropdown-btn">Profile</a>
+                <ul class="dropdown-container">
+                    <li><a href="/profile/edit"><span class="small-dot">&bull;</span>Edit Profile</a></li>
+                    <li><a href="/profile/business-idea"><span class="small-dot">&bull;</span>Business Idea Description</a></li>
+                    <li><a href="/profile/business-plan"><span class="small-dot">&bull;</span>Business Plan Documents</a></li>
+                    <li><a href="/profile/pitch-videos"><span class="small-dot">&bull;</span>Pitch Videos</a></li>
+                    <li><a href="/profile/investment-deals"><span class="small-dot">&bull;</span>Investment Deals</a></li>
+                    <li><a href="/profile/milestones"><span class="small-dot">&bull;</span>Milestones</a></li>
+                </ul>
+            </li> -->
+            <li>
+                <a href="{% url 'business_ideals'%}">Business Ideals</a>
+            </li>
+            <li>
+                <a href="javascript:void(0)" class="dropdown-btn">Expert Consultation</a>
+                <ul class="dropdown-container">
+                    <li><a href="/consultation/request"><span class="small-dot">&bull;</span>Service Requests</a></li>
+                    <li><a href="/consultation/schedule"><span class="small-dot">&bull;</span>Consultation Scheduling</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="javascript:void(0)" class="dropdown-btn">Investments</a>
+                <ul class="dropdown-container">
+                    <li><a href="/investment/deal-listings"><span class="small-dot">&bull;</span>Deal Listings</a></li>
+                    <li><a href="/investment/performance-tracking"><span class="small-dot">&bull;</span>Performance Tracking</a></li>
+                </ul>
+            </li>
+            <li><a href="/settings">Settings</a></li>
+        </ul>
     </div>
   
 
@@ -130,14 +152,20 @@
     </div>
 
     <script>
-        function myFunction() {
-            var x = document.getElementById("myTopnav");
-            if (x.className === "topnav") {
-                x.className += " responsive";
-            } else {
-                x.className = "topnav";
+        document.addEventListener('DOMContentLoaded', function() {
+            var dropdownBtns = document.getElementsByClassName('dropdown-btn');
+            for (var i = 0; i < dropdownBtns.length; i++) {
+                dropdownBtns[i].addEventListener('click', function() {
+                    this.classList.toggle('active');
+                    var dropdownContainer = this.nextElementSibling;
+                    if (dropdownContainer.style.display === 'block') {
+                        dropdownContainer.style.display = 'none';
+                    } else {
+                        dropdownContainer.style.display = 'block';
+                    }
+                });
             }
-        }
+        });
     </script>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
@@ -170,5 +198,4 @@
 </body>
 
 
-<!-- Mirrored from html.themeori.net/bioven/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 10 Jun 2024 12:15:45 GMT -->
 </html>
