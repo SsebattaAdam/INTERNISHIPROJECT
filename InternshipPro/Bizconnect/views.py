@@ -33,6 +33,15 @@ def homepage1(request):
 def business_ideals(request):
     return render(request, 'entreprenuer/business_ideals.html')
 
+def service_requests(request):
+    return render(request, 'entreprenuer/service_request.html')
+
+def service_request_form(request):
+    return render(request, 'entreprenuer/expert_request_form.html')
+
+def consultation_schedule(request):
+    return render(request, 'entreprenuer/consultation_schedule.html')
+
 def register_investor(request):
     return render(request, 'investor/register_investor.html')
 def investorhomepage(request):
@@ -45,11 +54,6 @@ def experthomepage(request):
 
 def login(request):
     return render(request, 'login.html')
-# Create your views here.
-
-
-from django.shortcuts import render, redirect
-from .models import Registration
 
 
 def registration_form(request):
@@ -113,12 +117,6 @@ def custom_login(request):
             return render(request, 'login.html', {'message': message})
 
     return render(request, 'login.html')
-
-
-
-from django.shortcuts import render, redirect
-from .models import ExpertRegistration
-import json
 
 def register_expert(request):
     if request.method == 'POST':
