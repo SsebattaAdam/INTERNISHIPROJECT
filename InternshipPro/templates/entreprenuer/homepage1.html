@@ -60,17 +60,7 @@
     <div class="custom_sidebar sidebar">
         <ul>
             <li><a href="{% url 'homepage1'%}">Dashboard</a></li>
-            <!-- <li>
-                <a href="javascript:void(0)" class="dropdown-btn">Profile</a>
-                <ul class="dropdown-container">
-                    <li><a href="/profile/edit"><span class="small-dot">&bull;</span>Edit Profile</a></li>
-                    <li><a href="/profile/business-idea"><span class="small-dot">&bull;</span>Business Idea Description</a></li>
-                    <li><a href="/profile/business-plan"><span class="small-dot">&bull;</span>Business Plan Documents</a></li>
-                    <li><a href="/profile/pitch-videos"><span class="small-dot">&bull;</span>Pitch Videos</a></li>
-                    <li><a href="/profile/investment-deals"><span class="small-dot">&bull;</span>Investment Deals</a></li>
-                    <li><a href="/profile/milestones"><span class="small-dot">&bull;</span>Milestones</a></li>
-                </ul>
-            </li> -->
+         
             <li>
                 <a href="{% url 'business_ideals'%}">Business Ideals</a>
             </li>
@@ -91,7 +81,7 @@
             <li><a href="/settings">Settings</a></li>
         </ul>
     </div>
-  
+    {% block content %}
 
     <div class="content">
        <p>welcome back </p>
@@ -150,6 +140,7 @@
             </div>
         </div>
     </div>
+    {% endblock %}
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
