@@ -63,14 +63,39 @@
         </a>
     </div>
 
-    <div class="sidebar">
-        <a href="#home">Wlcome Back</a>
-        <a href="#" > Upload Business Idea</a>
-        <a href="#news"> Business Doc Repo</a>
-        <a href="#contact">Consult An EXPERT</a>
-        <a href="#about"> Schedule appoitmnet</a>
-        <a href="#about"> Add Investiment Ideas</a>
-        <a href="#about"> LogOut</a>
+    <div class="custom_sidebar sidebar">
+        <ul>
+            <li><a href="{% url 'homepage1'%}">Dashboard</a></li>
+            <!-- <li>
+                <a href="javascript:void(0)" class="dropdown-btn">Profile</a>
+                <ul class="dropdown-container">
+                    <li><a href="/profile/edit"><span class="small-dot">&bull;</span>Edit Profile</a></li>
+                    <li><a href="/profile/business-idea"><span class="small-dot">&bull;</span>Business Idea Description</a></li>
+                    <li><a href="/profile/business-plan"><span class="small-dot">&bull;</span>Business Plan Documents</a></li>
+                    <li><a href="/profile/pitch-videos"><span class="small-dot">&bull;</span>Pitch Videos</a></li>
+                    <li><a href="/profile/investment-deals"><span class="small-dot">&bull;</span>Investment Deals</a></li>
+                    <li><a href="/profile/milestones"><span class="small-dot">&bull;</span>Milestones</a></li>
+                </ul>
+            </li> 
+            <li>
+                <a href="{% url 'business_ideals'%}">Business Ideals</a>
+            </li> -->
+            <li>
+                <a href="javascript:void(0)" class="dropdown-btn">Expert Consultation</a>
+                <ul class="dropdown-container">
+                    <li><a href="/consultation/request"><span class="small-dot">&bull;</span>Service Requests</a></li>
+                    <li><a href="/consultation/schedule"><span class="small-dot">&bull;</span>Consultation Scheduling</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="javascript:void(0)" class="dropdown-btn">Investments</a>
+                <ul class="dropdown-container">
+                    <li><a href="/investment/deal-listings"><span class="small-dot">&bull;</span>Deal Listings</a></li>
+                    <li><a href="/investment/performance-tracking"><span class="small-dot">&bull;</span>Performance Tracking</a></li>
+                </ul>
+            </li>
+            <li><a href="/settings">Settings</a></li>
+        </ul>
     </div>
   
 
@@ -133,14 +158,20 @@
     </div>
 
     <script>
-        function myFunction() {
-            var x = document.getElementById("myTopnav");
-            if (x.className === "topnav") {
-                x.className += " responsive";
-            } else {
-                x.className = "topnav";
+        document.addEventListener('DOMContentLoaded', function() {
+            var dropdownBtns = document.getElementsByClassName('dropdown-btn');
+            for (var i = 0; i < dropdownBtns.length; i++) {
+                dropdownBtns[i].addEventListener('click', function() {
+                    this.classList.toggle('active');
+                    var dropdownContainer = this.nextElementSibling;
+                    if (dropdownContainer.style.display === 'block') {
+                        dropdownContainer.style.display = 'none';
+                    } else {
+                        dropdownContainer.style.display = 'block';
+                    }
+                });
             }
-        }
+        });
     </script>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
@@ -173,5 +204,4 @@
 </body>
 
 
-<!-- Mirrored from html.themeori.net/Bizconnect/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 10 Jun 2024 12:15:45 GMT -->
 </html>
