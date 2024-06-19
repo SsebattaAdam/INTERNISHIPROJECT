@@ -1,86 +1,6 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
+{% extends "entreprenuer/homepage1.html" %} {% block title%}Business Ideals | Bizconnect{%endblock%} {% load static%} {% block content %}
 
-<head>
-     <!-- Start Meta -->
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="description" content="Bizconnect - Business Management Platform" />
-    <meta name="keywords" content="Creative, Digital, multipage, landing, freelancer template" />
-    <meta name="author" content="ThemeOri">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Title of Site -->
-    <title>Business Ideals | Bizconnect</title>
-    <!-- Favicons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha256-lQPthLnNj1D8rDsy3i+2r5PpBqObJ8v2T1RQJ/6mPcI=" crossorigin="anonymous" />
 
-    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'assets/img/apple-touch-icon.png' %}">
-    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'assets/img/favicon-32x32.png' %}">
-    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'assets/img/favicon-16x16.png' %}">
-    <link rel="manifest" href="{% static 'assets/img/site.webmanifest' %}">
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
-    <!-- fontawesome -->
-    <link rel="stylesheet" href="{% static 'assets/css/fontawesome.min.css' %}">
-    <!-- Animate CSS -->
-    <link rel="stylesheet" href="{% static 'assets/css/animate.css' %}">
-    <!-- Swiper -->
-    <link rel="stylesheet" href="{% static 'assets/css/swiper-bundle.min.css' %}">
-    <!-- Magnific -->
-    <link rel="stylesheet" href="{% static 'assets/css/magnific-popup.css' %}">
-    <!-- Nice Select -->
-    <link rel="stylesheet" href="{% static 'assets/css/nice-select.css' %}">
-    <!-- Mean menu -->
-    <link rel="stylesheet" href="{% static 'assets/css/meanmenu.min.css' %}">
-    <!-- Flaticon -->
-    <link rel="stylesheet" href="{% static 'assets/fonts/flaticon.css' %}">
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="{% static 'assets/sass/style.css' %}">
-    <!-- Include your custom CSS -->
-</head>
-
-<body>
-    {% block content %}
-    <div class="topnav" id="myTopnav">
-        <a href="#home" class=""></a>
-        <a href="#news"></a>
-        <a href="#contact"></a>
-        <a href="#about"></a>
-        <div class="topnav-right">
-            <a href="#search">Profile</a>
-            <a href="#login">LogOut</a>
-        </div>
-        <a href="javascript:void(0);" class="icon" onclick="myFunction()">
-            <i class="fa fa-bars"></i>
-        </a>
-    </div>
-
-    <div class="custom_sidebar sidebar">
-        <ul>
-            <li><a href="{% url 'homepage1'%}">Dashboard</a></li>
-            
-            <li>
-                <a href="javascript:void(0)">Business Ideals</a>
-            </li>
-            <li>
-                <a href="javascript:void(0)" class="dropdown-btn">Expert Consultation</a>
-                <ul class="dropdown-container">
-                    <li><a href="/consultation/request"><span class="small-dot">&bull;</span>Service Requests</a></li>
-                    <li><a href="/consultation/schedule"><span class="small-dot">&bull;</span>Consultation Scheduling</a></li>
-                </ul>
-            </li>
-            <li>
-                <a href="javascript:void(0)" class="dropdown-btn">Investments</a>
-                <ul class="dropdown-container">
-                    <li><a href="/investment/deal-listings"><span class="small-dot">&bull;</span>Deal Listings</a></li>
-                    <li><a href="/investment/performance-tracking"><span class="small-dot">&bull;</span>Performance Tracking</a></li>
-                </ul>
-            </li>
-            <li><a href="/settings">Settings</a></li>
-        </ul>
-    </div>
-  
 
     <div class="content mt-80">
         <div class="container mb-30">
@@ -192,53 +112,7 @@
         </div>
     </div>
 
-    {% endblock %}
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var dropdownBtns = document.getElementsByClassName('dropdown-btn');
-            for (var i = 0; i < dropdownBtns.length; i++) {
-                dropdownBtns[i].addEventListener('click', function() {
-                    this.classList.toggle('active');
-                    var dropdownContainer = this.nextElementSibling;
-                    if (dropdownContainer.style.display === 'block') {
-                        dropdownContainer.style.display = 'none';
-                    } else {
-                        dropdownContainer.style.display = 'block';
-                    }
-                });
-            }
-        });
-    </script>
-
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
- <!-- Main JS -->
- <script src="{% static 'assets/js/jquery-3.6.0.min.js' %}"></script>
- <!-- Bootstrap JS -->
- <script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
- <!-- Counterup -->
- <script src="{% static 'assets/js/jquery.counterup.min.js' %}"></script>
- <!-- Popper JS -->
- <script src="{% static 'assets/js/popper.min.js' %}"></script>
- <!-- Progressbar JS -->
- <script src="{% static 'assets/js/progressbar.min.js' %}"></script>
- <!-- Magnific JS -->
- <script src="{% static 'assets/js/jquery.magnific-popup.min.js' %}"></script>
- <!-- Swiper JS -->
- <script src="{% static 'assets/js/swiper-bundle.min.js' %}"></script>
- <!-- Waypoints -->
- <script src="{% static 'assets/js/jquery.waypoints.min.js' %}"></script>
- <!-- Mean menu -->
- <script src="{% static 'assets/js/jquery.meanmenu.min.js' %}"></script>
- <!-- Nice Select -->
- <script src="{% static 'assets/js/jquery.nice-select.min.js' %}"></script>
- <!-- WOW JS -->
- <script src="{% static 'assets/js/wow.min.js' %}"></script>
- <!-- Custom JS -->
- <script src="{% static 'assets/js/custom.js' %}"></script>
-</body>
 
 
-</html>
+{% endblock %}
+
