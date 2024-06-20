@@ -25,7 +25,7 @@ urlpatterns = [
   
   ## These are the Experts' urls
   path('experts/', views.experthomepage, name = 'experthomepage'),
-  
+  path('experts/feedback/', views.feedback, name = 'feedback'),
   ## These are the Registration urls
   path('membership/entreprenuers/', views.register_entreprenuer, name = 'register_entreprenuers'),
   path('membership/investors/', views.register_investor, name='register_investors'),

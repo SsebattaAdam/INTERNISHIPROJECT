@@ -49,8 +49,12 @@ def investorhomepage(request):
 
 def register_expert(request):
     return render(request, 'expert/register_expert.html')
+
 def experthomepage(request):
     return render(request, 'expert/expertHomepage2.html')
+
+def feedback(request):
+    return render(request, 'expert/feedback.html')
 
 def login(request):
     return render(request, 'login.html')
