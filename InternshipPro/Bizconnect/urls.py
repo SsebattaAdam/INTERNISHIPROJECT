@@ -19,6 +19,7 @@ urlpatterns = [
   path("entreprenuer/requests/", views.service_requests, name="service_requests"),
   path("entreprenuer/requests/form", views.service_request_form, name="expert_request_form"),
   path("entreprenuer/schedule/", views.consultation_schedule, name="consultation_schedule"),
+  path("entreprenuer/schedule/form", views.consultation_schedule_form, name="consultation_schedule_form"),
   
   ## These are the Investors' urls
   path('investors/', views.investorhomepage, name = 'investorhomepage'),
