@@ -326,7 +326,7 @@ Theme Btn CSS
 }
 
 /*==========================================================================
-Custom Checkbox CSS
+Custom Sidebar CSS
 ========================================================================== */
 .custom_sidebar {
   padding: 15px;
@@ -666,6 +666,13 @@ Video Animation CSS
 .swiper-button-next::after {
   display: none;
   bottom: 0;
+}
+.swiper-pagination-bullet {
+  width: 10px; /* Increase width */
+  height: 10px; /* Increase height */
+}
+.swiper-pagination-bullet-active {
+  background-color: #FE8C12; 
 }
 
 @media (min-width: 1200px) {
