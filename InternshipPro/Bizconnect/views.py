@@ -7,6 +7,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib import auth
 from .models import Registration, ExpertRegistration
+from django.contrib.auth import authenticate, login
 
 def indexPage(request):
     return render(request, 'index.html')
@@ -159,3 +160,75 @@ def register_expert(request):
         return redirect('homepage1')
     
     return render(request, 'expert/register_expert.html')
+
+
+from django.shortcuts import render, redirect
+from django.core.files.storage import FileSystemStorage
+from .models import ServiceRequest
+
+def submit_service_request(request):
+    if request.method == 'POST':
+        business_idea = request.POST.get('title')
+        industry = request.POST.get('industry')
+        description = request.POST.get('description')
+        target_market = request.POST.get('market')
+        consultation_time = request.POST.get('consultation_time')
+        consultation_date = request.POST.get('consultation_date')
+        urgency_level = request.POST.get('urgency_level')
+        comments = request.POST.get('comments')
+        attachment = request.FILES.get('attachment')
+
+        if attachment:
+            fs = FileSystemStorage(location='attachments/')
+            attachment_file = fs.save(attachment.name, attachment)
+            attachment_url = fs.url(attachment_file)
+        else:
+            attachment_url = None
+
+        ServiceRequest.objects.create(
+            business_idea=business_idea,
+            industry=industry,
+            description=description,
+            target_market=target_market,
+            consultation_time=consultation_time,
+            consultation_date=consultation_date,
+            urgency_level=urgency_level,
+            attachment=attachment_url,
+            comments=comments,
+        )
+
+        return redirect('homepage1')  # Redirect to a success page or another page after submission
+
+    return render(request, 'service_request_form.html')
+
+# admin views
+from django.shortcuts import render
+from django.shortcuts import render
+from django.contrib.auth import authenticate, login
+from django.http import HttpResponseRedirect
+
+def login_view(request):
+    if request.method == "POST":
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username= username, password= password )
+        if user is not None:
+            login(request, user)
+            return redirect('admin2')
+        else:
+            return render(request, 'login2.html', {'error': 'Invalid credentials'})
+    return render(request, 'login2.html')
+
+def allTables(request):
+    return render(request, 'pages/tables/simple.html')
+
+def logout(request):
+    return render(request, 'login2.html')
+
+def loginAdmin(request):
+    return render(request, 'login2.html')
+
+def admin2(request):
+    return render(request, 'index2.html')
+
+#end of admin views

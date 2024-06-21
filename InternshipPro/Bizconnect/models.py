@@ -64,3 +64,23 @@ class ExpertRegistration(models.Model):
 
     def __str__(self):
         return f"{self.firstname} {self.surname}"
+
+
+from django.db import models
+
+class ServiceRequest(models.Model):
+    business_idea = models.CharField(max_length=255)
+    industry = models.CharField(max_length=100)
+    description = models.TextField()
+    target_market = models.TextField()
+    consultation_time = models.TimeField()
+    consultation_date = models.DateField()
+    urgency_level = models.CharField(max_length=10)
+    attachment = models.FileField(upload_to='attachments/', blank=True, null=True)
+    comments = models.TextField(blank=True, null=True)
+    submitted_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.business_idea
+
+
