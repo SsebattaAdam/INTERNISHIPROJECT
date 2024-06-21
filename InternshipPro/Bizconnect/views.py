@@ -43,6 +43,9 @@ def service_request_form(request):
 def consultation_schedule(request):
     return render(request, 'entreprenuer/consultation_schedule.html')
 
+def consultation_schedule_form(request):
+    return render(request, 'entreprenuer/consultation_schedule_form.html')
+
 def register_investor(request):
     return render(request, 'investor/register_investor.html')
 def investorhomepage(request):
@@ -95,9 +98,6 @@ def registration_form(request):
 def logout_view(request):
     # Redirect to the index page or any other page after logout
     return redirect('index')
-
-def login(request):
-    return render(request, 'login.html')
 
 
 
