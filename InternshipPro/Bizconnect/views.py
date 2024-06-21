@@ -56,7 +56,7 @@ def register_expert(request):
 def experthomepage(request):
     return render(request, 'expert/expertHomepage2.html')
 
-def login(request):
+def loginpage1(request):
     return render(request, 'login.html')
 
 
