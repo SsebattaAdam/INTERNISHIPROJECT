@@ -39,5 +39,16 @@ urlpatterns = [
   path('logout/', views.logout_view, name='logout'),
   path('loginForm/', views.custom_login, name='custom_login'),
 
+
+ 
+path('submit_service_request/', views.submit_service_request, name='submit_service_request'),
+
+
+#admin urls
+path('tables/', views.allTables, name='allTables'),
+path('login_dmin/', views.login_view, name='login_dmin'),
+path('loginAdmin/', views.loginAdmin, name='loginAdmin'),
+path('logout/', views.logout, name='logout'),
+path('admin2/', views.admin2, name='admin2'),
 ]
 
