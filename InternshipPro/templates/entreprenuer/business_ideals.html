@@ -2,8 +2,8 @@
 
 
 
-    <div class="content mt-80">
-        <div class="container mt-25">
+    <div class="content wrapper mt-80">
+        <div class="container ">
             <div class="blog__standard-left">
                 <div class="blog__standard-left-item mb-30">
                     
@@ -22,6 +22,7 @@
                         <h4 class="mb-35">All Fields with (*) are required.</h4>
                         <div class="register-form">
                             <form action="#" method="post">
+                                {% csrf_token %}
                                 <div class="row">
                                     <div class="col-md-6 mb-30">
                                         <div class="register-form-group">
