@@ -24,8 +24,8 @@ Bizconnect{% endblock title %}{% load static %}
                 <div class="blog__standard-left-item-content mt-30">
                     <ul>
                         <li class="blog__standard-left-item-content-date mr-40 md-mr-25"><span>{{ deal.industry }}</span></li>
-                        <li class="mr-30 md-mr-15"><i class="flaticon-user"></i>{{ deal.valuation }}</li>
-                        <li><i class="flaticon-chat"></i> {{ deal.goals }}</li>
+                        <li class="mr-30 md-mr-15">{{ deal.valuation }}</li>
+                        <li> {{ deal.goals }}</li>
                     </ul>
                     <h3 class="mb-15">{{ deal.title }}</h3>
                     <p class="mb-20">{{ deal.terms }} </p>
@@ -36,24 +36,7 @@ Bizconnect{% endblock title %}{% load static %}
                 </div>               
             </div>
             {% endfor %}
-            {% comment %} <div class="blog__standard-left-item col-lg-6 mb-30 wow fadeInUp" data-wow-delay="0.6s">
-                <div class="blog__standard-left-item-image">
-                    <img src="assets/img/details.jpg" alt="">
-                </div>
-                <div class="blog__standard-left-item-content">
-                    <ul>
-                        <li class="blog__standard-left-item-content-date mr-40 md-mr-25"><span><i
-                                    class="flaticon-calendar"></i>22 Feb, 2022</span></li>
-                        <li class="mr-30 md-mr-15"><i class="flaticon-user"></i>Mitchell Starc</li>
-                        <li><i class="flaticon-chat"></i> Comments (3)</li>
-                    </ul>
-                    <h3 class="mb-15">Make sure you have your business plan ready</h3>
-                    <p class="mb-20">Phasellus finibus pellentesque leo, ac lacinia ligula hendrerit eget. Fusce sed
-                        orci maximus est auctor porta. Etiam in odio bibendum, semper leo id, pretium massa. Suspendisse
-                        a risus elit. Suspendisse a iaculis tellus. Pellentesque ligula arcu, </p>
-                    <a href="blog-details.html">Read More</a>
-                </div>
-            </div> {% endcomment %}
+            
 
         </div> 
         {% else %}
