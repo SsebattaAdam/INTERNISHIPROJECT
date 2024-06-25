@@ -1,25 +1,26 @@
-{% extends "expert/expertHomepage2.html" %} {% block title%}Resource Library | Bizconnect{%endblock%} {% load static%} {% block content %}
+{% extends "expert/expertHomepage2.html" %} {% block title%}Consultation Packages | Bizconnect{%endblock%} {% load static%} {% block content %}
 <div class="content wrapper mt-80">
     <div class="container mt-25">
         <div>
-            <h2>Resource library</h2>
+            <h2>Consultation Packages</h2>
             <div class=" mt-35">
                 <div class="solution__area-right lg-center">
-                    <a class="theme-bg-btn" href="{% url 'resource_form' %}">Get started<i
+                    <a class="theme-bg-btn" href="{% url 'consultation_package_form' %}">Get started<i
                             class="flaticon-arrow-right"></i></a>
                 </div>
             </div>
         </div>
-        {% if resources %}
+        {% if packages %}
         <div class="row">
-            {% for resource in resources %}
+            {% for package in packages %}
             <div class="blog__standard-left-item col-lg-6 mb-30 wow fadeInUp" data-wow-delay="0.3s">
                 <div class="blog__standard-left-item-content mt-30">
                     <ul>
-                        <li><i class="flaticon-suitcase"></i> {{ resource.type }}</li>
+                        <li class="mr-30 md-mr-15"><i class="flaticon-suitcase"></i> {{ package.type }}</li>
+                        <li><i class="flaticon-time-is-money"></i> {{ package.type }}</li>
                     </ul>
-                    <h3 class="mb-15">{{ resource.title }}</h3>
-                    <p class="mb-20">{{ resource.description }} </p>
+                    <h3 class="mb-15">{{ package.title }}</h3>
+                    <p class="mb-20">{{ package.description }} </p>
                     
                 </div>               
             </div>
@@ -31,7 +32,7 @@
             <div class="blog__standard-left-item mb-30 wow fadeInUp" data-wow-delay="0.3s">
                 <div class="blog__standard-left-item-content mt-30">
 
-                    <h3 class="mb-15">No Resources present.</h3>
+                    <h3 class="mb-15">No Packages present.</h3>
                     
                     
                 </div>
@@ -42,7 +43,8 @@
         <div class="blog__standard-left-item col-lg-6 mb-30 wow fadeInUp" data-wow-delay="0.3s">
             <div class="blog__standard-left-item-content mt-30">
                 <ul>
-                    <li><i class="flaticon-suitcase"></i> type</li>
+                    <li class="mr-30 md-mr-15"><i class="flaticon-suitcase"></i> type</li>
+                    <li><i class="flaticon-time-is-money"></i> type</li>
                 </ul>
                 <h3 class="mb-15">Title</h3>
                 <p class="mb-20">descriptionsdescriptionsdescriptionsdescriptions descriptionsdescriptionsdescriptions descriptionsdescriptionsdescriptionsdescriptions descriptionsdescriptions </p>
