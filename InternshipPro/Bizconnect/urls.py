@@ -42,13 +42,17 @@ urlpatterns = [
 
  
 path('submit_service_request/', views.submit_service_request, name='submit_service_request'),
+path('submit_business_idea/', views.submit_business_idea, name='submit_business_idea'),
 
 
 #admin urls
 path('tables/', views.allTables, name='allTables'),
+path('list_requestsmade/', views.list_requestsmade, name='list_requestsmade1'),
+
 path('login_dmin/', views.login_view, name='login_dmin'),
 path('loginAdmin/', views.loginAdmin, name='loginAdmin'),
 path('logout/', views.logout, name='logout'),
 path('admin2/', views.admin2, name='admin2'),
+ path('approve_request/<int:request_id>/', views.approve_request, name='approve_request'),
 ]
 
