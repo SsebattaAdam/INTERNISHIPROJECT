@@ -28,6 +28,12 @@ urlpatterns = [
   
   ## These are the Experts' urls
   path('experts/', views.experthomepage, name = 'experthomepage'),
+  path('expert/library/', views.resources, name = 'resources'),
+  path("expert/library/form/", views.resource_form, name="resource_form"),
+  path("expert/requests/", views.assistance_request, name="assistance_request"),
+  path("expert/consultation/", views.consultation_packages, name="consultation_packages"),
+  path("expert/consultation/form/", views.consultation_package_form, name="consultation_package_form"),
+  path("expert/feedback/", views.feedback, name="feedback"),
   
   ## These are the Registration urls
   path('membership/entreprenuers/', views.register_entreprenuer, name = 'register_entreprenuers'),
