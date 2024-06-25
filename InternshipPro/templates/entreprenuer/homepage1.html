@@ -28,6 +28,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
     <!-- fontawesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="{% static 'assets/css/fontawesome.min.css' %}">
     <!-- Animate CSS -->
     <link rel="stylesheet" href="{% static 'assets/css/animate.css' %}">
@@ -45,6 +46,21 @@
     <link rel="stylesheet" href="{% static 'assets/sass/style.css' %}">
     <!-- Include your custom CSS -->
 
+    <style>
+        html, body {
+            height: 100%;
+        }
+        .wrapper {
+            min-height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .wrapper::after {
+            content: "";
+            flex: 1;
+        }
+    </style>
     <script>
         function applyResponsiveStyles() {
             var footer = document.querySelector('.footer__area-copyright');
@@ -86,24 +102,19 @@
             <li>
                 <a href="javascript:void(0)" class="dropdown-btn">Expert Consultation</a>
                 <ul class="dropdown-container">
-                    <li><a href="{% url "service_requests" %}"><span class="small-dot">&bull;</span>Service Requests</a></li>
+                    <li><a href="{% url 'service_requests' %}"><span class="small-dot">&bull;</span>Service Requests</a></li>
                     <li><a href="{% url 'consultation_schedule' %}"><span class="small-dot">&bull;</span>Consultation Schedule</a></li>
                 </ul>
             </li>
             <li>
-                <a href="javascript:void(0)" class="dropdown-btn">Investments</a>
-                <ul class="dropdown-container">
-                    <li><a href="/investment/deal-listings"><span class="small-dot">&bull;</span>Deal Listings</a></li>
-                    <li><a href="/investment/performance-tracking"><span class="small-dot">&bull;</span>Performance Tracking</a></li>
-                </ul>
+                <a href="{% url 'investment_deals' %}" >Investment Deals</a>
             </li>
-            <li><a href="/settings">Settings</a></li>
-            <li><a href="{%url 'list_requestsmade1'%}">Requests Made</a></li>
+            <li><a href="{% url 'consultation_schedule' %}">Settings</a></li>
         </ul>
     </div>
     {% block content %}
 
-    <div class="content">
+    <div class="content wrapper">
         
         <p>welcome back </p>
          <div class="features__area section-padding pb-0">
@@ -160,7 +171,7 @@
                  </div>
              </div>
          </div>
-     </div>
+    </div>
      {% endblock content %}
     
     

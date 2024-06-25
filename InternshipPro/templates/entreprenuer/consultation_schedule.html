@@ -1,4 +1,4 @@
-{% extends "entreprenuer/homepage1.html" %} {% block title %}Business Ideals |
+{% extends "entreprenuer/homepage1.html" %} {% block title %}Schedule |
 Bizconnect{% endblock title %}{% load static %} {% block content %}
 <style>
   .fc .fc-toolbar .fc-button {
@@ -24,7 +24,7 @@ Bizconnect{% endblock title %}{% load static %} {% block content %}
   }
 </style>
 <!-- Calendar Container -->
-<section class="content">
+<section class="content wrapper">
   <div class="row">
     <div class="col-md-9">
       <div class="card card-primary">
@@ -152,7 +152,7 @@ Bizconnect{% endblock title %}{% load static %} {% block content %}
       </div>
       <div class=" mt-35">
         <div class="solution__area-right lg-center">
-          <a class="theme-bg-btn" href="{% url 'consultation_schedule_form' %}">Schedule your requests <i
+          <a class="theme-bg-btn" href="{% url 'consultation_schedule_form' %}">Schedule now <i
               class="flaticon-arrow-right"></i></a>
         </div>
       </div>

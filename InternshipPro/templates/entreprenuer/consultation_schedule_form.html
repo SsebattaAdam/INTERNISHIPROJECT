@@ -1,7 +1,7 @@
-{% extends "entreprenuer/homepage1.html" %} {% block title %}Business Ideals |
+{% extends "entreprenuer/homepage1.html" %} {% block title %}Schedule Details |
 Bizconnect{% endblock title %}{% load static %} {% block content %}
 
-<div class="content mt-80">
+<div class="content wrapper mt-80">
     
     <div class="container ">
         <div class="blog__standard-left">
@@ -21,6 +21,7 @@ Bizconnect{% endblock title %}{% load static %} {% block content %}
                     <h4 class="mb-35">All Fields with (*) are required.</h4>
                     <div class="register-form">
                         <form action="#" method="post">
+                            {% csrf_token %}
                             <div class="row">
                                 <div class="col-md-6 mb-30">
                                     <div class="register-form-group"> {% comment "This is a reminder about the scheduling of meetings" %} This feild is meant to search
@@ -33,7 +34,7 @@ Bizconnect{% endblock title %}{% load static %} {% block content %}
                                 <div class="col-md-6 mb-30">
                                     <div class="register-form-group">
                                         <label>Expert <span style="color: red;">*</span></label>
-                                        <input type="text" id="expert" name="expert"  required>
+                                        <input type="text" id="expert" name="expert" placeholder="Expert Name"  required>
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-30">

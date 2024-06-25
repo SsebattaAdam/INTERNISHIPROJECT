@@ -17,9 +17,11 @@ urlpatterns = [
   path('entreprenuers/', views.homepage1, name = 'homepage1'),
   path('entreprenuer/ideals/', views.business_ideals, name = 'business_ideals'),
   path("entreprenuer/requests/", views.service_requests, name="service_requests"),
-  path("entreprenuer/requests/form", views.service_request_form, name="expert_request_form"),
+  path("entreprenuer/requests/form/", views.service_request_form, name="expert_request_form"),
   path("entreprenuer/schedule/", views.consultation_schedule, name="consultation_schedule"),
-  path("entreprenuer/schedule/form", views.consultation_schedule_form, name="consultation_schedule_form"),
+  path("entreprenuer/schedule/form/", views.consultation_schedule_form, name="consultation_schedule_form"),
+  path("entreprenuer/investment/deals/", views.investment_deals, name="investment_deals"),
+  path("entreprenuer/investment/deals/form/", views.investment_deal_form, name="investment_deal_form"),
   
   ## These are the Investors' urls
   path('investors/', views.investorhomepage, name = 'investorhomepage'),
