@@ -1,0 +1,53 @@
+{% extends 'expert/expertHomepage2.html' %} {% block title %}Assistance Requests | Bizconnect {% endblock title %} {% load static %}
+
+{% block content %}
+<div class="content wrapper mt-80">
+    <div class="testimonial__area section-padding wow fadeInUp">
+		<div class="container">
+			<div class="row align-items-center">
+				<div class="col-xl-4 col-lg-5 lg-mb-30 " data-wow-delay="0.4s">
+					<div class="testimonial__area-title">
+						<span class="section-top mb-15">Assistance Requests</span>
+						<h2 class="mb-45">Time to offer your guidance.</h2>						
+					</div>
+					<div class="testimonial__area-button">
+						<div class="testimonial__area-button-prev swiper-button-prev"><i class="flaticon-arrow-left"></i></div>
+						<div class="testimonial__area-button-next swiper-button-next"><i class="flaticon-arrow-right"></i></div>
+					</div>
+                    
+				</div>
+				<div class="col-xl-8 col-lg-7">
+                    {% if requests %}
+                    <div class="swiper testimonial-slider">
+                        <div class="swiper-wrapper">
+                            {% for request in requests %}
+                            <div class="testimonial__area-item swiper-slide " data-wow-delay="0.8s">
+                                <div class="testimonial__area-item-content mb-30">
+                                    <i class="flaticon-quote"></i>
+                                    <h5>{{ request.title }}</h5>
+                                    <h6>{{ request.industry }}</h6>
+                                    <p>{{ request.description }}</p>
+                                </div>
+                                <div class="pr-30 row">
+                                    <span class="col-md-5 custom-a"><a href="#">Accept</a></span>
+                                    <span class="col-md-4 custom-a"><a href="#">Reject</a></span>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% else %}
+                    <h4 class="t-center">No requests are visible at the moment.</h4>
+                    {% endif %}        				
+				</div>
+                	
+			</div>
+            <div class="col-xl-6 col-lg-6 col-md-6 mt-35">
+                <div class="solution__area-right lg-center">
+                    <a class="theme-bg-btn" href="{% url 'expert_request_form' %}">Create your request now <i class="flaticon-arrow-right"></i></a>						
+                </div>					
+            </div>
+		</div>
+	</div>
+</div>
+{% endblock content %}
