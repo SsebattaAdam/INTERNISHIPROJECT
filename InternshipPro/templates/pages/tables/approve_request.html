@@ -1,0 +1,39 @@
+{% extends "index2.html" %} {% block title%}All tables listed | Bizconnect{%endblock%} {% load static%} {% block content %}
+
+
+ <!-- Content Wrapper. Contains page content -->
+ <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Approve Service Request</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active"></li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+<h2></h2>
+<form method="post">
+    {% csrf_token %}
+    <p>Business Idea: {{ request.business_idea }}</p>
+    <p>Description: {{ request.description }}</p>
+    <p>Target Market: {{ request.target_market }}</p>
+    <p>Urgency Level: {{ request.urgency_level }}</p>
+    <p>Consultation Date: {{ request.consultation_date }}</p>
+    <p>Consultation Time: {{ request.consultation_time }}</p>
+    <label for="expert">Assign Expert:</label>
+    <select name="expert" id="expert">
+        {% for expert in experts %}
+        <option value="{{ expert.id }}">{{ expert.surname }}</option>
+        {% endfor %}
+    </select>
+    <button type="submit">Approve</button>
+</form>
+{% endblock %}
