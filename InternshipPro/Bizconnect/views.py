@@ -1,5 +1,4 @@
 # Bizconnect/views.py
-from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
@@ -8,6 +7,7 @@ from django.contrib.auth.models import User
 from django.contrib import auth
 from .models import Registration, ExpertRegistration, InvestmentDeal
 from django.contrib.auth import authenticate, login
+from django.core.files.storage import FileSystemStorage
 
 def indexPage(request):
     return render(request, 'index.html')
@@ -182,10 +182,6 @@ def register_expert(request):
     return render(request, 'expert/register_expert.html')
 
 
-from django.shortcuts import render, redirect
-from django.core.files.storage import FileSystemStorage
-from .models import ServiceRequest
-
 def submit_service_request(request):
     if request.method == 'POST':
         business_idea = request.POST.get('title')
@@ -260,10 +256,6 @@ def submit_business_idea(request):
     return render(request, 'business_ideals.html')
 
 # admin views
-from django.shortcuts import render
-from django.shortcuts import render
-from django.contrib.auth import authenticate, login
-from django.http import HttpResponseRedirect
 
 def login_view(request):
     if request.method == "POST":
