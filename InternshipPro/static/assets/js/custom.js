@@ -67,14 +67,7 @@
 	})
 
 	/*========== custom-footer ========= */
-	$(window).addEventListener('resize', function(){
-		if (window.innerWidth <= 575) {
-			$('.custom-footer').style.marginLeft = '0';
-		} else {
-			$('.custom-footer').style.marginLeft = '250px';
-		}
-	});
-	$(window).addEventListener('load', function(){
+	$(window).on('resize', function(){
 		if (window.innerWidth <= 575) {
 			$('.custom-footer').style.marginLeft = '0';
 		} else {
@@ -99,6 +92,11 @@
 	/*==========  theme loader  ==========*/
 	$(window).on("load", function () {
 		$(".theme-loader").fadeOut(500);
+		if (window.innerWidth <= 575) {
+			$('.custom-footer').style.marginLeft = '0';
+		} else {
+			$('.custom-footer').style.marginLeft = '250px';
+		}
 		/*==========  Progress Bar  ==========*/
 		if ($('.experience__area-skill-bar').length) {
 			$('.experience__area-skill-bar').appear(function () {

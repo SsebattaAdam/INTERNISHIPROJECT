@@ -98,14 +98,12 @@ path('admin2/', views.admin2, name='admin2'),
   path('register/',  views.registration_form, name='registration_form'),
   path('register_expert/', views.register_expert, name='register_expert'),
   
-  ## This is the Login url
-  path('login/',views.loginpage1, name ='login'),
-  path('logout/', views.logout_view, name='logout'),
-  path('loginForm/', views.custom_login, name='custom_login'),
+
 
 
  
 path('submit_service_request/', views.submit_service_request, name='submit_service_request'),
+path('create-investment-deal/', views.create_investment_deal, name='create_investment_deal'),
 
 
 #admin urls

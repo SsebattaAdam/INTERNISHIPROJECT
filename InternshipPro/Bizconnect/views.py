@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib import auth
-from .models import Registration, ExpertRegistration
+from .models import Registration, ExpertRegistration, InvestmentDeal
 from django.contrib.auth import authenticate, login
 
 def indexPage(request):
@@ -334,3 +334,29 @@ def list_requestsmade(request):
         'pending_requests': pending_requests,
         'completed_requests': completed_requests,
     })
+
+
+@login_required
+def create_investment_deal(request):
+    if request.method == 'POST':
+        title = request.POST['title']
+        industry = request.POST['industry']
+        funding_goal = request.POST['funding-goal']
+        valuation = request.POST['valuation']
+        terms = request.POST['terms']
+
+        # Assuming the logged-in user is the investor
+        entreprenuer= Registration.objects.get(user=request.user)
+
+        investment_deal = InvestmentDeal(
+            title=title,
+            industry=industry,
+            funding_goal=funding_goal,
+            valuation=valuation,
+            terms=terms,
+           entreprenuer= entreprenuer
+        )
+        investment_deal.save()
+        return redirect('homepage1') 
+
+    return redirect('investment_deals')  

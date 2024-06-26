@@ -1,17 +1,20 @@
-{% extends "entreprenuer/homepage1.html" %} {% block title %}Investment Details |
-Bizconnect{% endblock title %}{% load static %} {% block content %}
+{% extends "entreprenuer/homepage1.html" %}
+
+{% block title %}Investment Details | Bizconnect{% endblock title %}
+{% load static %}
+{% block content %}
 
 <div class="content wrapper mt-80">
-    
-    <div class="container ">
+    <div class="container">
         <div class="blog__standard-left">
             <div class="blog__standard-left-item mb-30">
-                
                 <div class="blog__standard-left-item-content">
                     <ul>
-                        <li ><h3 style="font-size: 30px;">Let's start right away</h3></li>
+                        <li><h3 style="font-size: 30px;">Let's start right away</h3></li>
                     </ul>
-                    <p class="mb-20"><span class="small-dot">&bull;</span> Fill out the form below to instantiate a new Investment deal for your business. These proposals will be examined by the enlisted Investors so that your business can receive the necessary funding.</p>                    
+                    <p class="mb-20">
+                        <span class="small-dot">&bull;</span> Fill out the form below to instantiate a new Investment deal for your business. These proposals will be examined by the enlisted Investors so that your business can receive the necessary funding.
+                    </p>
                 </div>
             </div>
         </div>
@@ -20,12 +23,11 @@ Bizconnect{% endblock title %}{% load static %} {% block content %}
                 <div class="register wow fadeInUp" data-wow-delay="0.8s">
                     <h4 class="mb-35">All Fields with (*) are required.</h4>
                     <div class="register-form">
-                        <form action="#" method="post">
+                        <form action="{% url 'create_investment_deal' %}" method="post">
                             {% csrf_token %}
                             <div class="row">
                                 <div class="col-md-6 mb-30">
-                                    <div class="register-form-group"> {% comment "This is a reminder about the scheduling of meetings" %} This feild is meant to search
-                                         and return the desired meeting to be scheduled.{% endcomment %}
+                                    <div class="register-form-group">
                                         <label>Title <span style="color: red;">*</span></label>
                                         <input type="text" name="title" placeholder="Title of the Deal." required>
                                     </div>
@@ -53,7 +55,7 @@ Bizconnect{% endblock title %}{% load static %} {% block content %}
                                 <div class="col-md-6 mb-30">
                                     <div class="register-form-group">
                                         <label>Valuation <span style="color: red;">*</span></label>
-                                        <input type="text" id="funding-goal" name="funding-goal" placeholder="Estimated value of your Business." required>
+                                        <input type="text" id="valuation" name="valuation" placeholder="Estimated value of your Business." required>
                                     </div>
                                 </div>
                                 <div class="col-md-12 mb-30">
@@ -62,8 +64,6 @@ Bizconnect{% endblock title %}{% load static %} {% block content %}
                                         <textarea id="terms" name="terms" placeholder="Terms of your deal. Be as descriptive as possible!" required></textarea>
                                     </div>
                                 </div>
-                                
-                                                                         
                             </div>
                             <div class="row">
                                 <div class="col-xl-3 col-md-6 col-lg-4 mb-20">
