@@ -108,10 +108,9 @@
                         
                         <h5><a href="{% url 'investorhomepage' %}">Investors</a></h5>
                         <ul>
-                            <a href="">
+                            <a href="{% url 'login' %}">
                                 <li><i class="fas fa-info-circle"></i> Already have an Account?, Sign In</li>
                             </a>
-                           
                         </ul>
                         <div class="blog__area-item-content-btn">
                             <a href="blog-details.html">Read More</a>
@@ -133,7 +132,9 @@
                         
                         <h5><a href="{% url 'experthomepage' %}">Experts</a></h5>
                         <ul>
-                            <li><i class="fas fa-info-circle"></i> Create account to continue</li>
+                            <a href="{% url 'login' %}">
+                                <li><i class="fas fa-info-circle"></i> Already have an Account?, Sign In</li>
+                            </a>
                         </ul>
                         <div class="blog__area-item-content-btn">
                             <a href="blog-details.html">Read More</a>
