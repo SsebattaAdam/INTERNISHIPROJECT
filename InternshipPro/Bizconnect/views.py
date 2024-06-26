@@ -24,7 +24,7 @@ def service_detail(request):
 def get_startednow(request):
     return render(request, 'get_started.html')
 
-
+## Entreprenuers
 def register_entreprenuer(request):
     return render(request, 'entreprenuer/register_entreprenuer.html')
  
@@ -52,15 +52,29 @@ def investment_deals(request):
 def investment_deal_form(request):
     return render(request, 'entreprenuer/investment_deal_form.html')
 
+## Investors
 def register_investor(request):
     return render(request, 'investor/register_investor.html')
 def investorhomepage(request):
     return render(request, 'investor/investorHomepage3.html')
 
+## Experts
 def register_expert(request):
     return render(request, 'expert/register_expert.html')
 def experthomepage(request):
     return render(request, 'expert/expertHomepage2.html')
+def resources(request):
+    return render(request, 'expert/resources.html')
+def resource_form(request):
+    return render(request, 'expert/resource_form.html')
+def assistance_request(request):
+    return render(request, 'expert/assistance_request.html')
+def consultation_packages(request):
+    return render(request, 'expert/consultation_packages.html')
+def consultation_package_form(request):
+    return render(request, 'expert/consultation_package_form.html')
+def feedback(request):
+    return render(request, 'expert/feedback.html')
 
 def loginpage1(request):
     return render(request, 'login.html')

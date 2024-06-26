@@ -1,0 +1,59 @@
+{% extends "expert/expertHomepage2.html" %} {% block title %}Feedback | Bizconnect{% endblock title %}{% load static %}
+{% block content %}
+<div class="content mt-80">
+    <div class="container mb-30">
+        <h3 style="font-size: 30px;">Create your Consultation packages</h3>
+        <p class="mt-20">Tell us how satisfied you were with the meeting and how best we can improve the quality of the communication.</p>
+    </div>
+    <div class="container mt-25">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="register wow fadeInUp" data-wow-delay="0.8s">
+                    <h4 class="mb-35">All Fields with (*) are required.</h4>
+                    <div class="register-form">
+                        <form action="#" method="post">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-md-6 mb-30">
+                                    <div class="register-form-group">
+                                        <label>Title <span style="color: red;">*</span></label>
+                                        <input type="text" name="title" placeholder="Title of Idea" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 mb-30">
+                                    <div class="register-form-group">
+                                        <label>Feedback <span style="color: red;">*</span></label>
+                                        <textarea name="description" placeholder="Describe your package"
+                                            required></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-30">
+                                    <div class="register-form-group">
+                                        <label>Rating <span style="color: red;">*</span></label>
+                                        <select id="rating" name="rating" class="form-control" required>
+                                            <option value="1">1 Star</option>
+                                            <option value="2">2 Stars</option>
+                                            <option value="3">3 Stars</option>
+                                            <option value="4">4 Stars</option>
+                                            <option value="5">5 Stars</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            <div>
+                                <div class="col-xl-3 col-md-6 col-lg-4 mt-20">
+                                    <div class="register-form-group">
+                                        <button class="theme-btn" type="submit">Publish</button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
