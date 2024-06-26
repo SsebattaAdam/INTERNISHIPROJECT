@@ -65,6 +65,23 @@
 	$("[data-background]").each(function () {
 		$(this).css("background-image", "url(" + $(this).attr("data-background") + ")")
 	})
+
+	/*========== custom-footer ========= */
+	$(window).addEventListener('resize', function(){
+		if (window.innerWidth <= 575) {
+			$('.custom-footer').style.marginLeft = '0';
+		} else {
+			$('.custom-footer').style.marginLeft = '250px';
+		}
+	});
+	$(window).addEventListener('load', function(){
+		if (window.innerWidth <= 575) {
+			$('.custom-footer').style.marginLeft = '0';
+		} else {
+			$('.custom-footer').style.marginLeft = '250px';
+		}
+	});
+
 	/*========== scroll to top  ==========*/
 	$(window).on('scroll', function () {
 		if ($(this).scrollTop() > 200) {
