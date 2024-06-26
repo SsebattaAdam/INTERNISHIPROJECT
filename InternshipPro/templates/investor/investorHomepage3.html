@@ -12,7 +12,7 @@
     <meta name="author" content="ThemeOri">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Title of Site -->
-    <title>Entrepreneurs | Bizconnect</title>
+    <title>Investors | Bizconnect</title>
     <!-- Favicons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha256-lQPthLnNj1D8rDsy3i+2r5PpBqObJ8v2T1RQJ/6mPcI=" crossorigin="anonymous" />
 
@@ -24,6 +24,7 @@
     <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
     <!-- fontawesome -->
     <link rel="stylesheet" href="{% static 'assets/css/fontawesome.min.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <!-- Animate CSS -->
     <link rel="stylesheet" href="{% static 'assets/css/animate.css' %}">
     <!-- Swiper -->
@@ -39,6 +40,23 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{% static 'assets/sass/style.css' %}">
     <!-- Include your custom CSS -->
+    <style>
+        html, body {
+            height: 100%;
+        }
+        .wrapper {
+            min-height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .wrapper::after {
+            content: "";
+            flex: 1;
+        }
+    </style>
+    
+    
 </head>
 
 <body>
@@ -60,17 +78,6 @@
     <div class="custom_sidebar sidebar">
         <ul>
             <li><a href="{% url 'homepage1'%}">Dashboard</a></li>
-            <!-- <li>
-                <a href="javascript:void(0)" class="dropdown-btn">Profile</a>
-                <ul class="dropdown-container">
-                    <li><a href="/profile/edit"><span class="small-dot">&bull;</span>Edit Profile</a></li>
-                    <li><a href="/profile/business-idea"><span class="small-dot">&bull;</span>Business Idea Description</a></li>
-                    <li><a href="/profile/business-plan"><span class="small-dot">&bull;</span>Business Plan Documents</a></li>
-                    <li><a href="/profile/pitch-videos"><span class="small-dot">&bull;</span>Pitch Videos</a></li>
-                    <li><a href="/profile/investment-deals"><span class="small-dot">&bull;</span>Investment Deals</a></li>
-                    <li><a href="/profile/milestones"><span class="small-dot">&bull;</span>Milestones</a></li>
-                </ul>
-            </li> -->
             <li>
                 <a href="{% url 'business_ideals'%}">Request Management</a>
             </li>
@@ -90,7 +97,7 @@
     </div>
   
     {% block content %}
-    <div class="content">
+    <div class="content wrapper">
         <p>welcome back </p>
          <div class="features__area section-padding pb-0">
              <div class="container">
@@ -148,63 +155,32 @@
          </div>
      </div>
     {% endblock content %}
-    <div class="content">
-       <p>welcome back </p>
-        <div class="features__area section-padding pb-0">
-            <div class="container">
-                <div class="row">
-                    <div class="col-xl-3 col-lg-3 col-md-6 lg-mb-30">
-                        <div class="features__area-item wow fadeInUp" data-wow-delay="0.3s">
-                            <div class="features__area-item-image" style="background-image: url(assets/img/features.jpg);"></div>
-                            <span>01</span>
-                            <div class="features__area-item-icon">
-                                <i class="flaticon-analysis"></i>
-                            </div>
-                            <div class="features__area-item-content">
-                                <h4>Strong Business Planing</h4>
-                            </div>
-                        </div>
+    <div class="footer__area-copyright custom-footer pt-35 pb-35" style="background: #030A15; margin-left: 250px;">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-xl-6 col-lg-6 col-md-5 md-mb-20">
+                    <div class="footer__area-copyright-left st-center">
+                        <p>© 2024 Bizconnect - All rights reserved.</p>
                     </div>
-                    <div class="col-xl-3 col-lg-3 col-md-6 md-mb-30">
-                        <div class="features__area-item wow fadeInUp" data-wow-delay="0.6s">
-                            <div class="features__area-item-image" style="background-image: url(assets/img/features.jpg);"></div>
-                            <span>02</span>
-                            <div class="features__area-item-icon">
-                                <i class="flaticon-data-scientist"></i>
-                            </div>
-                            <div class="features__area-item-content">
-                                <h4>Business Management</h4>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-lg-3 col-md-6 md-mb-30">
-                        <div class="features__area-item wow fadeInUp" data-wow-delay="0.9s">
-                            <div class="features__area-item-image" style="background-image: url(assets/img/features.jpg);"></div>
-                            <span>03</span>
-                            <div class="features__area-item-icon">
-                                <i class="flaticon-digital-marketing"></i>
-                            </div>
-                            <div class="features__area-item-content">
-                                <h4>Marketing Advice</h4>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-lg-3 col-md-6">
-                        <div class="features__area-item wow fadeInUp" data-wow-delay="1.2s">
-                            <div class="features__area-item-image" style="background-image: url(assets/img/features.jpg);"></div>
-                            <span>04</span>
-                            <div class="features__area-item-icon">
-                                <i class="flaticon-big-data"></i>
-                            </div>
-                            <div class="features__area-item-content">
-                                <h4>Expert User Research</h4>
-                            </div>
-                        </div>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-7">
+                    <div class="footer__area-copyright-right t-right st-center">
+                        <ul>
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="about.html">About Us</a></li>
+                            <li><a href="error.html">Error</a></li>
+                            <li><a href="contact.html">Contact Us</a></li>
+                        </ul>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+
+<!-- Scroll Top Start -->
+<div class="scroll-top"> <i class="flaticon-up-arrow"></i>
+</div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {

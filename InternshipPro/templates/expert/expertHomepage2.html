@@ -22,6 +22,7 @@
      <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
      <!-- fontawesome -->
      <link rel="stylesheet" href="{% static 'assets/css/fontawesome.min.css' %}">
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
      <!-- Animate CSS -->
      <link rel="stylesheet" href="{% static 'assets/css/animate.css' %}">
      <!-- Swiper -->
@@ -37,13 +38,22 @@
      <!-- Custom CSS -->
      <link rel="stylesheet" href="{% static 'assets/sass/style.css' %}">
 
- 
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Responsive Sidebar and Top Navbar</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        html, body {
+            height: 100%;
+        }
+        .wrapper {
+            min-height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .wrapper::after {
+            content: "";
+            flex: 1;
+        }
+    </style>
+   
    
 </head>
 
@@ -64,22 +74,16 @@
     </div>
 
     <div class="sidebar">
-        <ul>
-            <li><a href="{% url 'experthomepage'%}">Dashboard</a></li>
-         
-            <li>
-                <a href="{% url 'feedback'%}">Feedback</a>
-            </li>
-        </ul>
-        <a href="#news"> Upcoming consultations</a>
-        <a href="#contact">Feedback</a>
-        <a href="#about"> Resources</a>
-        <a href="#about"> Packages</a>
-        <a href="#about"> LogOut</a>
+        <a href="{% url 'experthomepage'%}">Dashboard</a>
+        <a href="{% url 'assistance_request' %}" > Assistance Requests</a>
+        <a href="{% url 'consultation_packages' %}">Consultation Packages</a>
+        <a href="{% url 'resources' %}">Content Library</a>
+        <a href="{% url 'feedback' %}">Feedback</a>
+        
     </div>
   
     {% block content %}
-    <div class="content">
+    <div class="content wrapper">
         <p>welcome back </p>
          <div class="features__area section-padding pb-0">
              <div class="container">
@@ -138,6 +142,32 @@
      </div>
     {% endblock content %}
     
+    <div class="footer__area-copyright custom-footer pt-35 pb-35" style="background: #030A15; margin-left: 250px;">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-xl-6 col-lg-6 col-md-5 md-mb-20">
+                    <div class="footer__area-copyright-left st-center">
+                        <p>© 2024 Bizconnect - All rights reserved.</p>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-7">
+                    <div class="footer__area-copyright-right t-right st-center">
+                        <ul>
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="about.html">About Us</a></li>
+                            <li><a href="error.html">Error</a></li>
+                            <li><a href="contact.html">Contact Us</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+<!-- Scroll Top Start -->
+<div class="scroll-top"> <i class="flaticon-up-arrow"></i>
+</div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {

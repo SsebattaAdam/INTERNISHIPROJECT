@@ -326,7 +326,7 @@ Theme Btn CSS
 }
 
 /*==========================================================================
-Custom Checkbox CSS
+Custom Sidebar CSS
 ========================================================================== */
 .custom_sidebar {
   padding: 15px;
@@ -408,6 +408,20 @@ input[type="checkbox"]:checked + .custom-checkbox::after {
   transform: translate(-50%, -50%) scale(1);
 }
 
+/*==========================================================================
+Custom link
+========================================================================== */
+.custom-a {
+  display: inline-block;
+  color: #FE8C12;
+  font-size: 16px;
+  line-height: 26px;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 600;
+  transition: all 0.3s ease-in-out;
+  text-transform: uppercase;
+  position: relative;
+}
 
 /*==========================================================================
 Hedging CSS
@@ -666,6 +680,13 @@ Video Animation CSS
 .swiper-button-next::after {
   display: none;
   bottom: 0;
+}
+.swiper-pagination-bullet {
+  width: 10px; /* Increase width */
+  height: 10px; /* Increase height */
+}
+.swiper-pagination-bullet-active {
+  background-color: #FE8C12; 
 }
 
 @media (min-width: 1200px) {

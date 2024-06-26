@@ -1,0 +1,64 @@
+{% extends "expert/expertHomepage2.html" %} {% block title%}Resource Library | Bizconnect{%endblock%} {% load static%} {% block content %}
+<div class="content wrapper mt-80">
+    <div class="container mt-25">
+        <div>
+            <h2>Resource library</h2>
+            <div class=" mt-35">
+                <div class="solution__area-right lg-center">
+                    <a class="theme-bg-btn" href="{% url 'resource_form' %}">Get started<i
+                            class="flaticon-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+        {% if resources %}
+        <div class="row">
+            {% for resource in resources %}
+            <div class="blog__standard-left-item col-lg-6 mb-30 wow fadeInUp" data-wow-delay="0.3s">
+                <div class="blog__standard-left-item-content mt-30">
+                    <ul>
+                        <li><i class="flaticon-suitcase"></i> {{ resource.type }}</li>
+                    </ul>
+                    <h3 class="mb-15">{{ resource.title }}</h3>
+                    <p class="mb-20">{{ resource.description }} </p>
+                    
+                </div>               
+            </div>
+            {% endfor %}           
+
+        </div> 
+        {% else %}
+        <div>
+            <div class="blog__standard-left-item mb-30 wow fadeInUp" data-wow-delay="0.3s">
+                <div class="blog__standard-left-item-content mt-30">
+
+                    <h3 class="mb-15">No Resources present.</h3>
+                    
+                    
+                </div>
+            </div>
+
+        </div>
+        {% endif %}
+        <div class="blog__standard-left-item col-lg-6 mb-30 wow fadeInUp" data-wow-delay="0.3s">
+            <div class="blog__standard-left-item-content mt-30">
+                <ul>
+                    <li><i class="flaticon-suitcase"></i> type</li>
+                </ul>
+                <h3 class="mb-15">Title</h3>
+                <p class="mb-20">descriptionsdescriptionsdescriptionsdescriptions descriptionsdescriptionsdescriptions descriptionsdescriptionsdescriptionsdescriptions descriptionsdescriptions </p>
+                <div class="pr-30 row">
+                    <span class="col-md-4"><a href="#">Accept</a></span>
+                    <span class="col-md-4"><a href="#">Reject</a></span>
+                </div>
+            </div>               
+        </div>
+        
+
+    </div>
+</div>
+
+
+
+
+{% endblock %}
+

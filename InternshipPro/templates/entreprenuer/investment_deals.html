@@ -1,0 +1,59 @@
+{% extends "entreprenuer/homepage1.html" %} {% block title %}Investment Deals |
+Bizconnect{% endblock title %}{% load static %}
+{% block content %}
+<style>
+    td {
+        font-size: large;
+    }
+</style>
+<div class="content wrapper mt-80">
+    <div class="container mt-25">
+        <div>
+            <h2>Investment deals</h2>
+            <div class=" mt-35">
+                <div class="solution__area-right lg-center">
+                    <a class="theme-bg-btn" href="{% url 'investment_deal_form' %}">Get started<i
+                            class="flaticon-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+        {% if deals %}
+        <div class="row">
+            {% for deal in deals %}
+            <div class="blog__standard-left-item col-lg-6 mb-30 wow fadeInUp" data-wow-delay="0.3s">
+                <div class="blog__standard-left-item-content mt-30">
+                    <ul>
+                        <li class="blog__standard-left-item-content-date mr-40 md-mr-25"><span>{{ deal.industry }}</span></li>
+                        <li class="mr-30 md-mr-15">{{ deal.valuation }}</li>
+                        <li> {{ deal.goals }}</li>
+                    </ul>
+                    <h3 class="mb-15">{{ deal.title }}</h3>
+                    <p class="mb-20">{{ deal.terms }} </p>
+                    <div class="pr-30">
+                        <a class="pr-50" href="#">Edit</a>
+                        <a href="#">Delete</a>
+                    </div>
+                </div>               
+            </div>
+            {% endfor %}
+            
+
+        </div> 
+        {% else %}
+        <div>
+            <div class="blog__standard-left-item mb-30 wow fadeInUp" data-wow-delay="0.3s">
+                <div class="blog__standard-left-item-content mt-30">
+
+                    <h3 class="mb-15">No investment deals present.</h3>
+                    
+                    
+                </div>
+            </div>
+
+        </div>
+        {% endif %}
+        
+
+    </div>
+</div>
+{% endblock content %}

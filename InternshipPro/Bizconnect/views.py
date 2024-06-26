@@ -7,6 +7,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib import auth
 from .models import Registration, ExpertRegistration
+from django.contrib.auth import authenticate, login
 
 def indexPage(request):
     return render(request, 'index.html')
@@ -23,7 +24,7 @@ def service_detail(request):
 def get_startednow(request):
     return render(request, 'get_started.html')
 
-
+## Entreprenuers
 def register_entreprenuer(request):
     return render(request, 'entreprenuer/register_entreprenuer.html')
  
@@ -42,16 +43,39 @@ def service_request_form(request):
 def consultation_schedule(request):
     return render(request, 'entreprenuer/consultation_schedule.html')
 
+def consultation_schedule_form(request):
+    return render(request, 'entreprenuer/consultation_schedule_form.html')
+
+def investment_deals(request):
+    return render(request, 'entreprenuer/investment_deals.html')
+
+def investment_deal_form(request):
+    return render(request, 'entreprenuer/investment_deal_form.html')
+
+## Investors
 def register_investor(request):
     return render(request, 'investor/register_investor.html')
 def investorhomepage(request):
     return render(request, 'investor/investorHomepage3.html')
 
+## Experts
 def register_expert(request):
     return render(request, 'expert/register_expert.html')
 
 def experthomepage(request):
     return render(request, 'expert/expertHomepage2.html')
+def resources(request):
+    return render(request, 'expert/resources.html')
+def resource_form(request):
+    return render(request, 'expert/resource_form.html')
+def assistance_request(request):
+    return render(request, 'expert/assistance_request.html')
+def consultation_packages(request):
+    return render(request, 'expert/consultation_packages.html')
+def consultation_package_form(request):
+    return render(request, 'expert/consultation_package_form.html')
+def feedback(request):
+    return render(request, 'expert/feedback.html')
 
 def feedback(request):
     return render(request, 'expert/feedback.html')
@@ -98,9 +122,6 @@ def registration_form(request):
 def logout_view(request):
     # Redirect to the index page or any other page after logout
     return redirect('index')
-
-def login(request):
-    return render(request, 'login.html')
 
 
 
@@ -163,3 +184,75 @@ def register_expert(request):
         return redirect('homepage1')
     
     return render(request, 'expert/register_expert.html')
+
+
+from django.shortcuts import render, redirect
+from django.core.files.storage import FileSystemStorage
+from .models import ServiceRequest
+
+def submit_service_request(request):
+    if request.method == 'POST':
+        business_idea = request.POST.get('title')
+        industry = request.POST.get('industry')
+        description = request.POST.get('description')
+        target_market = request.POST.get('market')
+        consultation_time = request.POST.get('consultation_time')
+        consultation_date = request.POST.get('consultation_date')
+        urgency_level = request.POST.get('urgency_level')
+        comments = request.POST.get('comments')
+        attachment = request.FILES.get('attachment')
+
+        if attachment:
+            fs = FileSystemStorage(location='attachments/')
+            attachment_file = fs.save(attachment.name, attachment)
+            attachment_url = fs.url(attachment_file)
+        else:
+            attachment_url = None
+
+        ServiceRequest.objects.create(
+            business_idea=business_idea,
+            industry=industry,
+            description=description,
+            target_market=target_market,
+            consultation_time=consultation_time,
+            consultation_date=consultation_date,
+            urgency_level=urgency_level,
+            attachment=attachment_url,
+            comments=comments,
+        )
+
+        return redirect('homepage1')  # Redirect to a success page or another page after submission
+
+    return render(request, 'service_request_form.html')
+
+# admin views
+from django.shortcuts import render
+from django.shortcuts import render
+from django.contrib.auth import authenticate, login
+from django.http import HttpResponseRedirect
+
+def login_view(request):
+    if request.method == "POST":
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username= username, password= password )
+        if user is not None:
+            login(request, user)
+            return redirect('admin2')
+        else:
+            return render(request, 'login2.html', {'error': 'Invalid credentials'})
+    return render(request, 'login2.html')
+
+def allTables(request):
+    return render(request, 'pages/tables/simple.html')
+
+def logout(request):
+    return render(request, 'login2.html')
+
+def loginAdmin(request):
+    return render(request, 'login2.html')
+
+def admin2(request):
+    return render(request, 'index2.html')
+
+#end of admin views
