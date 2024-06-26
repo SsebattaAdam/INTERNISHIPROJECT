@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+<h2>Service Requests</h2>
+
+<h3>Pending Requests</h3>
+<table style="width:100%">
+    <tr>
+        <th>ID</th>
+        <th>Business Idea</th>
+        <th>Industry</th>
+        <th>Description</th>
+        <th>Target Market</th>
+        <th>Consultation Time</th>
+        <th>Consultation Date</th>
+        <th>Urgency Level</th>
+        <th>Comments</th>
+        <th>Submitted At</th>
+        <th>Expert</th>
+    </tr>
+    {% for request in pending_requests %}
+    <tr>
+        <td>{{ request.id }}</td>
+        <td>{{ request.business_idea }}</td>
+        <td>{{ request.industry }}</td>
+        <td>{{ request.description }}</td>
+        <td>{{ request.target_market }}</td>
+        <td>{{ request.consultation_time }}</td>
+        <td>{{ request.consultation_date }}</td>
+        <td>{{ request.urgency_level }}</td>
+        <td>{{ request.comments }}</td>
+        <td>{{ request.submitted_at }}</td>
+        <td>Not yet Assined</td>
+           </tr>
+    {% endfor %}
+</table>
+
+<h3>Assigned Experts, Completed Requests</h3>
+<table style="width:100%">
+    <tr>
+        <th>ID</th>
+        <th>Business Idea</th>
+        <th>Industry</th>
+        <th>Description</th>
+        <th>Target Market</th>
+        <th>Consultation Time</th>
+        <th>Consultation Date</th>
+        <th>Urgency Level</th>
+        <th>Comments</th>
+        <th>Submitted At</th>
+        <th>Assigned Expert</th>
+        <th>Schedule Meeting</th>
+    </tr>
+    {% for request in completed_requests %}
+    <tr>
+        <td>{{ request.id }}</td>
+        <td>{{ request.business_idea }}</td>
+        <td>{{ request.industry }}</td>
+        <td>{{ request.description }}</td>
+        <td>{{ request.target_market }}</td>
+        <td>{{ request.consultation_time }}</td>
+        <td>{{ request.consultation_date }}</td>
+        <td>{{ request.urgency_level }}</td>
+        <td>{{ request.comments }}</td>
+        <td>{{ request.submitted_at }}</td>
+        <td>
+            {% if request.assigned_expert %}
+                {{ request.assigned_expert.surname }}
+            {% else %}
+                Not assigned
+            {% endif %}
+        </td>
+        <td>
+            {% if request.assigned_expert %}
+                <a href="{% url 'consultation_schedule_form' %}">Schedule Meeting with {{ request.assigned_expert.surname }}</a>
+            {% else %}
+                Not assigned
+            {% endif %}
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+</body>
+</html>

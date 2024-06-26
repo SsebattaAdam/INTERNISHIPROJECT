@@ -1,13 +1,13 @@
 # Bizconnect/views.py
-from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib import auth
-from .models import Registration, ExpertRegistration
+from .models import Registration, ExpertRegistration, InvestmentDeal
 from django.contrib.auth import authenticate, login
+from django.core.files.storage import FileSystemStorage
 
 
 def indexPage(request):
@@ -187,10 +187,6 @@ def register_expert(request):
     return render(request, 'expert/register_expert.html')
 
 
-from django.shortcuts import render, redirect
-from django.core.files.storage import FileSystemStorage
-from .models import ServiceRequest
-
 def submit_service_request(request):
     if request.method == 'POST':
         business_idea = request.POST.get('title')
@@ -225,12 +221,46 @@ def submit_service_request(request):
         return redirect('homepage1')  # Redirect to a success page or another page after submission
 
     return render(request, 'service_request_form.html')
+#posting business ideas
+from django.shortcuts import render, redirect
+from django.core.files.storage import FileSystemStorage
+from .models import BusinessIdeas
+
+def submit_business_idea(request):
+    if request.method == 'POST':
+        title = request.POST.get('title')
+        description = request.POST.get('description')
+        industry = request.POST.get('industry')
+        target_market = request.POST.get('market')
+        business_model = request.POST.get('business-model')
+        projections = request.POST.get('projections')
+        goals = request.POST.get('goals')
+        
+        pitch_deck = request.FILES.get('pitch-deck')
+        plan = request.FILES.get('plan')
+        video = request.FILES.get('video')
+        support = request.FILES.get('support')
+
+        business_idea = BusinessIdeas(
+            title=title,
+            description=description,
+            industry=industry,
+            target_market=target_market,
+            business_model=business_model,
+            projections=projections,
+            goals=goals,
+            pitch_deck=pitch_deck,
+            plan=plan,
+            video=video,
+            support=support,
+        )
+        
+        business_idea.save()
+        return redirect('homepage1')  # Redirect 
+
+    return render(request, 'business_ideals.html')
 
 # admin views
-from django.shortcuts import render
-from django.shortcuts import render
-from django.contrib.auth import authenticate, login
-from django.http import HttpResponseRedirect
 
 def login_view(request):
     if request.method == "POST":
@@ -244,8 +274,7 @@ def login_view(request):
             return render(request, 'login2.html', {'error': 'Invalid credentials'})
     return render(request, 'login2.html')
 
-def allTables(request):
-    return render(request, 'pages/tables/simple.html')
+
 
 def logout(request):
     return render(request, 'login2.html')
@@ -256,4 +285,75 @@ def loginAdmin(request):
 def admin2(request):
     return render(request, 'index2.html')
 
+@login_required
+def allTables(request):
+    requests = ServiceRequest.objects.all()
+    return render(request, 'pages/tables/simple.html', {'requests': requests})
+
+
+from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+from .models import ServiceRequest
+
+
+
+@login_required
+def approve_request(request, request_id):
+    service_request = get_object_or_404(ServiceRequest, id=request_id)
+    if request.method == 'POST':
+        expert_id = request.POST.get('expert')
+        if expert_id:
+            expert = get_object_or_404(ExpertRegistration, id=expert_id)
+            service_request.assigned_expert = expert
+        service_request.status = 'Completed'
+        service_request.save()
+        return redirect('allTables')
+    experts = ExpertRegistration.objects.filter(user_type='expert')
+    return render(request, 'pages/tables/approve_request.html', {'request': service_request, 'experts': experts})
+
+
+
+
+
+
+
 #end of admin views
+
+
+
+
+@login_required
+def list_requestsmade(request):
+    pending_requests = ServiceRequest.objects.filter(status='Pending')
+    completed_requests = ServiceRequest.objects.filter(status='Completed')
+    return render(request, 'entreprenuer/tables4ent.html', {
+        'pending_requests': pending_requests,
+        'completed_requests': completed_requests,
+    })
+
+
+@login_required
+def create_investment_deal(request):
+    if request.method == 'POST':
+        title = request.POST['title']
+        industry = request.POST['industry']
+        funding_goal = request.POST['funding-goal']
+        valuation = request.POST['valuation']
+        terms = request.POST['terms']
+
+        # Assuming the logged-in user is the investor
+        entreprenuer= Registration.objects.get(user=request.user)
+
+        investment_deal = InvestmentDeal(
+            title=title,
+            industry=industry,
+            funding_goal=funding_goal,
+            valuation=valuation,
+            terms=terms,
+           entreprenuer= entreprenuer
+        )
+        investment_deal.save()
+        return redirect('homepage1') 
+
+    return redirect('investment_deals')  
