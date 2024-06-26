@@ -43,7 +43,7 @@ urlpatterns = [
   path('register_expert/', views.register_expert, name='register_expert'),
   
   ## This is the Login url
-  path('login/',views.login, name ='login'),
+  path('login/',views.login2, name ='login'),
   path('logout/', views.logout_view, name='logout'),
   path('loginForm/', views.custom_login, name='custom_login'),
 

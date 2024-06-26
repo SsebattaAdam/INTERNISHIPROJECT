@@ -9,6 +9,7 @@ from django.contrib import auth
 from .models import Registration, ExpertRegistration
 from django.contrib.auth import authenticate, login
 
+
 def indexPage(request):
     return render(request, 'index.html')
     
@@ -80,7 +81,7 @@ def feedback(request):
 def feedback(request):
     return render(request, 'expert/feedback.html')
 
-def login(request):
+def login2(request):
     return render(request, 'login.html')
 
 
