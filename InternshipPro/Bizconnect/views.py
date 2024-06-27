@@ -43,8 +43,7 @@ def service_request_form(request):
 def consultation_schedule(request):
     return render(request, 'entreprenuer/consultation_schedule.html')
 
-def consultation_schedule_form(request):
-    return render(request, 'entreprenuer/consultation_schedule_form.html')
+
 
 def investment_deals(request):
     return render(request, 'entreprenuer/investment_deals.html')
@@ -352,3 +351,73 @@ def create_investment_deal(request):
         return redirect('homepage1') 
 
     return redirect('investment_deals')  
+
+
+
+#consultation packages
+from .models import ConsultationPackage, ScheduledMeeting
+
+@login_required
+def create_consultation_package(request):
+    if request.method == 'POST':
+        title = request.POST.get('title')
+        description = request.POST.get('description')
+        package_type = request.POST.get('industry')
+        package_price = request.POST.get('package-price')
+
+        expert = get_object_or_404(ExpertRegistration, user=request.user) # Assuming the logged-in user is the expert
+
+        package = ConsultationPackage.objects.create(
+            title=title,
+            description=description,
+            package_type=package_type,
+            package_price=package_price,
+            expert=expert
+        )
+        package.save()
+
+        return redirect('experthomepage')  # Redirect to expert homepage or another URL
+    
+    return render(request, 'consultation_package_form')
+
+
+def consultation_schedule_form(request):
+    completed_requests = ServiceRequest.objects.filter(status='Completed')
+    consultation_packages = ConsultationPackage.objects.all()
+    context = {
+        'consultation_packages': consultation_packages,
+        'completed_requests': completed_requests
+    }
+    return render(request, 'entreprenuer/consultation_schedule_form.html', context )
+
+
+def schedule_meeting(request):
+    if request.method == 'POST':
+        title = request.POST.get('title')
+        expert_name = request.POST.get('expert')
+        consultation_date = request.POST.get('consultation_date')
+        start_time = request.POST.get('start_time')
+        end_time = request.POST.get('end_time')
+        link = request.POST.get('link')
+        package_id = request.POST.get('consultation_package')
+
+        consultation_package = ConsultationPackage.objects.get(pk=package_id)
+
+        # Save your meeting scheduling logic here, 
+        schedule_meeting = ScheduledMeeting.objects.create(
+            title=title,
+            expert_name=expert_name,
+            consultation_date=consultation_date,
+            start_time=start_time,
+            end_time=end_time,
+            link=link,
+            consultation_package=consultation_package
+        )
+        schedule_meeting.save()
+       
+        return redirect('homepage1')  
+    consultation_packages = ConsultationPackage.objects.all()
+    context = {
+        'consultation_packages': consultation_packages
+    }
+    return redirect('consultation_schedule_form', context)
