@@ -62,5 +62,5 @@ path('loginAdmin/', views.loginAdmin, name='loginAdmin'),
 path('logout/', views.logout, name='logout'),
 path('admin2/', views.admin2, name='admin2'),
  path('approve_request/<int:request_id>/', views.approve_request, name='approve_request'),
-]
 
+]

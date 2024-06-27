@@ -108,3 +108,15 @@ class BusinessIdeas(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class InvestmentDeal(models.Model):
+    title = models.CharField(max_length=255)
+    industry = models.CharField(max_length=255)
+    funding_goal = models.DecimalField(max_digits=10, decimal_places=2)
+    valuation = models.DecimalField(max_digits=10, decimal_places=2)
+    terms = models.TextField()
+    entreprenuer = models.ForeignKey(Registration, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.title
