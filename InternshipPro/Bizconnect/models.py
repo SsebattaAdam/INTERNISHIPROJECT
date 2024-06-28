@@ -141,7 +141,16 @@ class ConsultationPackage(models.Model):
     
 
 
+
+    
+
 class ScheduledMeeting(models.Model):
+    STATUS_CHOICES = [
+        ('Pending', 'Pending'),
+        ('Approved', 'Approved'),
+        ('Denied', 'Denied')
+    ]
+    
     title = models.CharField(max_length=255)
     expert_name = models.CharField(max_length=255)
     consultation_date = models.DateField()
@@ -149,6 +158,8 @@ class ScheduledMeeting(models.Model):
     end_time = models.TimeField()
     link = models.URLField()
     consultation_package = models.ForeignKey(ConsultationPackage, on_delete=models.CASCADE)
-
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='Pending')
+    denial_reason = models.TextField(blank=True, null=True)  # Field for the reason of denial
+    
     def __str__(self):
         return f"{self.title} with {self.expert_name} on {self.consultation_date}"
