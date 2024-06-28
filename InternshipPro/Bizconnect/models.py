@@ -1,5 +1,5 @@
 from django.db import models
-
+from protected_media.models import ProtectedImageField, ProtectedFileField
 # Create your models here.
 from django.db import models
 from django.contrib.auth.models import User
@@ -152,3 +152,22 @@ class ScheduledMeeting(models.Model):
 
     def __str__(self):
         return f"{self.title} with {self.expert_name} on {self.consultation_date}"
+    
+class InvestmentFunds(models.Model):
+    title = models.CharField(max_length=200)
+    industry = models.CharField(max_length=100)
+    type = models.CharField(max_length=100, choices=[
+        ('equity', 'Equity'),
+        ('debt', 'Debt'),
+        ('convertible_note', 'Conertible Note'),
+    ])
+    investment_amount = models.DecimalField(max_digits=10, decimal_places=2)
+    contact_method = models.CharField(max_length=100, choices=[
+        ('email', 'Email'),
+        ('phone', 'Phone'),
+    ])
+    notes = models.TextField()
+    supporting_documents = ProtectedFileField(upload_to='supporting_documents/', null=True, blank=True)
+
+    def __str__(self):
+        return self.title
