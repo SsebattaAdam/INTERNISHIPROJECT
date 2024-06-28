@@ -1,0 +1,108 @@
+{% extends 'investor/investorHomepage3.html' %}{% block title %}Fundings | Bizconnect{% endblock title %}{% load static %}
+
+{% block content %}
+<div class="content wrapper mt-80">
+    <div class="container mb-30">
+        <div class="blog__standard-left">
+            <div class="blog__standard-left-item mb-30">
+                
+                <div class="blog__standard-left-item-content">
+                    <ul>
+                        <li ><h3 style="font-size: 30px;">Plegde and discover the benefits.</h3></li>
+                    </ul>
+                    <p class="mb-20"><span class="small-dot">&bull;</span> Fill out this form to make an investment fund to this business proposal and reap from the benefits of the returns.</p>                          
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container mt-25">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="register wow fadeInUp" data-wow-delay="0.8s">
+                    <h4 class="mb-35">All Fields with (*) are required.</h4>
+                    <div class="register-form">
+                        <form action="#" method="post">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-md-6 mb-30">
+                                    <div class="register-form-group">
+                                        <label>Title <span style="color: red;">*</span></label>
+                                        <input readonly type="text" name="title" required value="{{ title }}">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-30">
+                                    <div class="register-form-group">
+                                        <label>Industry <span style="color: red;">*</span></label>
+                                        <input readonly type="text" name="industry" required value="{{ industry }}">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-30">
+                                    <div class="register-form-group">
+                                        <label>Valuation <span style="color: red;">*</span></label>
+                                        <input readonly type="number" name="valuation" placeholder="Valuation" required value="{{ valuation }}">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-30">
+                                    <div class="register-form-group">
+                                        <label>Investment Type <span style="color: red;">*</span></label>
+                                        <select id="type" name="type" required>
+                                            <option value="">Select an option</option>
+                                            <option value="equity">Equity</option>
+                                            <option value="debt">Debt</option>
+                                            <option value="convertible_note">Convertible Note</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-30">
+                                    <div class="register-form-group">
+                                        <label>Investment Amount <span style="color: red;">*</span></label>
+                                        <input type="number" name="investment_amount" placeholder="Amount in UGX" min="1000" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-30">
+                                    <div class="register-form-group">
+                                        <label>Preferred Contact Method <span style="color: red;">*</span></label>
+                                        <select name="contact_method" required>
+                                            <option value="">Select Method</option>
+                                            <option value="email">Email</option>
+                                            <option value="phone">Phone</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 mb-30">
+                                    <div class="register-form-group">
+                                        <label>Additional Notes</label>
+                                        <textarea name="notes" placeholder="Any additional information or notes"></textarea>
+                                    </div>
+                                </div>                         
+                                <div class="col-md-6 mb-30">
+                                    <div class="register-form-group">
+                                        <label>Legal Documents and Contracts. Select all at once (.pdf--Max 32MB) <span style="color: red;">*</span></label>
+                                        <input type="file" style="padding-top: 5px;" name="supporting_documents"  required accept=".pdf">
+                                    </div>
+                                </div>
+                                                                                          
+
+                            </div>
+                            <div class="row">
+                                <div class="col-xl-3 col-md-6 col-lg-4 mb-20">
+                                    <div class="register-form-group">
+                                        <button class="theme-btn" type="submit">Submit</button>
+                                    </div>
+                                </div>
+                                <div class="col-xl-2 col-md-4 col-lg-5">
+                                    <div class="register-form-group">
+                                        <button class="theme-btn" style="background: #030A15;" type="button" onclick="javascript:history.back()">Back</button>
+                                    </div>
+                                </div>                                
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock content %}

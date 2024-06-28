@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'Bizconnect',
+    'protected_media.apps.ProtectedMediaConfig',
 ]
 
 MIDDLEWARE = [
@@ -126,6 +127,12 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = [
     BASE_DIR / 'static',
 ]
+#  Protected Media (Documents)
+PROTECTED_MEDIA_ROOT = "%s/protected/" % BASE_DIR
+PROTECTED_MEDIA_URL = "/protected"
+PROTECTED_MEDIA_SERVER = "nginx"  # Defaults to "django"
+PROTECTED_MEDIA_LOCATION_PREFIX = "/internal"  # Prefix used in nginx config
+PROTECTED_MEDIA_AS_DOWNLOADS = False
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
