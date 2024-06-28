@@ -1,63 +1,51 @@
 {% extends "expert/expertHomepage2.html" %} {% block title%}Consultation Packages | Bizconnect{%endblock%} {% load static%} {% block content %}
-<div class="content wrapper mt-80">
-    <div class="container mt-25">
-        <div>
-            <h2>Consultation Packages</h2>
-            <div class=" mt-35">
-                <div class="solution__area-right lg-center">
-                    <a class="theme-bg-btn" href="{% url 'consultation_package_form' %}">Get started<i
-                            class="flaticon-arrow-right"></i></a>
-                </div>
-            </div>
-        </div>
-        {% if packages %}
-        <div class="row">
-            {% for package in packages %}
-            <div class="blog__standard-left-item col-lg-6 mb-30 wow fadeInUp" data-wow-delay="0.3s">
-                <div class="blog__standard-left-item-content mt-30">
-                    <ul>
-                        <li class="mr-30 md-mr-15"><i class="flaticon-suitcase"></i> {{ package.type }}</li>
-                        <li><i class="flaticon-time-is-money"></i> {{ package.type }}</li>
-                    </ul>
-                    <h3 class="mb-15">{{ package.title }}</h3>
-                    <p class="mb-20">{{ package.description }} </p>
-                    
-                </div>               
-            </div>
-            {% endfor %}           
-
-        </div> 
-        {% else %}
-        <div>
-            <div class="blog__standard-left-item mb-30 wow fadeInUp" data-wow-delay="0.3s">
-                <div class="blog__standard-left-item-content mt-30">
-
-                    <h3 class="mb-15">No Packages present.</h3>
-                    
-                    
-                </div>
-            </div>
-
-        </div>
-        {% endif %}
-        <div class="blog__standard-left-item col-lg-6 mb-30 wow fadeInUp" data-wow-delay="0.3s">
-            <div class="blog__standard-left-item-content mt-30">
-                <ul>
-                    <li class="mr-30 md-mr-15"><i class="flaticon-suitcase"></i> type</li>
-                    <li><i class="flaticon-time-is-money"></i> type</li>
-                </ul>
-                <h3 class="mb-15">Title</h3>
-                <p class="mb-20">descriptionsdescriptionsdescriptionsdescriptions descriptionsdescriptionsdescriptions descriptionsdescriptionsdescriptionsdescriptions descriptionsdescriptions </p>
-                <div class="pr-30 row">
-                    <span class="col-md-4"><a href="#">Accept</a></span>
-                    <span class="col-md-4"><a href="#">Reject</a></span>
-                </div>
-            </div>               
-        </div>
-        
-
-    </div>
-</div>
+<div class="services__area section-padding">
+    <div class="content wrapper mt-20">
+       <div class="services__area section-padding">
+       <div class="container">
+           <div class="row mb-50">
+               <div class="col-xl-12 col-lg-12 col-md-12">
+                   <div class="services__area-section-title t-center">
+                       <span class="section-top mb-15">INVESTMENT DEALs</span>
+                       <h2>View the diiferent deals to invest in</h2>
+                   </div>					
+               </div>			
+           </div>
+             <div class="row">
+					<div class="services__area-item wow col-lg-6 mb-30 fadeInUp" data-wow-delay="0.3s">
+						<div class="services__area-item-top mb-20 d-flex align-items-center">
+							<div class="services__area-item-top-icon">
+								<i class="flaticon-profits"></i>
+							</div>
+							<div class="services__area-item-top-title">
+								<h3>investment consulting</h3>
+							</div>
+						</div>
+						<div class="services__area-item-content pt-20">
+							<p class="mb-25">Maecenas sagittis, quam vel interdum malesuada, nibh metus consectetur felis, cursus</p>
+							<a href="services-details.html">Read More</a>
+						</div>
+					</div>
+				</div>
+                <div class="row">
+                        <div class="services__area-item wow col-lg-6 mb-30 fadeInUp " data-wow-delay="0.3s">
+                            <div class="services__area-item-top mb-20 d-flex align-items-center">
+                                <div class="services__area-item-top-icon">
+                                    <i class="flaticon-profits"></i>
+                                </div>
+                                <div class="services__area-item-top-title">
+                                    <h3>investment consulting</h3>
+                                </div>
+                            </div>
+                            <div class="services__area-item-content pt-20">
+                                <p class="mb-25">Maecenas sagittis, quam vel interdum malesuada, nibh metus consectetur felis, cursus</p>
+                                <a href="services-details.html">Read More</a>
+                            </div>
+                        </div>
+                    </div>
+           </div>
+       </div>
+   </div> 
 
 
 
