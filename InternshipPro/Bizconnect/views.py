@@ -47,7 +47,7 @@ def consultation_schedule(request):
 def consultation_schedule_form(request):
     return render(request, 'entreprenuer/consultation_schedule_form.html')
 
-def investment_deals(request):
+def investment_deal(request):
     return render(request, 'entreprenuer/investment_deals.html')
 
 def investment_deal_form(request):
