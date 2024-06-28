@@ -43,8 +43,6 @@ def service_request_form(request):
 def consultation_schedule(request):
     return render(request, 'entreprenuer/consultation_schedule.html')
 
-
-
 def investment_deals(request):
     return render(request, 'entreprenuer/investment_deals.html')
 
@@ -56,6 +54,10 @@ def register_investor(request):
     return render(request, 'investor/register_investor.html')
 def investorhomepage(request):
     return render(request, 'investor/investorHomepage3.html')
+def investment_fundings(request):
+    return render(request, 'investor/investment_fundings.html')
+def investment_funding_form(request):
+    return render(request, 'investor/investment_funding_form.html')
 
 ## Experts
 def register_expert(request):
@@ -312,15 +314,7 @@ def approve_request(request, request_id):
     return render(request, 'pages/tables/approve_request.html', {'request': service_request, 'experts': experts})
 
 
-
-
-
-
-
 #end of admin views
-
-
-
 
 @login_required
 def list_requestsmade(request):
