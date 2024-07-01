@@ -1,5 +1,4 @@
 from django.db import models
-from protected_media.models import ProtectedImageField, ProtectedFileField
 # Create your models here.
 from django.db import models
 from django.contrib.auth.models import User
@@ -141,7 +140,16 @@ class ConsultationPackage(models.Model):
     
 
 
+
+    
+
 class ScheduledMeeting(models.Model):
+    STATUS_CHOICES = [
+        ('Pending', 'Pending'),
+        ('Approved', 'Approved'),
+        ('Denied', 'Denied')
+    ]
+    
     title = models.CharField(max_length=255)
     expert_name = models.CharField(max_length=255)
     consultation_date = models.DateField()
@@ -149,7 +157,9 @@ class ScheduledMeeting(models.Model):
     end_time = models.TimeField()
     link = models.URLField()
     consultation_package = models.ForeignKey(ConsultationPackage, on_delete=models.CASCADE)
-
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='Pending')
+    denial_reason = models.TextField(blank=True, null=True)  # Field for the reason of denial
+    
     def __str__(self):
         return f"{self.title} with {self.expert_name} on {self.consultation_date}"
     
@@ -167,7 +177,7 @@ class InvestmentFunds(models.Model):
         ('phone', 'Phone'),
     ])
     notes = models.TextField()
-    supporting_documents = ProtectedFileField(upload_to='supporting_documents/', null=True, blank=True)
+    supporting_documents = models.FileField(upload_to='supporting_documents/', null=True, blank=True)
 
     def __str__(self):
         return self.title

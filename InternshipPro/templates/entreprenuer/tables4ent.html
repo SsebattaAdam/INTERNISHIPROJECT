@@ -88,5 +88,68 @@
     {% endfor %}
 </table>
 
+
+
+<h3>Denied Requests</h3>
+<table style="width:100%">
+    <tr>
+        <th>ID</th>
+        <th>Title</th>
+        <th>Expert</th>
+        <th>Date</th>
+        <th>Start Time</th>
+        <th>End Time</th>
+        <th>Urgency Level</th>
+        <th>Denial Reason</th>
+    </tr>
+    {% for meeting in denied_meetings %}
+    <tr>
+        <td>{{ meeting.id }}</td>
+        <td>{{ meeting.title }}</td>
+        <td>{{ meeting.expert_name }}</td>
+        <td>{{ meeting.consultation_date }}</td>
+        <td>{{ meeting.start_time }}</td>
+        <td>{{ meeting.end_time }}</td>
+        <td>{{ meeting.urgency_level }}</td>
+        <td>{{ meeting.denial_reason }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+
+<h3>Approved Requests</h3>
+<table style="width:100%">
+    <tr>
+        <th>ID</th>
+        <th>Title</th>
+        <th>Expert</th>
+        <th>Date</th>
+        <th>Start Time</th>
+        <th>End Time</th>
+        <th>Urgency Level</th>
+      
+        <th>Actions</th>
+    </tr>
+    {% for meeting in approved_meetings %}
+    <tr>
+        <td>{{ meeting.id }}</td>
+        <td>{{ meeting.title }}</td>
+        <td>{{ meeting.expert_name }}</td>
+        <td>{{ meeting.consultation_date }}</td>
+        <td>{{ meeting.start_time }}</td>
+        <td>{{ meeting.end_time }}</td>
+        <td>{{ meeting.urgency_level }}</td>
+       
+        <td>
+            <form action="" method="post" style="display:inline;">
+                {% csrf_token %}
+                
+                <button class="btn btn-primary btn-sm" type="submit">Send Reply</button>
+            </form>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
 </body>
 </html>

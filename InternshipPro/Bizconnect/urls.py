@@ -66,6 +66,12 @@ path('admin2/', views.admin2, name='admin2'),
  path('approve_request/<int:request_id>/', views.approve_request, name='approve_request'),
  path('create_package/', views.create_consultation_package, name='create_package'),
 
-  path('schedule_meeting/', views.schedule_meeting, name='schedule_meeting'),
+path('schedule_meeting/', views.schedule_meeting, name='schedule_meeting'),
+
+
+
+path('update-meeting-status/<int:meeting_id>/<str:status>/', views.update_meeting_status, name='update_meeting_status'),
+
+
 
 ]

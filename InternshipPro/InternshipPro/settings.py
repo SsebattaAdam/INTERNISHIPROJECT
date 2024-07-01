@@ -38,7 +38,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'Bizconnect',
-    'protected_media.apps.ProtectedMediaConfig',
 ]
 
 MIDDLEWARE = [

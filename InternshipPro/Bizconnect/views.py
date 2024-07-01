@@ -284,7 +284,12 @@ def admin2(request):
 @login_required
 def allTables(request):
     requests = ServiceRequest.objects.all()
-    return render(request, 'pages/tables/simple.html', {'requests': requests})
+    scheduled_meetings = ScheduledMeeting.objects.all()
+    context = {
+        'requests': requests,
+        'scheduled_meetings': scheduled_meetings
+    }
+    return render(request, 'pages/tables/simple.html', context)
 
 
 from django.shortcuts import render, get_object_or_404, redirect
@@ -315,10 +320,15 @@ def approve_request(request, request_id):
 def list_requestsmade(request):
     pending_requests = ServiceRequest.objects.filter(status='Pending')
     completed_requests = ServiceRequest.objects.filter(status='Completed')
-    return render(request, 'entreprenuer/tables4ent.html', {
+    denied_meetings = ScheduledMeeting.objects.filter(status='Denied')
+    approved_meetings = ScheduledMeeting.objects.filter(status='Approved')
+    context = {
         'pending_requests': pending_requests,
         'completed_requests': completed_requests,
-    })
+        'denied_meetings': denied_meetings,
+        'approved_meetings': approved_meetings
+    }
+    return render(request, 'entreprenuer/tables4ent.html', context)
 
 
 @login_required
@@ -415,3 +425,29 @@ def schedule_meeting(request):
         'consultation_packages': consultation_packages
     }
     return redirect('consultation_schedule_form', context)
+
+
+
+
+
+
+from django.views.decorators.http import require_POST
+
+@require_POST
+def update_meeting_status(request, meeting_id, status):
+    meeting = get_object_or_404(ScheduledMeeting, id=meeting_id)
+    
+    if status == 'Denied':
+        denial_reason = request.POST.get('denial_reason', '')
+        meeting.status = 'Denied'
+        meeting.denial_reason = denial_reason
+    elif status == 'Approved':
+        meeting.status = 'Approved'
+    elif status == 'Pending':
+        meeting.status = 'Pending'
+    
+    meeting.save()
+    return redirect('allTables')
+
+
+
