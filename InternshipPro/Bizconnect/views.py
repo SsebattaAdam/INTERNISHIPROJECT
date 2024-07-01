@@ -31,11 +31,21 @@ def register_entreprenuer(request):
 def homepage1(request):
     return render(request, 'entreprenuer/homepage1.html')
 
+@login_required
 def business_ideals(request):
-    return render(request, 'entreprenuer/business_ideals.html')
+    business_ideas = BusinessIdeas.objects.all()
+    return render(request, 'entreprenuer/business_ideals.html', {'proposals': business_ideas,})
+
+def business_ideal_form(request):
+    return render(request, 'entreprenuer/business_ideal_form.html')
 
 def service_requests(request):
-    return render(request, 'entreprenuer/service_request.html')
+    pending_requests = ServiceRequest.objects.filter(status='Pending')
+    completed_requests = ServiceRequest.objects.filter(status='Completed')
+    return render(request, 'entreprenuer/service_request.html', {
+        'pending_requests': pending_requests,
+        'completed_requests': completed_requests,
+    })
 
 def service_request_form(request):
     return render(request, 'entreprenuer/expert_request_form.html')
@@ -43,8 +53,10 @@ def service_request_form(request):
 def consultation_schedule(request):
     return render(request, 'entreprenuer/consultation_schedule.html')
 
+@login_required
 def investment_deals(request):
-    return render(request, 'entreprenuer/investment_deals.html')
+    investment_deals = InvestmentDeal.objects.all()
+    return render(request, 'entreprenuer/investment_deals.html', {'deals': investment_deals,})
 
 def investment_deal_form(request):
     return render(request, 'entreprenuer/investment_deal_form.html')
@@ -178,7 +190,7 @@ def register_expert(request):
         expert.save()
         
         # Redirect to another page after successful submission
-        return redirect('homepage1')
+        return redirect('experthomepage')
     
     return render(request, 'expert/register_expert.html')
 
