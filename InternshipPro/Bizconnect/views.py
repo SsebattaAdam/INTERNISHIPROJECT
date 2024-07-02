@@ -32,11 +32,21 @@ def register_entreprenuer(request):
 def homepage1(request):
     return render(request, 'entreprenuer/homepage1.html')
 
+@login_required
 def business_ideals(request):
-    return render(request, 'entreprenuer/business_ideals.html')
+    business_ideas = BusinessIdeas.objects.all()
+    return render(request, 'entreprenuer/business_ideals.html', {'proposals': business_ideas,})
+
+def business_ideal_form(request):
+    return render(request, 'entreprenuer/business_ideal_form.html')
 
 def service_requests(request):
-    return render(request, 'entreprenuer/service_request.html')
+    pending_requests = ServiceRequest.objects.filter(status='Pending')
+    completed_requests = ServiceRequest.objects.filter(status='Completed')
+    return render(request, 'entreprenuer/service_request.html', {
+        'pending_requests': pending_requests,
+        'completed_requests': completed_requests,
+    })
 
 def service_request_form(request):
     return render(request, 'entreprenuer/expert_request_form.html')
@@ -58,6 +68,10 @@ def register_investor(request):
     return render(request, 'investor/register_investor.html')
 def investorhomepage(request):
     return render(request, 'investor/investorHomepage3.html')
+def investment_fundings(request):
+    return render(request, 'investor/investment_fundings.html')
+def investment_funding_form(request):
+    return render(request, 'investor/investment_funding_form.html')
 
 def investment_deals(request):
     return render(request, 'investor/investment_deals.html')
@@ -184,7 +198,7 @@ def register_expert(request):
         expert.save()
         
         # Redirect to another page after successful submission
-        return redirect('homepage1')
+        return redirect('experthomepage')
     
     return render(request, 'expert/register_expert.html')
 
@@ -290,7 +304,12 @@ def admin2(request):
 @login_required
 def allTables(request):
     requests = ServiceRequest.objects.all()
-    return render(request, 'pages/tables/simple.html', {'requests': requests})
+    scheduled_meetings = ScheduledMeeting.objects.all()
+    context = {
+        'requests': requests,
+        'scheduled_meetings': scheduled_meetings
+    }
+    return render(request, 'pages/tables/simple.html', context)
 
 
 from django.shortcuts import render, get_object_or_404, redirect
@@ -315,24 +334,21 @@ def approve_request(request, request_id):
     return render(request, 'pages/tables/approve_request.html', {'request': service_request, 'experts': experts})
 
 
-
-
-
-
-
 #end of admin views
-
-
-
 
 @login_required
 def list_requestsmade(request):
     pending_requests = ServiceRequest.objects.filter(status='Pending')
     completed_requests = ServiceRequest.objects.filter(status='Completed')
-    return render(request, 'entreprenuer/tables4ent.html', {
+    denied_meetings = ScheduledMeeting.objects.filter(status='Denied')
+    approved_meetings = ScheduledMeeting.objects.filter(status='Approved')
+    context = {
         'pending_requests': pending_requests,
         'completed_requests': completed_requests,
-    })
+        'denied_meetings': denied_meetings,
+        'approved_meetings': approved_meetings
+    }
+    return render(request, 'entreprenuer/tables4ent.html', context)
 
 
 @login_required
@@ -359,3 +375,99 @@ def create_investment_deal(request):
         return redirect('homepage1') 
 
     return redirect('investment_deals')  
+
+
+
+#consultation packages
+from .models import ConsultationPackage, ScheduledMeeting
+
+@login_required
+def create_consultation_package(request):
+    if request.method == 'POST':
+        title = request.POST.get('title')
+        description = request.POST.get('description')
+        package_type = request.POST.get('industry')
+        package_price = request.POST.get('package-price')
+
+        expert = get_object_or_404(ExpertRegistration, user=request.user) # Assuming the logged-in user is the expert
+
+        package = ConsultationPackage.objects.create(
+            title=title,
+            description=description,
+            package_type=package_type,
+            package_price=package_price,
+            expert=expert
+        )
+        package.save()
+
+        return redirect('experthomepage')  # Redirect to expert homepage or another URL
+    
+    return render(request, 'consultation_package_form')
+
+
+def consultation_schedule_form(request):
+    completed_requests = ServiceRequest.objects.filter(status='Completed')
+    consultation_packages = ConsultationPackage.objects.all()
+    context = {
+        'consultation_packages': consultation_packages,
+        'completed_requests': completed_requests
+    }
+    return render(request, 'entreprenuer/consultation_schedule_form.html', context )
+
+
+def schedule_meeting(request):
+    if request.method == 'POST':
+        title = request.POST.get('title')
+        expert_name = request.POST.get('expert')
+        consultation_date = request.POST.get('consultation_date')
+        start_time = request.POST.get('start_time')
+        end_time = request.POST.get('end_time')
+        link = request.POST.get('link')
+        package_id = request.POST.get('consultation_package')
+
+        consultation_package = ConsultationPackage.objects.get(pk=package_id)
+
+        # Save your meeting scheduling logic here, 
+        schedule_meeting = ScheduledMeeting.objects.create(
+            title=title,
+            expert_name=expert_name,
+            consultation_date=consultation_date,
+            start_time=start_time,
+            end_time=end_time,
+            link=link,
+            consultation_package=consultation_package
+        )
+        schedule_meeting.save()
+       
+        return redirect('homepage1')  
+    consultation_packages = ConsultationPackage.objects.all()
+    context = {
+        'consultation_packages': consultation_packages
+    }
+    return redirect('consultation_schedule_form', context)
+
+
+
+
+
+
+from django.views.decorators.http import require_POST
+
+@require_POST
+def update_meeting_status(request, meeting_id, status):
+    meeting = get_object_or_404(ScheduledMeeting, id=meeting_id)
+    
+    if status == 'Denied':
+        denial_reason = request.POST.get('denial_reason', '')
+        meeting.status = 'Denied'
+        meeting.denial_reason = denial_reason
+    elif status == 'Approved':
+        meeting.status = 'Approved'
+    elif status == 'Pending':
+        meeting.status = 'Pending'
+    
+    meeting.save()
+    return redirect('allTables')
+
+
+

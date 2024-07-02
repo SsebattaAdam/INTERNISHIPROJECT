@@ -342,99 +342,73 @@
         <!-- /.row -->
         <div class="row">
           <div class="col-12">
-            <div class="card">
-              <div class="card-header">
-                <h3 class="card-title">Fixed Header Table</h3>
-
-                <div class="card-tools">
-                  <div class="input-group input-group-sm" style="width: 150px;">
-                    <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
-
-                    <div class="input-group-append">
-                      <button type="submit" class="btn btn-default">
-                        <i class="fas fa-search"></i>
-                      </button>
-                    </div>
+              <div class="card">
+                  <div class="card-header">
+                      <h3 class="card-title">Approve Scheduled Meetings</h3>
                   </div>
-                </div>
+                  <div class="card-body table-responsive p-0" style="height: 300px;">
+                      <table class="table table-head-fixed text-nowrap">
+                          <thead>
+                              <tr>
+                                  <th>ID</th>
+                                  <th>Title</th>
+                                  <th>Expert</th>
+                                  <th>Date</th>
+                                  <th>Start Time</th>
+                                  <th>End Time</th>
+                                  <th>Status</th>
+                                  <th>Actions</th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                              {% for meeting in scheduled_meetings %}
+                              <tr>
+                                  <td>{{ meeting.id }}</td>
+                                  <td>{{ meeting.title }}</td>
+                                  <td>{{ meeting.expert_name }}</td>
+                                  <td>{{ meeting.consultation_date }}</td>
+                                  <td>{{ meeting.start_time }}</td>
+                                  <td>{{ meeting.end_time }}</td>
+                                  <td>
+                                      {% if meeting.status == 'Approved' %}
+                                      <span class="tag tag-success">Approved</span>
+                                      {% elif meeting.status == 'Pending' %}
+                                      <span class="tag tag-warning">Pending</span>
+                                      {% else %}
+                                      <span class="tag tag-danger">Denied</span>
+                                      {% endif %}
+                                  </td>
+                                  <td>
+                                      <form action="{% url 'update_meeting_status' meeting.id 'Approved' %}" method="post" style="display:inline;">
+                                          {% csrf_token %}
+                                          <button class="btn btn-success btn-sm" type="submit">Approve</button>
+                                      </form>
+                                      <button class="btn btn-danger btn-sm" onclick="showDenialReason({{ meeting.id }})">Deny</button>
+                                      <form id="denial-form-{{ meeting.id }}" action="{% url 'update_meeting_status' meeting.id 'Denied' %}" method="post" style="display:none;">
+                                          {% csrf_token %}
+                                          <textarea name="denial_reason" placeholder="Reason for denial" rows="2" cols="20"></textarea>
+                                          <button class="btn btn-danger btn-sm" type="submit">Submit Denial</button>
+                                      </form>
+                                      <form action="{% url 'update_meeting_status' meeting.id 'Pending' %}" method="post" style="display:inline;">
+                                          {% csrf_token %}
+                                          <button class="btn btn-warning btn-sm" type="submit">Pending</button>
+                                      </form>
+                                  </td>
+                              </tr>
+                              {% endfor %}
+                          </tbody>
+                      </table>
+                  </div>
               </div>
-              <!-- /.card-header -->
-              <div class="card-body table-responsive p-0" style="height: 300px;">
-                <table class="table table-head-fixed text-nowrap">
-                  <thead>
-                    <tr>
-                      <th>ID</th>
-                      <th>User</th>
-                      <th>Date</th>
-                      <th>Status</th>
-                      <th>Reason</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>183</td>
-                      <td>John Doe</td>
-                      <td>11-7-2014</td>
-                      <td><span class="tag tag-success">Approved</span></td>
-                      <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                    </tr>
-                    <tr>
-                      <td>219</td>
-                      <td>Alexander Pierce</td>
-                      <td>11-7-2014</td>
-                      <td><span class="tag tag-warning">Pending</span></td>
-                      <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                    </tr>
-                    <tr>
-                      <td>657</td>
-                      <td>Bob Doe</td>
-                      <td>11-7-2014</td>
-                      <td><span class="tag tag-primary">Approved</span></td>
-                      <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                    </tr>
-                    <tr>
-                      <td>175</td>
-                      <td>Mike Doe</td>
-                      <td>11-7-2014</td>
-                      <td><span class="tag tag-danger">Denied</span></td>
-                      <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                    </tr>
-                    <tr>
-                      <td>134</td>
-                      <td>Jim Doe</td>
-                      <td>11-7-2014</td>
-                      <td><span class="tag tag-success">Approved</span></td>
-                      <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                    </tr>
-                    <tr>
-                      <td>494</td>
-                      <td>Victoria Doe</td>
-                      <td>11-7-2014</td>
-                      <td><span class="tag tag-warning">Pending</span></td>
-                      <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                    </tr>
-                    <tr>
-                      <td>832</td>
-                      <td>Michael Doe</td>
-                      <td>11-7-2014</td>
-                      <td><span class="tag tag-primary">Approved</span></td>
-                      <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                    </tr>
-                    <tr>
-                      <td>982</td>
-                      <td>Rocky Doe</td>
-                      <td>11-7-2014</td>
-                      <td><span class="tag tag-danger">Denied</span></td>
-                      <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-              <!-- /.card-body -->
-            </div>
-            <!-- /.card -->
           </div>
-        </div>
+      </div>
+      
+      <script>
+      function showDenialReason(meetingId) {
+          var form = document.getElementById('denial-form-' + meetingId);
+          form.style.display = 'block';
+      }
+      </script>
         <!-- /.row -->
         <div class="row">
           <div class="col-12">

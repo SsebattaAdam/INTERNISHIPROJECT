@@ -16,6 +16,7 @@ urlpatterns = [
   ## These are the Entreprenuers' urls
   path('entreprenuers/', views.homepage1, name = 'homepage1'),
   path('entreprenuer/ideals/', views.business_ideals, name = 'business_ideals'),
+  path("entrepreuner/ideal/form/", views.business_ideal_form , name="business_ideal_form"),
   path("entreprenuer/requests/", views.service_requests, name="service_requests"),
   path("entreprenuer/requests/form/", views.service_request_form, name="expert_request_form"),
   path("entreprenuer/schedule/", views.consultation_schedule, name="consultation_schedule"),
@@ -25,7 +26,8 @@ urlpatterns = [
   
   ## These are the Investors' urls
   path('investors/', views.investorhomepage, name = 'investorhomepage'),
-  path('investors/', views.investment_deals, name = 'investment_deals'),
+  path("investor/fundings/", views.investment_fundings, name="investment_fundings"),
+  path("investor/funding/form/", views.investment_funding_form, name="investment_funding_form"),
   
   ## These are the Experts' urls
   path('experts/', views.experthomepage, name = 'experthomepage'),
@@ -52,16 +54,26 @@ urlpatterns = [
  
 path('submit_service_request/', views.submit_service_request, name='submit_service_request'),
 path('submit_business_idea/', views.submit_business_idea, name='submit_business_idea'),
+path("submit_investment_deal/", views.create_investment_deal, name="create_investment_deal"),
 
 
 #admin urls
 path('tables/', views.allTables, name='allTables'),
-path('list_requestsmade/', views.list_requestsmade, name='list_requestsmade1'),
+# path('list_requestsmade/', views.list_requestsmade, name='list_requestsmade1'),
 
 path('login_dmin/', views.login_view, name='login_dmin'),
 path('loginAdmin/', views.loginAdmin, name='loginAdmin'),
 path('logout/', views.logout, name='logout'),
 path('admin2/', views.admin2, name='admin2'),
  path('approve_request/<int:request_id>/', views.approve_request, name='approve_request'),
+ path('create_package/', views.create_consultation_package, name='create_package'),
+
+path('schedule_meeting/', views.schedule_meeting, name='schedule_meeting'),
+
+
+
+path('update-meeting-status/<int:meeting_id>/<str:status>/', views.update_meeting_status, name='update_meeting_status'),
+
+
 
 ]

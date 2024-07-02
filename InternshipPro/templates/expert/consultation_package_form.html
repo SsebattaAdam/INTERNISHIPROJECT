@@ -13,7 +13,7 @@
                 <div class="register wow fadeInUp" data-wow-delay="0.8s">
                     <h4 class="mb-35">All Fields with (*) are required.</h4>
                     <div class="register-form">
-                        <form action="#" method="post">
+                        <form action="{% url 'create_package' %}" method="post">
                             {% csrf_token %}
                             <div class="row">
                                 <div class="col-md-6 mb-30">
@@ -50,13 +50,17 @@
                                     </div>
                                 </div>
                             </div>
-                            <div>
+                            <div class="row">
                                 <div class="col-xl-3 col-md-6 col-lg-4 mt-20">
                                     <div class="register-form-group">
                                         <button class="theme-btn" type="submit">Publish</button>
                                     </div>
                                 </div>
-
+                                <div class="col-xl-2 col-md-4 col-lg-5">
+                                    <div class="register-form-group">
+                                        <button class="theme-btn" style="background: #030A15;" type="button" onclick="javascript:history.back()">Back</button>
+                                    </div>
+                                </div>
                             </div>
                         </form>
                     </div>

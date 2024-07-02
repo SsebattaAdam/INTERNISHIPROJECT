@@ -1,17 +1,17 @@
-{% extends "entreprenuer/homepage1.html" %} {% block title %}Schedule Details |
-Bizconnect{% endblock title %}{% load static %} {% block content %}
+{% extends "entreprenuer/homepage1.html" %}
+{% block title %}Schedule Details | Bizconnect{% endblock title %}
+{% load static %}
 
+{% block content %}
 <div class="content wrapper mt-80">
-    
-    <div class="container ">
+    <div class="container">
         <div class="blog__standard-left">
             <div class="blog__standard-left-item mb-30">
-                
                 <div class="blog__standard-left-item-content">
                     <ul>
-                        <li ><h3 style="font-size: 30px;">Trying to schedule your requests</h3></li>
+                        <li><h3 style="font-size: 30px;">Trying to schedule your requests</h3></li>
                     </ul>
-                    <p class="mb-20"><span class="small-dot">&bull;</span> Fill out the form below to request for a scheduled meeting with your designated business expert for assistance. These meetings will be held <span style="font-size: 20px; color: #fe8c12; font-weight: 800;">ONLINE</span> to save resources.</p>                    
+                    <p class="mb-20"><span class="small-dot">&bull;</span> Fill out the form below to request for a scheduled meeting with your designated business expert for assistance.</p>
                 </div>
             </div>
         </div>
@@ -20,54 +20,67 @@ Bizconnect{% endblock title %}{% load static %} {% block content %}
                 <div class="register wow fadeInUp" data-wow-delay="0.8s">
                     <h4 class="mb-35">All Fields with (*) are required.</h4>
                     <div class="register-form">
-                        <form action="#" method="post">
+                        <form action="{% url 'schedule_meeting' %}" method="post">
                             {% csrf_token %}
                             <div class="row">
                                 <div class="col-md-6 mb-30">
-                                    <div class="register-form-group"> {% comment "This is a reminder about the scheduling of meetings" %} This feild is meant to search
-                                         and return the desired meeting to be scheduled.{% endcomment %}
+                                    <div class="register-form-group">
                                         <label>Title <span style="color: red;">*</span></label>
-                                        <input type="text" name="title" placeholder="Title of the meeting" required>
+                                        <input type="text" name="title" placeholder="Title of the meeting" readonly required>
                                     </div>
                                 </div>
-                                
                                 <div class="col-md-6 mb-30">
                                     <div class="register-form-group">
                                         <label>Expert <span style="color: red;">*</span></label>
-                                        <input type="text" id="expert" name="expert" placeholder="Expert Name"  required>
+                                        <select id="expert" name="expert" onchange="updateFields()" required>
+                                            {% for request in completed_requests %}
+                                            <option value="{{ request.id }}" data-expert="{{ request.assigned_expert.surname }}" data-start-time="{{ request.start_time }}" data-end-time="{{ request.end_time }}">{{ request.assigned_expert.surname }}</option>
+                                            {% endfor %}
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-30">
                                     <div class="register-form-group">
                                         <label>Preferred Consultation Date <span style="color: red;">*</span></label>
-                                        <input type="date" id="consultation-date" name="consultation_date"  required>
+                                        <input type="date" id="consultation-date" name="consultation_date" required>
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-30">
-                                    <div class="register-form-group">  {# This should return the already set date for the meeting as the starting date. #}
+                                    <div class="register-form-group">
                                         <label>Start Time <span style="color: red;">*</span></label>
-                                        <input type="time" id="start-time" name="start_time"  required>
+                                        <input type="time" id="start-time" name="start_time" required>
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-30">
                                     <div class="register-form-group">
                                         <label>End Time <span style="color: red;">*</span></label>
-                                        <input type="time" id="end-time" name="end_time"  required>
+                                        <input type="time" id="end-time" name="end_time" required>
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-30">
                                     <div class="register-form-group">
-                                        <label>Scheduled online link<span style="color: red;">*</span></label>
-                                        <input type="url" id="link" name="link"  required>
+                                        <label>Select Consultation Package <span style="color: red;">*</span></label>
+                                        <select id="consultation-package" name="consultation_package" required>
+                                            <option value="">Select a package</option>
+                                            {% for package in consultation_packages %}
+                                            <option value="{{ package.id }}">{{ package.title }}</option>
+                                            {% endfor %}
+                                        </select>
                                     </div>
                                 </div>
                                 
+                            </div>
+                            <div class="row">
                                 <div class="col-xl-3 col-md-6 col-lg-4 mb-20">
                                     <div class="register-form-group">
                                         <button class="theme-btn" type="submit">Submit</button>
                                     </div>
                                 </div>
-                                          
+                                <div class="col-xl-2 col-md-4 col-lg-5">
+                                    <div class="register-form-group">
+                                        <button class="theme-btn" style="background: #030A15;" type="button" onclick="javascript:history.back()">Back</button>
+                                    </div>
+                                </div>
                             </div>
                         </form>
                     </div>
@@ -76,5 +89,4 @@ Bizconnect{% endblock title %}{% load static %} {% block content %}
         </div>
     </div>
 </div>
-
 {% endblock content %}
