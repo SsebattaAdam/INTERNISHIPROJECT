@@ -25,6 +25,7 @@ urlpatterns = [
   
   ## These are the Investors' urls
   path('investors/', views.investorhomepage, name = 'investorhomepage'),
+  path('investors/', views.investment_deals, name = 'investment_deals'),
   
   ## These are the Experts' urls
   path('experts/', views.experthomepage, name = 'experthomepage'),

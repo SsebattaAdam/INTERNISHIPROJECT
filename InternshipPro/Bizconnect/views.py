@@ -59,6 +59,8 @@ def register_investor(request):
 def investorhomepage(request):
     return render(request, 'investor/investorHomepage3.html')
 
+def investment_deals(request):
+    return render(request, 'investor/investment_deals.html')
 ## Experts
 def register_expert(request):
     return render(request, 'expert/register_expert.html')
