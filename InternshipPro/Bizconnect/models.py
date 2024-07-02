@@ -92,6 +92,7 @@ class ServiceRequest(models.Model):
 
 
 class BusinessIdeas(models.Model):
+    entrepreneur = models.ForeignKey(Registration, related_name='business_ideas', on_delete=models.CASCADE)
     title = models.CharField(max_length=255)
     description = models.TextField()
     industry = models.CharField(max_length=100)
@@ -110,12 +111,13 @@ class BusinessIdeas(models.Model):
 
 
 class InvestmentDeal(models.Model):
+    entrepreneur = models.ForeignKey(Registration, related_name='investment_deals', on_delete=models.CASCADE)
     title = models.CharField(max_length=255)
     industry = models.CharField(max_length=255)
     funding_goal = models.DecimalField(max_digits=10, decimal_places=2)
     valuation = models.DecimalField(max_digits=10, decimal_places=2)
     terms = models.TextField()
-    entreprenuer = models.ForeignKey(Registration, on_delete=models.CASCADE)
+    entrepreneur = models.ForeignKey(Registration, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.title
@@ -149,7 +151,7 @@ class ScheduledMeeting(models.Model):
         ('Approved', 'Approved'),
         ('Denied', 'Denied')
     ]
-    
+    entrepreneur = models.ForeignKey(Registration, related_name='schedule_meeting', on_delete=models.CASCADE)
     title = models.CharField(max_length=255)
     expert_name = models.CharField(max_length=255)
     consultation_date = models.DateField()
@@ -164,12 +166,13 @@ class ScheduledMeeting(models.Model):
         return f"{self.title} with {self.expert_name} on {self.consultation_date}"
     
 class InvestmentFunds(models.Model):
+    entrepreneur = models.ForeignKey(Registration, related_name='investment_fund', on_delete=models.CASCADE)
     title = models.CharField(max_length=200)
     industry = models.CharField(max_length=100)
     type = models.CharField(max_length=100, choices=[
         ('equity', 'Equity'),
         ('debt', 'Debt'),
-        ('convertible_note', 'Conertible Note'),
+        ('convertible_note', 'Convertible Note'),
     ])
     investment_amount = models.DecimalField(max_digits=10, decimal_places=2)
     contact_method = models.CharField(max_length=100, choices=[

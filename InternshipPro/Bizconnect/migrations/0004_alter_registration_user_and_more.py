@@ -32,7 +32,7 @@ class Migration(migrations.Migration):
                 ('funding_goal', models.DecimalField(decimal_places=2, max_digits=10)),
                 ('valuation', models.DecimalField(decimal_places=2, max_digits=10)),
                 ('terms', models.TextField()),
-                ('entreprenuer', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='Bizconnect.registration')),
+                ('entrepreneur', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='Bizconnect.registration')),
             ],
         ),
     ]

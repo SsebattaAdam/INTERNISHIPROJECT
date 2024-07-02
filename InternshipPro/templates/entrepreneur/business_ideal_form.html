@@ -1,4 +1,4 @@
-{% extends "entreprenuer/homepage1.html" %} {% block title%}Business Proposal Form | Bizconnect{%endblock%} {% load static%} {% block content %}
+{% extends "entrepreneur/homepage1.html" %} {% block title%}Business Proposal Form | Bizconnect{%endblock%} {% load static%} {% block content %}
 
     <div class="content wrapper mt-80">
         <div class="container ">
@@ -19,7 +19,7 @@
                     <div class="register wow fadeInUp" data-wow-delay="0.8s">
                         <h4 class="mb-35">All Fields with (*) are required.</h4>
                         <div class="register-form">
-                            <form action="{% url 'submit_business_idea' %}" method="post" enctype="multipart/form-data">
+                            <form action="{% url 'business_ideal_form' %}" method="post" enctype="multipart/form-data">
                                 {% csrf_token %}
 
                                 <div class="row">
