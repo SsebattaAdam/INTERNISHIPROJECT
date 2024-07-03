@@ -1,0 +1,94 @@
+{% extends "entrepreneur/homepage1.html" %}
+{% block title %}Schedule Details | Bizconnect{% endblock title %}
+{% load static %}
+
+{% block content %}
+<div class="content wrapper mt-80">
+    <div class="container">
+        <div class="blog__standard-left">
+            <div class="blog__standard-left-item mb-30">
+                <div class="blog__standard-left-item-content">
+                    <ul>
+                        <li><h3 style="font-size: 30px;">Trying to schedule your requests</h3></li>
+                    </ul>
+                    <p class="mb-20"><span class="small-dot">&bull;</span> Fill out the form below to request for a scheduled meeting with your designated business expert for assistance.</p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="register wow fadeInUp" data-wow-delay="0.4s">
+                    <h4 class="mb-35">All Fields with (*) are required.</h4>
+                    <div class="register-form">
+                        <form action="{% url 'schedule_meeting' %}" method="post">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-md-6 mb-30">
+                                    <div class="register-form-group">
+                                        <label>Title <span style="color: red;">*</span></label>
+                                        <input type="text" id="title" name="title" value="{{completed_request.business_idea}}" placeholder="{{ completed_request.business_idea }}" readonly />
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-30">
+                                    <div class="register-form-group">
+                                        <label>Expert <span style="color: red;">*</span></label>
+                                        <input type="text" id="expert" name="expert" value="{{completed_request.assigned_expert.surname}}" placeholder="{{ completed_request.assigned_expert.surname }}" readonly />
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-30">
+                                    <div class="register-form-group">
+                                        <label>Preferred Consultation Date <span style="color: red;">*</span></label>
+                                        <input type="text" id="consultation_date" name="consultation_date" value="{{completed_request.consultation_date|date:'Y-m-d'}}" placeholder="{{ completed_request.consultation_date|date:'Y-m-d' }}" readonly />
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-30">
+                                    <div class="register-form-group">
+                                        <label>Start Time <span style="color: red;">*</span></label>
+                                        <input type="time" id="start_time" name="start_time" value="{{completed_request.consultation_time}}" placeholder="{{ completed_request.consultation_time }}" readonly />
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-30">
+                                    <div class="register-form-group">
+                                        <label>End Time <span style="color: red;">*</span></label>
+                                        <input type="time" id="end-time" name="end_time" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-30">
+                                    <div class="register-form-group">
+                                        <label>Link (Upload the Url for the online meeting)<span style="color: red;">*</span></label>
+                                        <input type="url" id="link" name="link" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-30">
+                                    <div class="register-form-group">
+                                        <label>Select Consultation Package <span style="color: red;">*</span></label>
+                                        <select id="consultation_package" name="consultation_package" required>
+                                            <option value="">Select a package</option>
+                                            {% for package in consultation_packages %}
+                                            <option value="{{ package.id }}">{{ package.title }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            <div class="row">
+                                <div class="col-xl-3 col-md-6 col-lg-4 mb-20">
+                                    <div class="register-form-group">
+                                        <button class="theme-btn" type="submit">Submit</button>
+                                    </div>
+                                </div>
+                                <div class="col-xl-2 col-md-4 col-lg-5">
+                                    <div class="register-form-group">
+                                        <button class="theme-btn" style="background: #030A15;" type="button" onclick="javascript:history.back()">Back</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
