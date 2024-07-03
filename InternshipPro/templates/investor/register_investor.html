@@ -104,7 +104,9 @@
                         <div class="register wow fadeInUp" data-wow-delay="0.8s">
                             <h4 class="mb-35">All Fields are required.</h4>
                             <div class="register-form">
-                                <form id="personForm" action="#" method="post">
+                                <form id="personForm" action="{% url 'submit_investor_form' %}" method="post">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="type" value="individual">
                                     <div class="row">
                                         <div class="col-md-6 mb-30">
                                             <div class="register-form-group">
@@ -127,20 +129,20 @@
                                         </div>
                                         <div class="col-md-7 md-mb-30">
                                             <div class="register-form-group">
-                                                <input required type="email" name="email-person"
+                                                <input required type="email" name="email"
                                                     placeholder="Email Address e.g. user@email.com">
                                             </div>
                                         </div>
                                         <div class="col-md-6 md-mb-30">
                                             <div class="register-form-group">
-                                                <input required type="tel" name="contact-person"
+                                                <input required type="tel" name="contact"
                                                     placeholder="Contact e.g. 256 701 234 567">
                                             </div>
                                         </div>
 
                                         <div class="col-md-6 mb-30">
                                             <div class="register-form-group">
-                                                <select required id="role" name="role">
+                                                <select required id="role" name="country">
                                                     <option value="">Select Country</option>
                                                     <option id="uganda" value="uganda">Uganda</option>
                                                     <option id="tanzania" value="tanzania">Tanzania</option>
@@ -228,7 +230,9 @@
                         <div class="register wow fadeInUp" data-wow-delay="0.8s">
                             <h4 class="mb-35">All Fields are required.</h4>
                             <div class="register-form">
-                                <form id="companyForm" action="#" method="post">
+                                <form id="companyForm" action="{% url 'submit_investor_form' %}" method="post">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="type" value="organization">
                                     <div class="row">
                                         <div class="col-md-6 mb-30">
                                             <div class="register-form-group">
@@ -238,7 +242,7 @@
                                         
                                         <div class="col-md-5 md-mb-30">
                                             <div class="register-form-group">
-                                                <input required type="email" name="email-company"
+                                                <input required type="email" name="email"
                                                     placeholder="Email Address e.g. user@email.com">
                                             </div>
                                         </div>
@@ -251,7 +255,7 @@
                                         
                                         <div class="col-md-6 mb-30">
                                             <div class="register-form-group">
-                                                <select required id="role" name="role">
+                                                <select required id="role" name="country">
                                                     <option value="">Select Country</option>
                                                     <option id="uganda" value="uganda">Uganda</option>
                                                     <option id="tanzania" value="tanzania">Tanzania</option>
@@ -262,38 +266,38 @@
                                         <h6 class="mb-30 col-md-2">Investment Preferences:</h6>
                                         <div class="col-md-10 mb-30">
                                             <label for="tourism-company" class="mr-5">
-                                                <input type="checkbox" id="tourism-company" name="tourism-company" value="tourism">
+                                                <input type="checkbox" id="tourism-company" name="tourism" value="tourism">
                                                 <span class="custom-checkbox"></span> Tourism and Hospitality
                                             </label>
                                             <label for="media-company" class="mr-5">
-                                                <input type="checkbox" id="media-company" name="media-company" value="media">
+                                                <input type="checkbox" id="media-company" name="media" value="media">
                                                 <span class="custom-checkbox"></span> Media and IT services
                                             </label>
                                             <label for="commercial-company" class="mr-5">
-                                                <input type="checkbox" id="commercial-company" name="commercial-company"
+                                                <input type="checkbox" id="commercial-company" name="commercial"
                                                     value="commercial">
                                                 <span class="custom-checkbox"></span> Commercial Agriculture
                                             </label>
                                             <label for="estate-company" class="mr-5">
-                                                <input type="checkbox" id="estate-company" name="estate-company" value="estate">
+                                                <input type="checkbox" id="estate-company" name="estate" value="estate">
                                                 <span class="custom-checkbox"></span> Real Estate
                                             </label>
                                             <label for="manufacturing-company" class="mr-5">
-                                                <input type="checkbox" id="manufacturing-company" name="manufacturing-company"
+                                                <input type="checkbox" id="manufacturing-company" name="manufacturing"
                                                     value="manufacturing">
                                                 <span class="custom-checkbox"></span> Manufacturing
                                             </label>
                                             <label for="education-company" class="mr-5">
-                                                <input type="checkbox" id="education-company" name="education-company"
+                                                <input type="checkbox" id="education-company" name="education"
                                                     value="education">
                                                 <span class="custom-checkbox"></span> Education
                                             </label>
                                             <label for="health-company" class="mr-5">
-                                                <input type="checkbox" id="health-company" name="health-company" value="health">
+                                                <input type="checkbox" id="health-company" name="health" value="health">
                                                 <span class="custom-checkbox"></span> Health Care
                                             </label>
                                             <label for="wholesale-company">
-                                                <input type="checkbox" id="wholesale-company" name="wholesale-company"
+                                                <input type="checkbox" id="wholesale-company" name="wholesale"
                                                     value="wholesale">
                                                 <span class="custom-checkbox"></span> Wholesale Trade
                                             </label>
