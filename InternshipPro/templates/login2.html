@@ -29,7 +29,7 @@
         <p style="color:red;">{{ error }}</p>
       {% endif %}
       
-      <form action="{% url 'login_dmin' %}" method="post">
+      <form action="{% url 'loginAdmin' %}" method="post">
         {% csrf_token %}
         <div class="input-group mb-3">
           <input type="text" name="username" class="form-control" placeholder="Username" required>
