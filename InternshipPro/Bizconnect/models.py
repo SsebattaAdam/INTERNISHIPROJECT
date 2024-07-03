@@ -184,3 +184,45 @@ class InvestmentFunds(models.Model):
 
     def __str__(self):
         return self.title
+    
+
+
+
+
+
+    from django.db import models
+
+class Investor(models.Model):
+    TYPE_CHOICES = [
+        ('individual', 'Individual'),
+        ('organization', 'Organization'),
+    ]
+    type = models.CharField(max_length=20, choices=TYPE_CHOICES)
+    
+    # Common fields
+    email = models.EmailField()
+    contact = models.CharField(max_length=20)
+    country = models.CharField(max_length=50)
+    capital = models.CharField(max_length=100)
+    information = models.TextField()
+    
+    # Individual-specific fields
+    surname = models.CharField(max_length=100, blank=True, null=True)
+    firstname = models.CharField(max_length=100, blank=True, null=True)
+    gender = models.CharField(max_length=10, blank=True, null=True)
+    
+    # Organization-specific fields
+    company = models.CharField(max_length=100, blank=True, null=True)
+
+    # Investment preferences
+    tourism = models.BooleanField(default=False)
+    media = models.BooleanField(default=False)
+    commercial = models.BooleanField(default=False)
+    estate = models.BooleanField(default=False)
+    manufacturing = models.BooleanField(default=False)
+    education = models.BooleanField(default=False)
+    health = models.BooleanField(default=False)
+    wholesale = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f"{self.type} - {self.email}"

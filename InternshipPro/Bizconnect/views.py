@@ -146,6 +146,8 @@ def custom_login(request):
             return redirect('homepage1') # Redirect to the homepage after login
         elif ExpertRegistration.objects.filter(email=email, firstname=password, user_type= "expert").exists():
             return redirect('experthomepage') 
+        elif Investor.objects.filter(email=email, country=password,).exists():
+            return redirect('investorhomepage')
         else:
             message = 'Invalid email or password. Please try again.'
             return render(request, 'login.html', {'message': message})
@@ -463,3 +465,67 @@ def update_meeting_status(request, meeting_id, status):
 
 
 
+
+
+from django.shortcuts import render, redirect
+from .models import Investor
+
+def submit_investor_form(request):
+    if request.method == 'POST':
+        form_type = request.POST.get('type')
+
+        # Common fields
+        email = request.POST.get('email')
+        contact = request.POST.get('contact')
+        country = request.POST.get('country')
+        capital = request.POST.get('capital')
+        information = request.POST.get('information')
+        
+        # Preferences
+        preferences = {
+            'tourism': request.POST.get('tourism', False)== 'tourism',
+            'media': request.POST.get('media', False) == 'media',
+            'commercial': request.POST.get('commercial', False) == 'commercial',
+            'estate': request.POST.get('estate', False) == 'estate',
+            'manufacturing': request.POST.get('manufacturing', False) == 'manufacturing',
+            'education': request.POST.get('education', False) == 'education',
+            'health': request.POST.get('health', False) == 'health',
+            'wholesale': request.POST.get('wholesale', False) == 'wholesale',
+        }
+
+        if form_type == 'individual':
+            # Individual-specific fields
+            surname = request.POST.get('surname')
+            firstname = request.POST.get('firstname')
+            gender = request.POST.get('gender')
+            
+            Investor.objects.create(
+                type='individual',
+                email=email,
+                contact=contact,
+                country=country,
+                capital=capital,
+                information=information,
+                surname=surname,
+                firstname=firstname,
+                gender=gender,
+                **preferences
+            )
+
+        elif form_type == 'organization':
+            # Organization-specific fields
+            company = request.POST.get('company')
+
+            Investor.objects.create(
+                type='organization',
+                email=email,
+                contact=contact,
+                country=country,
+                capital=capital,
+                information=information,
+                company=company,
+                **preferences
+            )
+
+        return redirect('investorhomepage') 
+    return redirect('register_investors') 
