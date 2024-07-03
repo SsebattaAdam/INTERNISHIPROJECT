@@ -1,2 +1,2 @@
 ## BizConnect
-This is a Business management platform designed to connect entreprenuers, business experts and investors.
+This is a Business management platform designed to connect entrepreneurs, business experts and investors.

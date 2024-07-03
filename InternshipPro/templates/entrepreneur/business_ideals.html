@@ -1,4 +1,4 @@
-{% extends "entreprenuer/homepage1.html" %} {% block title %}Service Requests | Bizconnect{% endblock title %} {% load static %}
+{% extends "entrepreneur/homepage1.html" %} {% block title %}Business Proposals | Bizconnect{% endblock title %} {% load static %}
 
 {% block content %}
 <div class="content wrapper mt-80">
@@ -7,8 +7,8 @@
 			<div class="row align-items-center">
 				<div class="col-xl-4 col-lg-5 lg-mb-30 " data-wow-delay="0.4s">
 					<div class="testimonial__area-title">
-						<span class="section-top mb-15">Expert Consultation</span>
-						<h2 class="mb-45">Need help with any challenge</h2>						
+						<span class="section-top mb-15">Business Proposals</span>
+						<h2 class="mb-45">Let Your ideas run loose</h2>						
 					</div>
 					<div class="testimonial__area-button">
 						<div class="testimonial__area-button-prev swiper-button-prev"><i class="flaticon-arrow-left"></i></div>
@@ -17,23 +17,24 @@
                     
 				</div>
 				<div class="col-xl-8 col-lg-7">
-                    {% if requests %}
+                    {% if proposals %}
                     <div class="swiper testimonial-slider">
                         <div class="swiper-wrapper">
-                            {% for request in requests %}
+                            {% for proposal in proposals %}
                             <div class="testimonial__area-item swiper-slide " data-wow-delay="0.8s">
                                 <div class="testimonial__area-item-content mb-30">
                                     <i class="flaticon-quote"></i>
-                                    <h5>{{ request.title }}</h5>
-                                    <h6>{{ request.industry }}</h6>
-                                    <p>{{ request.description }}</p>
+                                    <h5>{{ proposal.title }}</h5>
+                                    <h6>{{ proposal.industry }}</h6>
+                                    <p>{{ proposal.description }}</p>
                                 </div>
                             </div>
                             {% endfor %}
                         </div>
+                        <div class="swiper-pagination"></div>
                     </div>
                     {% else %}
-                    <h4 class="t-center">No requests are visible at the moment.</h4>
+                    <h4 class="t-center">No Proposals are visible at the moment.</h4>
                     {% endif %}
 					                       				
 				</div>
@@ -41,7 +42,7 @@
 			</div>
             <div class="col-xl-6 col-lg-6 col-md-6 mt-35">
                 <div class="solution__area-right lg-center">
-                    <a class="theme-bg-btn" href="{% url 'expert_request_form' %}">Create your request now <i class="flaticon-arrow-right"></i></a>						
+                    <a class="theme-bg-btn" href="{% url 'business_ideal_form' %}">Get started <i class="flaticon-arrow-right"></i></a>						
                 </div>					
             </div>
 		</div>

@@ -1,4 +1,4 @@
-{% extends "entreprenuer/homepage1.html" %} {% block title%}Business Proposal Form | Bizconnect{%endblock%} {% load static%} {% block content %}
+{% extends "entrepreneur/homepage1.html" %} {% block title%}Business Proposal Form | Bizconnect{%endblock%} {% load static%} {% block content %}
 
     <div class="content wrapper mt-80">
         <div class="container ">
@@ -19,7 +19,7 @@
                     <div class="register wow fadeInUp" data-wow-delay="0.8s">
                         <h4 class="mb-35">All Fields with (*) are required.</h4>
                         <div class="register-form">
-                            <form action="{% url 'submit_business_idea' %}" method="post" enctype="multipart/form-data">
+                            <form action="{% url 'business_ideal_form' %}" method="post" enctype="multipart/form-data">
                                 {% csrf_token %}
 
                                 <div class="row">
@@ -93,7 +93,7 @@
                                     <div class="col-md-6 mb-30">
                                         <div class="register-form-group">
                                             <label>Upload a video pitch (.mp4,.ts) <span style="color: red;">*</span></label>
-                                            <input type="file" style="padding-top: 5px;" name="video" placeholder="Upload a video pitch for your business (Max. 32MB)." required accept="video/*">
+                                            <input type="file" style="padding-top: 5px;" name="video" placeholder="Upload a video pitch for your business (Max. 32MB)." accept="video/*">
                                         </div>
                                     </div>
                                     <div class="col-md-6 mb-30">
