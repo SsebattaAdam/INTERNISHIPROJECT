@@ -1,17 +1,20 @@
-{% extends "entreprenuer/homepage1.html" %}
-{% block title %}Schedule Details | Bizconnect{% endblock title %}
-{% load static %}
+{% extends "entrepreneur/homepage1.html" %}
 
+{% block title %}Investment Details | Bizconnect{% endblock title %}
+{% load static %}
 {% block content %}
+
 <div class="content wrapper mt-80">
     <div class="container">
         <div class="blog__standard-left">
             <div class="blog__standard-left-item mb-30">
                 <div class="blog__standard-left-item-content">
                     <ul>
-                        <li><h3 style="font-size: 30px;">Trying to schedule your requests</h3></li>
+                        <li><h3 style="font-size: 30px;">Let's start right away</h3></li>
                     </ul>
-                    <p class="mb-20"><span class="small-dot">&bull;</span> Fill out the form below to request for a scheduled meeting with your designated business expert for assistance.</p>
+                    <p class="mb-20">
+                        <span class="small-dot">&bull;</span> Fill out the form below to instantiate a new Investment deal for your business. These proposals will be examined by the enlisted Investors so that your business can receive the necessary funding.
+                    </p>
                 </div>
             </div>
         </div>
@@ -20,55 +23,47 @@
                 <div class="register wow fadeInUp" data-wow-delay="0.8s">
                     <h4 class="mb-35">All Fields with (*) are required.</h4>
                     <div class="register-form">
-                        <form action="{% url 'schedule_meeting' %}" method="post">
+                        <form action="{% url 'create_investment_deal' %}" method="post">
                             {% csrf_token %}
                             <div class="row">
                                 <div class="col-md-6 mb-30">
                                     <div class="register-form-group">
                                         <label>Title <span style="color: red;">*</span></label>
-                                        <input type="text" name="title" placeholder="Title of the meeting" readonly required>
+                                        <input type="text" name="title" placeholder="Title of the Deal." required>
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-30">
                                     <div class="register-form-group">
-                                        <label>Expert <span style="color: red;">*</span></label>
-                                        <select id="expert" name="expert" onchange="updateFields()" required>
-                                            {% for request in completed_requests %}
-                                            <option value="{{ request.id }}" data-expert="{{ request.assigned_expert.surname }}" data-start-time="{{ request.start_time }}" data-end-time="{{ request.end_time }}">{{ request.assigned_expert.surname }}</option>
-                                            {% endfor %}
+                                        <label>Business Industry <span style="color: red;">*</span></label>
+                                        <select id="industry" name="industry" required>
+                                            <option value="">Select an option</option>
+                                            <option value="technology">Technology</option>
+                                            <option value="education">Education</option>
+                                            <option value="healthcare">Healthcare</option>
+                                            <option value="real-estate">Real Estate</option>
+                                            <option value="tourism">Tourism</option>
+                                            <option value="retail">Retail</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-30">
                                     <div class="register-form-group">
-                                        <label>Preferred Consultation Date <span style="color: red;">*</span></label>
-                                        <input type="date" id="consultation-date" name="consultation_date" required>
+                                        <label>Funding goals <span style="color: red;">*</span></label>
+                                        <input type="text" id="funding-goal" name="funding-goal" placeholder="Target amount" required>
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-30">
                                     <div class="register-form-group">
-                                        <label>Start Time <span style="color: red;">*</span></label>
-                                        <input type="time" id="start-time" name="start_time" required>
+                                        <label>Valuation <span style="color: red;">*</span></label>
+                                        <input type="text" id="valuation" name="valuation" placeholder="Estimated value of your Business." required>
                                     </div>
                                 </div>
-                                <div class="col-md-6 mb-30">
+                                <div class="col-md-12 mb-30">
                                     <div class="register-form-group">
-                                        <label>End Time <span style="color: red;">*</span></label>
-                                        <input type="time" id="end-time" name="end_time" required>
+                                        <label>Business Terms <span style="color: red;">*</span></label>
+                                        <textarea id="terms" name="terms" placeholder="Terms of your deal. Be as descriptive as possible!" required></textarea>
                                     </div>
                                 </div>
-                                <div class="col-md-6 mb-30">
-                                    <div class="register-form-group">
-                                        <label>Select Consultation Package <span style="color: red;">*</span></label>
-                                        <select id="consultation-package" name="consultation_package" required>
-                                            <option value="">Select a package</option>
-                                            {% for package in consultation_packages %}
-                                            <option value="{{ package.id }}">{{ package.title }}</option>
-                                            {% endfor %}
-                                        </select>
-                                    </div>
-                                </div>
-                                
                             </div>
                             <div class="row">
                                 <div class="col-xl-3 col-md-6 col-lg-4 mb-20">
@@ -89,4 +84,5 @@
         </div>
     </div>
 </div>
+
 {% endblock content %}
