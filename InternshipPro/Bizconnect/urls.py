@@ -47,34 +47,28 @@ urlpatterns = [
   path('register_expert/', views.register_expert, name='register_expert'),
   
   ## This is the Login url
-  path('login/',views.loginpage1, name ='login'),
+  path('login/',views.login2, name ='login'),
   path('logout/', views.logout_view, name='logout'),
   path('loginForm/', views.custom_login, name='custom_login'),
 
-
  
-path('submit_service_request/', views.submit_service_request, name='submit_service_request'),
-path('submit_business_idea/', views.submit_business_idea, name='submit_business_idea'),
-path("submit_investment_deal/", views.create_investment_deal, name="create_investment_deal"),
+  path('submit_service_request/', views.submit_service_request, name='submit_service_request'),
+  path("submit_investment_deal/", views.create_investment_deal, name="create_investment_deal"),
 
 
-#admin urls
-path('tables/', views.allTables, name='allTables'),
-# path('list_requestsmade/', views.list_requestsmade, name='list_requestsmade1'),
+  #admin urls
+  path('tables/', views.allTables, name='allTables'),
+  # path('list_requestsmade/', views.list_requestsmade, name='list_requestsmade1'),
 
-path('login_dmin/', views.login_view, name='login_dmin'),
-path('loginAdmin/', views.loginAdmin, name='loginAdmin'),
-path('logout/', views.logout, name='logout'),
-path('admin2/', views.admin2, name='admin2'),
- path('approve_request/<int:request_id>/', views.approve_request, name='approve_request'),
- path('create_package/', views.create_consultation_package, name='create_package'),
+  path('loginAdmin/', views.loginAdmin, name='loginAdmin'),
+  path('logout/', views.logout, name='logout'),
+  path('admin2/', views.admin2, name='admin2'),
+  path('approve_request/<int:request_id>/', views.approve_request, name='approve_request'),
+  path('create_package/', views.create_consultation_package, name='create_package'),
 
-path('schedule_meeting/', views.schedule_meeting, name='schedule_meeting'),
-
+  path('schedule_meeting/', views.schedule_meeting, name='schedule_meeting'),
 
 
-path('update-meeting-status/<int:meeting_id>/<str:status>/', views.update_meeting_status, name='update_meeting_status'),
-
-
+  path('update-meeting-status/<int:meeting_id>/<str:status>/', views.update_meeting_status, name='update_meeting_status'),
 
 ]

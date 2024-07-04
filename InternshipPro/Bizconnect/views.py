@@ -8,6 +8,9 @@ from django.contrib import auth
 from .models import Registration, ExpertRegistration, InvestmentDeal
 from django.contrib.auth import authenticate, login
 from django.core.files.storage import FileSystemStorage
+from django.shortcuts import render, get_object_or_404
+from .models import BusinessIdeas
+
 
 def indexPage(request):
     return render(request, 'index.html')
@@ -24,11 +27,11 @@ def service_detail(request):
 def get_startednow(request):
     return render(request, 'get_started.html')
 
-## Entreprenuers
+## entrepreneurs
 def register_entrepreneur(request):
     return render(request, 'entrepreneur/register_entrepreneur.html')
  
-def homepage11(request):
+def homepage1(request):
     return render(request, 'entrepreneur/homepage1.html')
 
 @login_required
@@ -37,6 +40,37 @@ def business_ideals(request):
     return render(request, 'entrepreneur/business_ideals.html', {'proposals': business_ideas,})
 
 def business_ideal_form(request):
+    if request.method == 'POST':
+        title = request.POST.get('title')
+        description = request.POST.get('description')
+        industry = request.POST.get('industry')
+        target_market = request.POST.get('market')
+        business_model = request.POST.get('business-model')
+        projections = request.POST.get('projections')
+        goals = request.POST.get('goals')
+        
+        pitch_deck = request.FILES.get('pitch-deck')
+        plan = request.FILES.get('plan')
+        video = request.FILES.get('video')
+        support = request.FILES.get('support')
+
+        business_idea = BusinessIdeas(
+            title=title,
+            description=description,
+            industry=industry,
+            target_market=target_market,
+            business_model=business_model,
+            projections=projections,
+            goals=goals,
+            pitch_deck=pitch_deck,
+            plan=plan,
+            video=video,
+            support=support,
+        )
+        
+        business_idea.save()
+        return redirect('business_ideals')
+    
     return render(request, 'entrepreneur/business_ideal_form.html')
 
 def service_requests(request):
@@ -51,7 +85,10 @@ def service_request_form(request):
     return render(request, 'entrepreneur/expert_request_form.html')
 
 def consultation_schedule(request):
-    return render(request, 'entrepreneur/consultation_schedule.html')
+    user_id = request.session.get('user_id')
+    approved_meetings = ScheduledMeeting.objects.filter(status='Approved', entrepreneur = user_id)
+    context = {'approved_meetings': approved_meetings,}
+    return render(request, 'entrepreneur/consultation_schedule.html', context)
 
 @login_required
 def investment_deals(request):
@@ -64,6 +101,7 @@ def investment_deal_form(request):
 ## Investors
 def register_investor(request):
     return render(request, 'investor/register_investor.html')
+
 def investorhomepage(request):
     return render(request, 'investor/investorHomepage3.html')
 def investment_fundings(request):
@@ -71,9 +109,16 @@ def investment_fundings(request):
 def investment_funding_form(request):
     return render(request, 'investor/investment_funding_form.html')
 
+def investment_deals(request):
+    return render(request, 'investor/investment_deals.html')
+
+def businessidea_detail(request, idea_id):
+    idea = get_object_or_404(businessidea_detail, id=idea_id)
+    return render(request, 'businessidea_detail.html', {'idea': idea})
 ## Experts
 def register_expert(request):
     return render(request, 'expert/register_expert.html')
+
 def experthomepage(request):
     return render(request, 'expert/expertHomepage2.html')
 def resources(request):
@@ -89,7 +134,10 @@ def consultation_package_form(request):
 def feedback(request):
     return render(request, 'expert/feedback.html')
 
-def loginpage1(request):
+def feedback(request):
+    return render(request, 'expert/feedback.html')
+
+def login2(request):
     return render(request, 'login.html')
 
 
@@ -112,7 +160,7 @@ def registration_form(request):
             return render(request, 'entrepreneur/register_entrepreneur.html', {'message': message})
         
         # Save the data to the Registration model
-        Registration.objects.create(
+        entrepreneur = Registration.objects.create(
             surname=surname,
             firstname=firstname,
             gender=gender,
@@ -123,16 +171,18 @@ def registration_form(request):
             company=company,
             role_in_company=role_in_company
         )
+        entrepreneur.save()
         # Redirect to another page after successful submission
         return redirect('homepage1')
     
     return redirect('register_entrepreneurs')
 
 def logout_view(request):
-    # Redirect to the index page or any other page after logout
+    try:
+        del request.session["user_id"]
+    except KeyError:
+        pass    
     return redirect('index')
-
-
 
 
 def custom_login(request):
@@ -142,9 +192,14 @@ def custom_login(request):
         
 
         if Registration.objects.filter(email=email, firstname=password, user_type= "entrepreneur").exists():
-
+            ent = Registration.objects.get(email=email)
+            request.session['user_id'] = ent.id
+            request.session['user_type'] = ent.user_type
             return redirect('homepage1') # Redirect to the homepage after login
         elif ExpertRegistration.objects.filter(email=email, firstname=password, user_type= "expert").exists():
+            expert = ExpertRegistration.objects.filter(email=email)
+            request.session["user_id"] = expert.id
+            request.session['user_type'] = expert.user_type
             return redirect('experthomepage') 
         elif Investor.objects.filter(email=email, country=password,).exists():
             return redirect('investorhomepage')
@@ -236,43 +291,14 @@ from django.shortcuts import render, redirect
 from django.core.files.storage import FileSystemStorage
 from .models import BusinessIdeas
 
-def submit_business_idea(request):
-    if request.method == 'POST':
-        title = request.POST.get('title')
-        description = request.POST.get('description')
-        industry = request.POST.get('industry')
-        target_market = request.POST.get('market')
-        business_model = request.POST.get('business-model')
-        projections = request.POST.get('projections')
-        goals = request.POST.get('goals')
-        
-        pitch_deck = request.FILES.get('pitch-deck')
-        plan = request.FILES.get('plan')
-        video = request.FILES.get('video')
-        support = request.FILES.get('support')
-
-        business_idea = BusinessIdeas(
-            title=title,
-            description=description,
-            industry=industry,
-            target_market=target_market,
-            business_model=business_model,
-            projections=projections,
-            goals=goals,
-            pitch_deck=pitch_deck,
-            plan=plan,
-            video=video,
-            support=support,
-        )
-        
-        business_idea.save()
-        return redirect('homepage1')  # Redirect 
-
-    return render(request, 'business_ideals.html')
 
 # admin views
 
-def login_view(request):
+
+def logout(request):
+    return render(request, 'login2.html')
+
+def loginAdmin(request):
     if request.method == "POST":
         username = request.POST['username']
         password = request.POST['password']
@@ -282,14 +308,6 @@ def login_view(request):
             return redirect('admin2')
         else:
             return render(request, 'login2.html', {'error': 'Invalid credentials'})
-    return render(request, 'login2.html')
-
-
-
-def logout(request):
-    return render(request, 'login2.html')
-
-def loginAdmin(request):
     return render(request, 'login2.html')
 
 def admin2(request):
@@ -399,17 +417,18 @@ def create_consultation_package(request):
     return render(request, 'consultation_package_form')
 
 
-def consultation_schedule_form(request):
-    completed_requests = ServiceRequest.objects.filter(status='Completed')
+def consultation_schedule_form(request, request_id):
+    completed_request = get_object_or_404(ServiceRequest, pk=request_id, status='Completed')
     consultation_packages = ConsultationPackage.objects.all()
     context = {
         'consultation_packages': consultation_packages,
-        'completed_requests': completed_requests
+        'completed_request': completed_request
     }
     return render(request, 'entrepreneur/consultation_schedule_form.html', context )
 
 
 def schedule_meeting(request):
+    user_id = request.session.get('user_id')
     if request.method == 'POST':
         title = request.POST.get('title')
         expert_name = request.POST.get('expert')
@@ -418,6 +437,7 @@ def schedule_meeting(request):
         end_time = request.POST.get('end_time')
         link = request.POST.get('link')
         package_id = request.POST.get('consultation_package')
+        entrepreneur = get_object_or_404(Registration, id=user_id)
 
         consultation_package = ConsultationPackage.objects.get(pk=package_id)
 
@@ -429,7 +449,8 @@ def schedule_meeting(request):
             start_time=start_time,
             end_time=end_time,
             link=link,
-            consultation_package=consultation_package
+            consultation_package=consultation_package,
+            entrepreneur= entrepreneur 
         )
         schedule_meeting.save()
        
@@ -439,10 +460,6 @@ def schedule_meeting(request):
         'consultation_packages': consultation_packages
     }
     return redirect('consultation_schedule_form', context)
-
-
-
-
 
 
 from django.views.decorators.http import require_POST
@@ -462,9 +479,6 @@ def update_meeting_status(request, meeting_id, status):
     
     meeting.save()
     return redirect('allTables')
-
-
-
 
 
 from django.shortcuts import render, redirect
