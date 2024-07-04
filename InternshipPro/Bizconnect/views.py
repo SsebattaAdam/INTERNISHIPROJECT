@@ -109,8 +109,8 @@ def investment_fundings(request):
 def investment_funding_form(request):
     return render(request, 'investor/investment_funding_form.html')
 
-def investment_deals(request):
-    return render(request, 'investor/investment_deals.html')
+def investor_deals(request):
+    return render(request, 'investor/investor_deals.html')
 
 def businessidea_detail(request, idea_id):
     idea = get_object_or_404(businessidea_detail, id=idea_id)
