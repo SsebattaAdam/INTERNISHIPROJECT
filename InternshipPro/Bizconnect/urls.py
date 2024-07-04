@@ -14,7 +14,7 @@ urlpatterns = [
   path('get_started/', views.get_startednow, name = 'get_started'),
   
   ## These are the entrepreneurs' urls
-  path('entrepreneurs/', views.homepage11, name = 'homepage1'),
+  path('entrepreneurs/', views.homepage1, name = 'homepage1'),
   path('entrepreneur/ideals/', views.business_ideals, name = 'business_ideals'),
   path("entre/ideal/form/", views.business_ideal_form , name="business_ideal_form"),
   path("entrepreneur/requests/", views.service_requests, name="service_requests"),
