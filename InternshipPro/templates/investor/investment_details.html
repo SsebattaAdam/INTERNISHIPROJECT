@@ -1,4 +1,4 @@
-{% extends "investor/investorHomepage3.html" %} {% block title %}investment_details| Bizconnect{% endblock title %}{% load static %}
+{% extends "investor/investorHomepage3.html" %} {% block title %}investment_details| Bizconnect{% endblock title %}{% load static %}{% block content %}
 <div class="services__area section-padding 0">
     <div class="content wrapper mt-80">
        <div class="container  mt-25">
@@ -8,59 +8,46 @@
                        <span class="section-top mb-15">INVESTMENT DEALs</span>
                        <h2>View the diiferent deals to invest in</h2>
                    </div>					
-               </div>			
-           </div>
-           <div class="services__area section-padding 0">
-            <div class="content wrapper mt-80">
-               <div class="container  mt-25">
-                   <div class="row mb-50">
-                       <div class="col-xl-12 col-lg-12 col-md-12">
-                           <div class="services__area-section-title t-center">
-                               <span class="section-top mb-15">INVESTMENT DEALs</span>
-                               <h2>View the diiferent deals to invest in</h2>
-                           </div>					
-                       </div>			
+               </div>
+               {% if ideas %}
+               <div class="row">
+                   {% for idea in ideas %}
+                   <div class="blog__standard-left-item col-lg-6 mb-30 wow fadeInUp" data-wow-delay="0.3s">
+                       <div class="blog__standard-left-item-content mt-30">
+                           <h3 class="mb-15">{{ idea.title }}</h3>
+                           <p class="mb-20">{{ idea.description }}</p>
+                           <div class="pr-30 row">
+                               <a href="{% url 'businessidea_detail' idea.id %}">Read More</a>
+                           </div>
+                       </div>               
                    </div>
+                   {% endfor %}
+               </div>
+           {% else %}
+               <div>
+                   <div class="blog__standard-left-item mb-30 wow fadeInUp" data-wow-delay="0.3s">
+                       <div class="blog__standard-left-item-content mt-30">
+                           <h3 class="mb-15">No Packages present.</h3>
+                       </div>
+                   </div>
+               </div>
+           {% endif %}
+           
+    </div>
                     <div class="row">
                         <div class="blog__standard-left-item col-lg-6 mb-30 wow fadeInUp" data-wow-delay="0.3s">
                             <div class="blog__standard-left-item-content mt-30">
                                 <h3 class="mb-15">Title</h3>
-                                <p class="mb-20">descriptionsdescriptionsdescriptionsdescriptions descriptionsdescriptionsdescriptions descriptionsdescriptionsdescriptionsdescriptions descriptionsdescriptions </p>
                                 <div class="pr-30 row">
-                                    <a href="servic.html">Read More</a>
+                                    <a href="service.html">Read More</a>
                                 </div>
                             </div>               
                         </div>
-                        <div class="row">
-                        <div class="blog__standard-left-item col-lg-6 mb-30 wow fadeInUp" data-wow-delay="0.3s">
-                            <div class="blog__standard-left-item-content mt-30">
-                                <h3 class="mb-15">Title</h3>
-                                <p class="mb-20">descriptionsdescriptionsdescriptionsdescriptions descriptionsdescriptionsdescriptions descriptionsdescriptionsdescriptionsdescriptions descriptionsdescriptions </p>
-                                <div class="pr-30 row">
-                                    <span class="col-md-4"><a href="#">Accept</a></span>
-                                    <span class="col-md-4"><a href="#">Reject</a></span>
-                                </div>
-                            </div>               
-                        </div>
-                        <div class="blog__standard-left-item col-lg-6 mb-30 wow fadeInUp" data-wow-delay="0.3s">
-                            <div class="blog__standard-left-item-content mt-30">
-                                <h3 class="mb-15">Title</h3>
-                                <p class="mb-20">descriptionsdescriptionsdescriptionsdescriptions descriptionsdescriptionsdescriptions descriptionsdescriptionsdescriptionsdescriptions descriptionsdescriptions </p>
-                                <div class="pr-30 row">
-                                    <span class="col-md-4"><a href="#">Accept</a></span>
-                                    <span class="col-md-4"><a href="#">Reject</a></span>
-                                </div>
-                            </div>               
-                        </div>   
+                        
                    </div>
                </div>
            </div>
         
         
-
-
-{% endblock %}
-
- 
-
-   {% endblock %}
+           
+{% endblock content %}

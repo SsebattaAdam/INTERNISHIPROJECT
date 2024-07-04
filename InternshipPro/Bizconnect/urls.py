@@ -28,6 +28,7 @@ urlpatterns = [
   path('investors/', views.investorhomepage, name = 'investorhomepage'),
   path("investor/fundings/", views.investment_fundings, name="investment_fundings"),
   path("investor/funding/form/", views.investment_funding_form, name="investment_funding_form"),
+   path('investor/idea_detail', views.businessidea_detail, name='idea_detail'),
   
   ## These are the Experts' urls
   path('experts/', views.experthomepage, name = 'experthomepage'),
