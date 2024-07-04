@@ -12,7 +12,7 @@
     <meta name="author" content="ThemeOri">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Title of Site -->
-    <title>Investors | Bizconnect</title>
+    <title>{%block title%}Entrepreneurs | Bizconnect{% endblock title%}</title>
     <!-- Favicons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha256-lQPthLnNj1D8rDsy3i+2r5PpBqObJ8v2T1RQJ/6mPcI=" crossorigin="anonymous" />
 
@@ -20,11 +20,16 @@
     <link rel="icon" type="image/png" sizes="32x32" href="{% static 'assets/img/favicon-32x32.png' %}">
     <link rel="icon" type="image/png" sizes="16x16" href="{% static 'assets/img/favicon-16x16.png' %}">
     <link rel="manifest" href="{% static 'assets/img/site.webmanifest' %}">
+
+    <!-- FullCalendar -->
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.14/index.global.min.js'></script>
+    
+
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
     <!-- fontawesome -->
-    <link rel="stylesheet" href="{% static 'assets/css/fontawesome.min.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'assets/css/fontawesome.min.css' %}">
     <!-- Animate CSS -->
     <link rel="stylesheet" href="{% static 'assets/css/animate.css' %}">
     <!-- Swiper -->
@@ -39,9 +44,8 @@
     <link rel="stylesheet" href="{% static 'assets/fonts/flaticon.css' %}">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{% static 'assets/sass/style.css' %}">
-    <!-- Custom Charts -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- Include your custom CSS -->
+
     <style>
         html, body {
             height: 100%;
@@ -57,8 +61,7 @@
             flex: 1;
         }
     </style>
-    
-    
+   
 </head>
 
 <body>
@@ -79,18 +82,30 @@
 
     <div class="custom_sidebar sidebar">
         <ul>
-            <li><a href="{% url 'investorhomepage' %}">Dashboard</a></li>
-                      
+            <li><a href="{% url 'homepage1'%}">Dashboard</a></li>
+         
             <li>
-                <a href="{% url 'investment_fundings' %}" >Fundings</a>
-                
+                <a href="{% url 'business_ideals'%}">Business Proposals</a>
             </li>
-            <li><a href="/settings">Settings</a></li>
+            <li>
+                <a href="javascript:void(0)" class="dropdown-btn">Expert Consultation</a>
+                <ul class="dropdown-container">
+                    <li><a href="{% url 'service_requests' %}"><span class="small-dot">&bull;</span>Service Requests</a></li>
+                    <li><a href="{% url 'consultation_schedule' %}"><span class="small-dot">&bull;</span>Calendar</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="{% url 'investment_deals' %}" >Investment Management</a>
+            </li>
+            
+            <li><a href="{% url 'consultation_schedule' %}">Settings</a></li>
+            {% comment %} <li><a href="{% url 'list_requestsmade1' %}">REQUESTST</a></li> {% endcomment %}
         </ul>
     </div>
-  
     {% block content %}
+
     <div class="content wrapper">
+        
         <p>welcome back </p>
          <div class="features__area section-padding pb-0">
              <div class="container">
@@ -146,57 +161,10 @@
                  </div>
              </div>
          </div>
-         <div class="blog__area section-padding">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-6 mb-30">
-                        <div class="blog__area-item wow fadeInUp" data-wow-delay="0.4s">
-                            
-                            <div class="blog__area-item-content pt-0">
-                                <div>
-                                    <h4>ROI Trends Over 6 Months</h4>
-                                    <canvas id="roiTrends" width="600" height="600"></canvas>
-                                </div> 
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 mb-30">
-                        <div class="blog__area-item wow fadeInUp" data-wow-delay="0.4s">
-                            
-                            <div class="blog__area-item-content pt-0">
-                                <div>
-                                    <h4>Investment Returns by Business</h4>
-                                    <canvas id="investmentReturns" width="600" height="600"></canvas>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 mb-30">
-                        <div class="blog__area-item wow fadeInUp" data-wow-delay="0.4s">
-                            
-                            <div class="blog__area-item-content pt-0">
-                                <div>
-                                    <h4>Pledged Funds and Funding Progress</h4>
-                                    <canvas id="pledgedFundsProgress" width="600" height="600"></canvas>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 mb-30">
-                        <div class="blog__area-item wow fadeInUp" data-wow-delay="0.4s">
-                            <div class="blog__area-item-content pt-0">
-                                <div>
-                                    <h4>Portfolio Diversification</h4>
-                                    <canvas id="portfolioDiversification" ></canvas>
-                                </div>  
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-     </div>
-    {% endblock content %}
+    </div>
+     {% endblock content %}
+    
+    
     <div class="footer__area-copyright custom-footer pt-35 pb-35" style="background: #030A15; margin-left: 250px;">
         <div class="container">
             <div class="row align-items-center">
@@ -225,78 +193,6 @@
 </div>
 
     <script>
-        // Sample Data
-        const portfolioData = {
-            labels: ['Tech', 'Healthcare', 'Finance', 'Energy', 'Retail'],
-            datasets: [{
-                label: 'Portfolio Diversification',
-                data: [35, 25, 20, 10, 10],
-                backgroundColor: ['#ff6384', '#36a2eb', '#cc65fe', '#ffce56', '#2ecc71'],
-            }]
-        };
-
-        const roiData = {
-            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
-            datasets: [{
-                label: 'ROI Trends',
-                data: [5, 7, 6, 8, 9, 10],
-                borderColor: '#36a2eb',
-                fill: false,
-                tension: 0.1
-            }]
-        };
-
-        const investmentReturnsData = {
-            labels: ['Business A', 'Business B', 'Business C', 'Business D', 'Business E'],
-            datasets: [{
-                label: 'Investment Returns',
-                data: [15000, 20000, 25000, 10000, 30000],
-                backgroundColor: '#36a2eb'
-            }]
-        };
-
-        const pledgedFundsData = {
-            labels: ['Business A', 'Business B', 'Business C', 'Business D', 'Business E'],
-            datasets: [
-                {
-                    label: 'Pledged Funds',
-                    data: [100000, 120000, 150000, 130000, 160000],
-                    backgroundColor: '#36a2eb'
-                },
-                {
-                    label: 'Funding Progress (%)',
-                    data: [80, 90, 70, 85, 95],
-                    backgroundColor: '#ffce56'
-                }
-            ]
-        };
-
-        // Render Charts
-        new Chart(document.getElementById('portfolioDiversification'), {
-            type: 'pie',
-            data: portfolioData
-        });
-
-        new Chart(document.getElementById('roiTrends'), {
-            type: 'line',
-            data: roiData
-        });
-
-        new Chart(document.getElementById('investmentReturns'), {
-            type: 'bar',
-            data: investmentReturnsData
-        });
-
-        new Chart(document.getElementById('pledgedFundsProgress'), {
-            type: 'bar',
-            data: pledgedFundsData,
-            options: {
-                scales: {
-                    x: { stacked: true },
-                    y: { stacked: true }
-                }
-            }
-        });
         document.addEventListener('DOMContentLoaded', function() {
             var dropdownBtns = document.getElementsByClassName('dropdown-btn');
             for (var i = 0; i < dropdownBtns.length; i++) {
@@ -311,19 +207,19 @@
                 });
             }
             var swiper = new Swiper(".testimonial-slider", {
-              direction: "horizontal",
-              slidesPerView: 1,
-              spaceBetween: 5,
-              centeredSlides: true,
-              pagination: {
-                el: ".swiper-pagination",
-                clickable: true,
-              },
-              navigation: {
-                nextEl: ".swiper-button-next",
-                prevEl: ".swiper-button-prev",
-              },
-            });
+                direction: "horizontal",
+                slidesPerView: 1,
+                spaceBetween: 5,
+                centeredSlides: true,
+                pagination: {
+                  el: ".swiper-pagination",
+                  clickable: true,
+                },
+                navigation: {
+                  nextEl: ".swiper-button-next",
+                  prevEl: ".swiper-button-prev",
+                },
+              });
         });
     </script>
 

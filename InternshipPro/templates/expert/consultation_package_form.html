@@ -2,10 +2,19 @@
 %}
 {% block content %}
 <div class="content mt-80">
-    <div class="container mb-30">
-        <h3 style="font-size: 30px;">Create your Consultation packages</h3>
-        <p class="mt-20">Fill out this form to create the consultation packages that entrepreneurs will refer to when
-            scheduling a meeting with you.</p>
+    <div class="container">
+        <div class="blog__standard-left">
+            <div class="blog__standard-left-item mb-30">
+                
+                <div class="blog__standard-left-item-content">
+                    <ul>
+                        <li ><h3 style="font-size: 30px;">Create your Consultation packages</h3></li>
+                    </ul>
+                    <p class="mt-20"><span class="small-dot">&bull;</span>Fill out this form to create the consultation packages that entrepreneurs will refer to when
+                        scheduling a meeting with you.</p>
+                </div>
+            </div>
+        </div>        
     </div>
     <div class="container mt-25">
         <div class="row">
@@ -19,7 +28,7 @@
                                 <div class="col-md-6 mb-30">
                                     <div class="register-form-group">
                                         <label>Title <span style="color: red;">*</span></label>
-                                        <input type="text" name="title" placeholder="Title of Idea" required>
+                                        <input type="text" name="title" placeholder="Title of package" required>
                                     </div>
                                 </div>
                                 <div class="col-md-12 mb-30">
@@ -31,7 +40,7 @@
                                 </div>
                                 <div class="col-md-6 mb-30">
                                     <div class="register-form-group">
-                                        <label>Package <span style="color: red;">*</span></label>
+                                        <label>Package Type <span style="color: red;">*</span></label>
                                         <select id="industry" name="industry" required>
                                             <option value="">Select an option</option>
                                             <option value="hourly">Hourly Rate</option>
@@ -45,13 +54,13 @@
                                 </div>
                                 <div class="col-md-6 mb-30">
                                     <div class="register-form-group">
-                                        <label>Tax (per package unit)<span style="color: red;">*</span></label>
-                                        <input type="number" id="package-price" name="package-price" min="500" required>
+                                        <label>Fee (per package unit)<span style="color: red;">*</span></label>
+                                        <input type="number" id="package-price" name="package-price" min="500" placeholder="UGX" required>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-xl-3 col-md-6 col-lg-4 mt-20">
+                                <div class="col-xl-3 col-md-6 col-lg-4 mb-20">
                                     <div class="register-form-group">
                                         <button class="theme-btn" type="submit">Publish</button>
                                     </div>

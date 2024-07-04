@@ -28,7 +28,7 @@ urlpatterns = [
   path('investors/', views.investorhomepage, name = 'investorhomepage'),
   path("investor/fundings/", views.investment_fundings, name="investment_fundings"),
   path("investor/funding/form/", views.investment_funding_form, name="investment_funding_form"),
-   path('investor/idea_detail', views.businessidea_detail, name='idea_detail'),
+  path('submit-investor/', views.submit_investor_form, name='submit_investor_form'),
   
   ## These are the Experts' urls
   path('experts/', views.experthomepage, name = 'experthomepage'),
@@ -40,7 +40,7 @@ urlpatterns = [
   path("expert/feedback/", views.feedback, name="feedback"),
   
   ## These are the Registration urls
-  path('membership/entreprenuers/', views.register_entreprenuer, name = 'register_entreprenuers'),
+  path('membership/entrepreneurs/', views.register_entrepreneur, name = 'register_entrepreneurs'),
   path('membership/investors/', views.register_investor, name='register_investors'),
   path('membership/experts/', views.register_expert, name='register_experts'),
   path('register/',  views.registration_form, name='registration_form'),
@@ -51,30 +51,24 @@ urlpatterns = [
   path('logout/', views.logout_view, name='logout'),
   path('loginForm/', views.custom_login, name='custom_login'),
 
-
  
-path('submit_service_request/', views.submit_service_request, name='submit_service_request'),
-path('submit_business_idea/', views.submit_business_idea, name='submit_business_idea'),
-path("submit_investment_deal/", views.create_investment_deal, name="create_investment_deal"),
+  path('submit_service_request/', views.submit_service_request, name='submit_service_request'),
+  path("submit_investment_deal/", views.create_investment_deal, name="create_investment_deal"),
 
 
-#admin urls
-path('tables/', views.allTables, name='allTables'),
-# path('list_requestsmade/', views.list_requestsmade, name='list_requestsmade1'),
+  #admin urls
+  path('tables/', views.allTables, name='allTables'),
+  # path('list_requestsmade/', views.list_requestsmade, name='list_requestsmade1'),
 
-path('login_dmin/', views.login_view, name='login_dmin'),
-path('loginAdmin/', views.loginAdmin, name='loginAdmin'),
-path('logout/', views.logout, name='logout'),
-path('admin2/', views.admin2, name='admin2'),
- path('approve_request/<int:request_id>/', views.approve_request, name='approve_request'),
- path('create_package/', views.create_consultation_package, name='create_package'),
+  path('loginAdmin/', views.loginAdmin, name='loginAdmin'),
+  path('logout/', views.logout, name='logout'),
+  path('admin2/', views.admin2, name='admin2'),
+  path('approve_request/<int:request_id>/', views.approve_request, name='approve_request'),
+  path('create_package/', views.create_consultation_package, name='create_package'),
 
-path('schedule_meeting/', views.schedule_meeting, name='schedule_meeting'),
-
+  path('schedule_meeting/', views.schedule_meeting, name='schedule_meeting'),
 
 
-path('update-meeting-status/<int:meeting_id>/<str:status>/', views.update_meeting_status, name='update_meeting_status'),
-
-
+  path('update-meeting-status/<int:meeting_id>/<str:status>/', views.update_meeting_status, name='update_meeting_status'),
 
 ]
