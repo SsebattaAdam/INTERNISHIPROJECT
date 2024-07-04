@@ -4,7 +4,7 @@ from django.db import models
 from django.contrib.auth.models import User
 
 class Registration(models.Model):
-    # user = models.OneToOneField(User, on_delete=models.CASCADE, default=1)
+   
     surname = models.CharField(max_length=100)
     firstname = models.CharField(max_length=100)
     gender = models.CharField(max_length=10, choices=(('male', 'Male'), ('female', 'Female')))

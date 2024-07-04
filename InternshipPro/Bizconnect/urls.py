@@ -16,11 +16,15 @@ urlpatterns = [
   ## These are the entrepreneurs' urls
   path('entrepreneurs/', views.homepage1, name = 'homepage1'),
   path('entrepreneur/ideals/', views.business_ideals, name = 'business_ideals'),
+<<<<<<< HEAD
   path("entrepreneur/ideal/form/", views.business_ideal_form , name="business_ideal_form"),
+=======
+  path("entre/ideal/form/", views.business_ideal_form , name="business_ideal_form"),
+>>>>>>> e87f3afa3dbb6eb879e655238d3a5ad187c5f4bc
   path("entrepreneur/requests/", views.service_requests, name="service_requests"),
   path("entrepreneur/requests/form/", views.service_request_form, name="expert_request_form"),
-  path("entrepreneur/calendar/", views.consultation_schedule, name="consultation_schedule"),
-  path("entrepreneur/schedule/form/<int:request_id>/", views.consultation_schedule_form, name='consultation_schedule_form'),
+  path("entrepreneur/schedule/", views.consultation_schedule, name="consultation_schedule"),
+  path("entrepreneur/schedule/form/", views.consultation_schedule_form, name="consultation_schedule_form"),
   path("entrepreneur/investment/deals/", views.investment_deals, name="investment_deals"),
   path("entrepreneur/investment/deals/form/", views.investment_deal_form, name="investment_deal_form"),
   
@@ -29,7 +33,7 @@ urlpatterns = [
   path("investor/fundings/", views.investment_fundings, name="investment_fundings"),
   path("investor/funding/form/", views.investment_funding_form, name="investment_funding_form"),
   path('submit-investor/', views.submit_investor_form, name='submit_investor_form'),
-  
+  path('submit-investor_deals/', views.investor_deals, name='investordeals'),
   ## These are the Experts' urls
   path('experts/', views.experthomepage, name = 'experthomepage'),
   path('expert/library/', views.resources, name = 'resources'),
@@ -47,7 +51,7 @@ urlpatterns = [
   path('register_expert/', views.register_expert, name='register_expert'),
   
   ## This is the Login url
-  path('login/',views.loginpage1, name ='login'),
+  path('login/',views.login2, name ='login'),
   path('logout/', views.logout_view, name='logout'),
   path('loginForm/', views.custom_login, name='custom_login'),
 

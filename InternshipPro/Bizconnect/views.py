@@ -8,6 +8,9 @@ from django.contrib import auth
 from .models import Registration, ExpertRegistration, InvestmentDeal
 from django.contrib.auth import authenticate, login
 from django.core.files.storage import FileSystemStorage
+from django.shortcuts import render, get_object_or_404
+from .models import BusinessIdeas
+
 
 def indexPage(request):
     return render(request, 'index.html')
@@ -98,6 +101,7 @@ def investment_deal_form(request):
 ## Investors
 def register_investor(request):
     return render(request, 'investor/register_investor.html')
+
 def investorhomepage(request):
     return render(request, 'investor/investorHomepage3.html')
 def investment_fundings(request):
@@ -105,9 +109,16 @@ def investment_fundings(request):
 def investment_funding_form(request):
     return render(request, 'investor/investment_funding_form.html')
 
+def investor_deals(request):
+    return render(request, 'investor/investor_deals.html')
+
+def businessidea_detail(request, idea_id):
+    idea = get_object_or_404(businessidea_detail, id=idea_id)
+    return render(request, 'businessidea_detail.html', {'idea': idea})
 ## Experts
 def register_expert(request):
     return render(request, 'expert/register_expert.html')
+
 def experthomepage(request):
     return render(request, 'expert/expertHomepage2.html')
 def resources(request):
@@ -123,7 +134,10 @@ def consultation_package_form(request):
 def feedback(request):
     return render(request, 'expert/feedback.html')
 
-def loginpage1(request):
+def feedback(request):
+    return render(request, 'expert/feedback.html')
+
+def login2(request):
     return render(request, 'login.html')
 
 
