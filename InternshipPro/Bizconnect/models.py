@@ -3,8 +3,7 @@ from django.db import models
 from django.db import models
 from django.contrib.auth.models import User
 
-class Registration(models.Model):
-   
+class Registration(models.Model):   
     surname = models.CharField(max_length=100)
     firstname = models.CharField(max_length=100)
     gender = models.CharField(max_length=10, choices=(('male', 'Male'), ('female', 'Female')))
