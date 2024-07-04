@@ -79,7 +79,7 @@ WSGI_APPLICATION = 'InternshipPro.wsgi.application'
 DATABASES = {
      'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'bizconnect_db2',
+        'NAME': 'bizconnect_db',
         'USER': 'root',
         'PASSWORD':'',
         'HOST':'localhost',

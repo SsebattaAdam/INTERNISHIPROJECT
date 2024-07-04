@@ -34,7 +34,6 @@ def register_entrepreneur(request):
 def homepage1(request):
     return render(request, 'entrepreneur/homepage1.html')
 
-@login_required
 def business_ideals(request):
     business_ideas = BusinessIdeas.objects.all()
     return render(request, 'entrepreneur/business_ideals.html', {'proposals': business_ideas,})
@@ -90,7 +89,6 @@ def consultation_schedule(request):
     context = {'approved_meetings': approved_meetings,}
     return render(request, 'entrepreneur/consultation_schedule.html', context)
 
-@login_required
 def investment_deals(request):
     investment_deals = InvestmentDeal.objects.all()
     return render(request, 'entrepreneur/investment_deals.html', {'deals': investment_deals,})
