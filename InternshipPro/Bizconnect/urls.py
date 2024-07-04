@@ -13,16 +13,16 @@ urlpatterns = [
   path('service_details/', views.service_detail, name = 'service_details'),
   path('get_started/', views.get_startednow, name = 'get_started'),
   
-  ## These are the Entreprenuers' urls
-  path('entreprenuers/', views.homepage1, name = 'homepage1'),
-  path('entreprenuer/ideals/', views.business_ideals, name = 'business_ideals'),
-  path("entrepreuner/ideal/form/", views.business_ideal_form , name="business_ideal_form"),
-  path("entreprenuer/requests/", views.service_requests, name="service_requests"),
-  path("entreprenuer/requests/form/", views.service_request_form, name="expert_request_form"),
-  path("entreprenuer/schedule/", views.consultation_schedule, name="consultation_schedule"),
-  path("entreprenuer/schedule/form/", views.consultation_schedule_form, name="consultation_schedule_form"),
-  path("entreprenuer/investment/deals/", views.investment_deals, name="investment_deals"),
-  path("entreprenuer/investment/deals/form/", views.investment_deal_form, name="investment_deal_form"),
+  ## These are the entrepreneurs' urls
+  path('entrepreneurs/', views.homepage11, name = 'homepage1'),
+  path('entrepreneur/ideals/', views.business_ideals, name = 'business_ideals'),
+  path("entre/ideal/form/", views.business_ideal_form , name="business_ideal_form"),
+  path("entrepreneur/requests/", views.service_requests, name="service_requests"),
+  path("entrepreneur/requests/form/", views.service_request_form, name="expert_request_form"),
+  path("entrepreneur/schedule/", views.consultation_schedule, name="consultation_schedule"),
+  path("entrepreneur/schedule/form/", views.consultation_schedule_form, name="consultation_schedule_form"),
+  path("entrepreneur/investment/deals/", views.investment_deals, name="investment_deals"),
+  path("entrepreneur/investment/deals/form/", views.investment_deal_form, name="investment_deal_form"),
   
   ## These are the Investors' urls
   path('investors/', views.investorhomepage, name = 'investorhomepage'),
@@ -40,7 +40,7 @@ urlpatterns = [
   path("expert/feedback/", views.feedback, name="feedback"),
   
   ## These are the Registration urls
-  path('membership/entreprenuers/', views.register_entreprenuer, name = 'register_entreprenuers'),
+  path('membership/entrepreneurs/', views.register_entrepreneur, name = 'register_entrepreneurs'),
   path('membership/investors/', views.register_investor, name='register_investors'),
   path('membership/experts/', views.register_expert, name='register_experts'),
   path('register/',  views.registration_form, name='registration_form'),

@@ -25,41 +25,41 @@ def get_startednow(request):
     return render(request, 'get_started.html')
 
 ## Entreprenuers
-def register_entreprenuer(request):
-    return render(request, 'entreprenuer/register_entreprenuer.html')
+def register_entrepreneur(request):
+    return render(request, 'entrepreneur/register_entrepreneur.html')
  
-def homepage1(request):
-    return render(request, 'entreprenuer/homepage1.html')
+def homepage11(request):
+    return render(request, 'entrepreneur/homepage1.html')
 
 @login_required
 def business_ideals(request):
     business_ideas = BusinessIdeas.objects.all()
-    return render(request, 'entreprenuer/business_ideals.html', {'proposals': business_ideas,})
+    return render(request, 'entrepreneur/business_ideals.html', {'proposals': business_ideas,})
 
 def business_ideal_form(request):
-    return render(request, 'entreprenuer/business_ideal_form.html')
+    return render(request, 'entrepreneur/business_ideal_form.html')
 
 def service_requests(request):
     pending_requests = ServiceRequest.objects.filter(status='Pending')
     completed_requests = ServiceRequest.objects.filter(status='Completed')
-    return render(request, 'entreprenuer/service_request.html', {
+    return render(request, 'entrepreneur/service_request.html', {
         'pending_requests': pending_requests,
         'completed_requests': completed_requests,
     })
 
 def service_request_form(request):
-    return render(request, 'entreprenuer/expert_request_form.html')
+    return render(request, 'entrepreneur/expert_request_form.html')
 
 def consultation_schedule(request):
-    return render(request, 'entreprenuer/consultation_schedule.html')
+    return render(request, 'entrepreneur/consultation_schedule.html')
 
 @login_required
 def investment_deals(request):
     investment_deals = InvestmentDeal.objects.all()
-    return render(request, 'entreprenuer/investment_deals.html', {'deals': investment_deals,})
+    return render(request, 'entrepreneur/investment_deals.html', {'deals': investment_deals,})
 
 def investment_deal_form(request):
-    return render(request, 'entreprenuer/investment_deal_form.html')
+    return render(request, 'entrepreneur/investment_deal_form.html')
 
 ## Investors
 def register_investor(request):
@@ -104,12 +104,12 @@ def registration_form(request):
         country = request.POST.get('country')
         company = request.POST.get('company')
         role_in_company = request.POST.get('role_in_company')
-        user_type = "entreprenuer"
+        user_type = "entrepreneur"
         
         # Check if the email is already used
         if Registration.objects.filter(email=email).exists():
             message = 'Email already in use. Please use a different email.'
-            return render(request, 'entreprenuer/register_entreprenuer.html', {'message': message})
+            return render(request, 'entrepreneur/register_entrepreneur.html', {'message': message})
         
         # Save the data to the Registration model
         Registration.objects.create(
@@ -126,7 +126,7 @@ def registration_form(request):
         # Redirect to another page after successful submission
         return redirect('homepage1')
     
-    return redirect('register_entreprenuers')
+    return redirect('register_entrepreneurs')
 
 def logout_view(request):
     # Redirect to the index page or any other page after logout
@@ -342,7 +342,7 @@ def list_requestsmade(request):
         'denied_meetings': denied_meetings,
         'approved_meetings': approved_meetings
     }
-    return render(request, 'entreprenuer/tables4ent.html', context)
+    return render(request, 'entrepreneur/tables4ent.html', context)
 
 
 @login_required
@@ -355,7 +355,7 @@ def create_investment_deal(request):
         terms = request.POST['terms']
 
         # Assuming the logged-in user is the investor
-        entreprenuer= Registration.objects.get(user=request.user)
+        entrepreneur= Registration.objects.get(user=request.user)
 
         investment_deal = InvestmentDeal(
             title=title,
@@ -363,7 +363,7 @@ def create_investment_deal(request):
             funding_goal=funding_goal,
             valuation=valuation,
             terms=terms,
-           entreprenuer= entreprenuer
+           entrepreneur= entrepreneur
         )
         investment_deal.save()
         return redirect('homepage1') 
@@ -406,7 +406,7 @@ def consultation_schedule_form(request):
         'consultation_packages': consultation_packages,
         'completed_requests': completed_requests
     }
-    return render(request, 'entreprenuer/consultation_schedule_form.html', context )
+    return render(request, 'entrepreneur/consultation_schedule_form.html', context )
 
 
 def schedule_meeting(request):
