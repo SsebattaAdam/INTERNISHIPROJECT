@@ -34,7 +34,6 @@ def register_entrepreneur(request):
 def homepage1(request):
     return render(request, 'entrepreneur/homepage1.html')
 
-@login_required
 def business_ideals(request):
     business_ideas = BusinessIdeas.objects.all()
     return render(request, 'entrepreneur/business_ideals.html', {'proposals': business_ideas,})
@@ -90,7 +89,6 @@ def consultation_schedule(request):
     context = {'approved_meetings': approved_meetings,}
     return render(request, 'entrepreneur/consultation_schedule.html', context)
 
-@login_required
 def investment_deals(request):
     investment_deals = InvestmentDeal.objects.all()
     return render(request, 'entrepreneur/investment_deals.html', {'deals': investment_deals,})
@@ -109,8 +107,8 @@ def investment_fundings(request):
 def investment_funding_form(request):
     return render(request, 'investor/investment_funding_form.html')
 
-def investment_deals(request):
-    return render(request, 'investor/investment_deals.html')
+def investor_deals(request):
+    return render(request, 'investor/investor_deals.html')
 
 def businessidea_detail(request, idea_id):
     idea = get_object_or_404(businessidea_detail, id=idea_id)
@@ -172,14 +170,18 @@ def registration_form(request):
             role_in_company=role_in_company
         )
         entrepreneur.save()
+        custom_login(request)
         # Redirect to another page after successful submission
         return redirect('homepage1')
     
     return redirect('register_entrepreneurs')
 
+@login_required
 def logout_view(request):
     try:
-        del request.session["user_id"]
+        if request.session.exists():
+            del request.session["user_id"]
+            del request.session["user_type"]
     except KeyError:
         pass    
     return redirect('index')
@@ -197,11 +199,13 @@ def custom_login(request):
             request.session['user_type'] = ent.user_type
             return redirect('homepage1') # Redirect to the homepage after login
         elif ExpertRegistration.objects.filter(email=email, firstname=password, user_type= "expert").exists():
-            expert = ExpertRegistration.objects.filter(email=email)
+            expert = ExpertRegistration.objects.get(email=email)
             request.session["user_id"] = expert.id
             request.session['user_type'] = expert.user_type
             return redirect('experthomepage') 
         elif Investor.objects.filter(email=email, country=password,).exists():
+            investor = Investor.objects.get(email=email)
+            request.session['user_id'] = investor.id
             return redirect('investorhomepage')
         else:
             message = 'Invalid email or password. Please try again.'
@@ -251,7 +255,7 @@ def register_expert(request):
     
     return render(request, 'expert/register_expert.html')
 
-
+@login_required
 def submit_service_request(request):
     if request.method == 'POST':
         business_idea = request.POST.get('title')
@@ -294,7 +298,7 @@ from .models import BusinessIdeas
 
 # admin views
 
-
+@login_required
 def logout(request):
     return render(request, 'login2.html')
 

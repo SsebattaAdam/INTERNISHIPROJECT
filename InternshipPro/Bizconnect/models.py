@@ -3,8 +3,7 @@ from django.db import models
 from django.db import models
 from django.contrib.auth.models import User
 
-class Registration(models.Model):
-   
+class Registration(models.Model):   
     surname = models.CharField(max_length=100)
     firstname = models.CharField(max_length=100)
     gender = models.CharField(max_length=10, choices=(('male', 'Male'), ('female', 'Female')))
@@ -20,9 +19,6 @@ class Registration(models.Model):
     def __str__(self):
         return f"{self.firstname} {self.surname}"
 
-
-from django.db import models
-from django.contrib.postgres.fields import JSONField
 
 class ExpertRegistration(models.Model):
     GENDER_CHOICES = [
@@ -49,7 +45,6 @@ class ExpertRegistration(models.Model):
         ('tanzania', 'Tanzania'),
         ('kenya', 'Kenya'),
     ]
-   
     surname = models.CharField(max_length=255)
     firstname = models.CharField(max_length=255)
     gender = models.CharField(max_length=6, choices=GENDER_CHOICES)
@@ -67,8 +62,6 @@ class ExpertRegistration(models.Model):
         return f"{self.firstname} {self.surname}"
 
 
-from django.db import models
-from django.contrib.auth.models import User
 
 class ServiceRequest(models.Model):
     business_idea = models.CharField(max_length=255)
@@ -117,7 +110,6 @@ class InvestmentDeal(models.Model):
     funding_goal = models.DecimalField(max_digits=10, decimal_places=2)
     valuation = models.DecimalField(max_digits=10, decimal_places=2)
     terms = models.TextField()
-    entrepreneur = models.ForeignKey(Registration, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.title
@@ -185,7 +177,6 @@ class InvestmentFunds(models.Model):
     def __str__(self):
         return self.title
 
-    from django.db import models
 
 class Investor(models.Model):
     TYPE_CHOICES = [

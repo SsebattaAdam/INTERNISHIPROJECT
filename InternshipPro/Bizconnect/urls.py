@@ -2,6 +2,7 @@
 from django import urls
 from django.urls import path , include
 from . import views
+from django.contrib.auth import views as auth_views
 
 
 
@@ -16,7 +17,7 @@ urlpatterns = [
   ## These are the entrepreneurs' urls
   path('entrepreneurs/', views.homepage1, name = 'homepage1'),
   path('entrepreneur/ideals/', views.business_ideals, name = 'business_ideals'),
-  path("entre/ideal/form/", views.business_ideal_form , name="business_ideal_form"),
+  path("entrepreneur/ideal/form/", views.business_ideal_form , name="business_ideal_form"),
   path("entrepreneur/requests/", views.service_requests, name="service_requests"),
   path("entrepreneur/requests/form/", views.service_request_form, name="expert_request_form"),
   path("entrepreneur/schedule/", views.consultation_schedule, name="consultation_schedule"),
@@ -29,7 +30,7 @@ urlpatterns = [
   path("investor/fundings/", views.investment_fundings, name="investment_fundings"),
   path("investor/funding/form/", views.investment_funding_form, name="investment_funding_form"),
   path('submit-investor/', views.submit_investor_form, name='submit_investor_form'),
-  
+  path('submit-investor_deals/', views.investor_deals, name='investordeals'),
   ## These are the Experts' urls
   path('experts/', views.experthomepage, name = 'experthomepage'),
   path('expert/library/', views.resources, name = 'resources'),
@@ -47,7 +48,7 @@ urlpatterns = [
   path('register_expert/', views.register_expert, name='register_expert'),
   
   ## This is the Login url
-  path('login/',views.login2, name ='login'),
+  path('login/', auth_views.LoginView.as_view(template_name='users/login.html'), name ='login'),
   path('logout/', views.logout_view, name='logout'),
   path('loginForm/', views.custom_login, name='custom_login'),
 
