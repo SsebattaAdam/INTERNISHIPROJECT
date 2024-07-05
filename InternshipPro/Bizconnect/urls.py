@@ -48,7 +48,7 @@ urlpatterns = [
   path('register_expert/', views.register_expert, name='register_expert'),
   
   ## This is the Login url
-  path('login/', auth_views.LoginView.as_view(template_name='users/login.html'), name ='login'),
+  path('login/', views.login2, name ='login'),
   path('logout/', views.logout_view, name='logout'),
   path('loginForm/', views.custom_login, name='custom_login'),
 
