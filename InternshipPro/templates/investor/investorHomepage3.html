@@ -12,7 +12,7 @@
     <meta name="author" content="ThemeOri">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Title of Site -->
-    <title>Entrepreneurs | Bizconnect</title>
+    <title>Investors | Bizconnect</title>
     <!-- Favicons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha256-lQPthLnNj1D8rDsy3i+2r5PpBqObJ8v2T1RQJ/6mPcI=" crossorigin="anonymous" />
 
@@ -24,6 +24,7 @@
     <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
     <!-- fontawesome -->
     <link rel="stylesheet" href="{% static 'assets/css/fontawesome.min.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <!-- Animate CSS -->
     <link rel="stylesheet" href="{% static 'assets/css/animate.css' %}">
     <!-- Swiper -->
@@ -38,7 +39,26 @@
     <link rel="stylesheet" href="{% static 'assets/fonts/flaticon.css' %}">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{% static 'assets/sass/style.css' %}">
+    <!-- Custom Charts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- Include your custom CSS -->
+    <style>
+        html, body {
+            height: 100%;
+        }
+        .wrapper {
+            min-height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .wrapper::after {
+            content: "";
+            flex: 1;
+        }
+    </style>
+    
+    
 </head>
 
 <body>
@@ -50,7 +70,7 @@
         <a href="#about"></a>
         <div class="topnav-right">
             <a href="#search">Profile</a>
-            <a href="#login">LogOut</a>
+            <a href="{% url 'logout' %}">LogOut</a>
         </div>
         <a href="javascript:void(0);" class="icon" onclick="myFunction()">
             <i class="fa fa-bars"></i>
@@ -59,30 +79,10 @@
 
     <div class="custom_sidebar sidebar">
         <ul>
-            <li><a href="{% url 'homepage1'%}">Dashboard</a></li>
-            <!-- <li>
-                <a href="javascript:void(0)" class="dropdown-btn">Profile</a>
-                <ul class="dropdown-container">
-                    <li><a href="/profile/edit"><span class="small-dot">&bull;</span>Edit Profile</a></li>
-                    <li><a href="/profile/business-idea"><span class="small-dot">&bull;</span>Business Idea Description</a></li>
-                    <li><a href="/profile/business-plan"><span class="small-dot">&bull;</span>Business Plan Documents</a></li>
-                    <li><a href="/profile/pitch-videos"><span class="small-dot">&bull;</span>Pitch Videos</a></li>
-                    <li><a href="/profile/investment-deals"><span class="small-dot">&bull;</span>Investment Deals</a></li>
-                    <li><a href="/profile/milestones"><span class="small-dot">&bull;</span>Milestones</a></li>
-                </ul>
-            </li> -->
+            <li><a href="{% url 'investorhomepage' %}">Dashboard</a></li>
+                      
             <li>
-                <a href="{% url 'business_ideals'%}">Request Management</a>
-            </li>
-            <li>
-                <a href="javascript:void(0)" class="dropdown-btn">Resources</a>
-                <ul class="dropdown-container">
-                    <li><a href="/consultation/request"><span class="small-dot">&bull;</span>Upload Resource</a></li>
-                    <li><a href="/consultation/schedule"><span class="small-dot">&bull;</span>Resource Management</a></li>
-                </ul>
-            </li>
-            <li>
-                <a href="javascript:void(0)" >Consultation Packages</a>
+                <a href="{% url 'investment_fundings' %}" >Fundings</a>
                 
             </li>
             <li><a href="/settings">Settings</a></li>
@@ -90,7 +90,7 @@
     </div>
   
     {% block content %}
-    <div class="content">
+    <div class="content wrapper">
         <p>welcome back </p>
          <div class="features__area section-padding pb-0">
              <div class="container">
@@ -146,14 +146,63 @@
                  </div>
              </div>
          </div>
+         <div class="blog__area section-padding">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 mb-30">
+                        <div class="blog__area-item wow fadeInUp" data-wow-delay="0.4s">
+                            
+                            <div class="blog__area-item-content pt-0">
+                                <div>
+                                    <h4>ROI Trends Over 6 Months</h4>
+                                    <canvas id="roiTrends" width="600" height="600"></canvas>
+                                </div> 
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-30">
+                        <div class="blog__area-item wow fadeInUp" data-wow-delay="0.4s">
+                            
+                            <div class="blog__area-item-content pt-0">
+                                <div>
+                                    <h4>Investment Returns by Business</h4>
+                                    <canvas id="investmentReturns" width="600" height="600"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-30">
+                        <div class="blog__area-item wow fadeInUp" data-wow-delay="0.4s">
+                            
+                            <div class="blog__area-item-content pt-0">
+                                <div>
+                                    <h4>Pledged Funds and Funding Progress</h4>
+                                    <canvas id="pledgedFundsProgress" width="600" height="600"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-30">
+                        <div class="blog__area-item wow fadeInUp" data-wow-delay="0.4s">
+                            <div class="blog__area-item-content pt-0">
+                                <div>
+                                    <h4>Portfolio Diversification</h4>
+                                    <canvas id="portfolioDiversification" ></canvas>
+                                </div>  
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
      </div>
     {% endblock content %}
-    <div class="footer__area-copyright pt-35 pb-35" style="background: #030A15;">
+    <div class="footer__area-copyright custom-footer pt-35 pb-35" style="background: #030A15; margin-left: 250px;">
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-xl-6 col-lg-6 col-md-5 md-mb-20">
                     <div class="footer__area-copyright-left st-center">
-                        <p>© 2022 Bizconnect - All rights reserved.</p>
+                        <p>© 2024 Bizconnect - All rights reserved.</p>
                     </div>
                 </div>
                 <div class="col-xl-6 col-lg-6 col-md-7">
@@ -176,6 +225,78 @@
 </div>
 
     <script>
+        // Sample Data
+        const portfolioData = {
+            labels: ['Tech', 'Healthcare', 'Finance', 'Energy', 'Retail'],
+            datasets: [{
+                label: 'Portfolio Diversification',
+                data: [35, 25, 20, 10, 10],
+                backgroundColor: ['#ff6384', '#36a2eb', '#cc65fe', '#ffce56', '#2ecc71'],
+            }]
+        };
+
+        const roiData = {
+            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+            datasets: [{
+                label: 'ROI Trends',
+                data: [5, 7, 6, 8, 9, 10],
+                borderColor: '#36a2eb',
+                fill: false,
+                tension: 0.1
+            }]
+        };
+
+        const investmentReturnsData = {
+            labels: ['Business A', 'Business B', 'Business C', 'Business D', 'Business E'],
+            datasets: [{
+                label: 'Investment Returns',
+                data: [15000, 20000, 25000, 10000, 30000],
+                backgroundColor: '#36a2eb'
+            }]
+        };
+
+        const pledgedFundsData = {
+            labels: ['Business A', 'Business B', 'Business C', 'Business D', 'Business E'],
+            datasets: [
+                {
+                    label: 'Pledged Funds',
+                    data: [100000, 120000, 150000, 130000, 160000],
+                    backgroundColor: '#36a2eb'
+                },
+                {
+                    label: 'Funding Progress (%)',
+                    data: [80, 90, 70, 85, 95],
+                    backgroundColor: '#ffce56'
+                }
+            ]
+        };
+
+        // Render Charts
+        new Chart(document.getElementById('portfolioDiversification'), {
+            type: 'pie',
+            data: portfolioData
+        });
+
+        new Chart(document.getElementById('roiTrends'), {
+            type: 'line',
+            data: roiData
+        });
+
+        new Chart(document.getElementById('investmentReturns'), {
+            type: 'bar',
+            data: investmentReturnsData
+        });
+
+        new Chart(document.getElementById('pledgedFundsProgress'), {
+            type: 'bar',
+            data: pledgedFundsData,
+            options: {
+                scales: {
+                    x: { stacked: true },
+                    y: { stacked: true }
+                }
+            }
+        });
         document.addEventListener('DOMContentLoaded', function() {
             var dropdownBtns = document.getElementsByClassName('dropdown-btn');
             for (var i = 0; i < dropdownBtns.length; i++) {
@@ -189,6 +310,20 @@
                     }
                 });
             }
+            var swiper = new Swiper(".testimonial-slider", {
+              direction: "horizontal",
+              slidesPerView: 1,
+              spaceBetween: 5,
+              centeredSlides: true,
+              pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+              },
+              navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+              },
+            });
         });
     </script>
 

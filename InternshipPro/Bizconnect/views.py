@@ -1,13 +1,16 @@
 # Bizconnect/views.py
-from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib import auth
-from .models import Registration, ExpertRegistration
+from .models import Registration, ExpertRegistration, InvestmentDeal
 from django.contrib.auth import authenticate, login
+from django.core.files.storage import FileSystemStorage
+from django.shortcuts import render, get_object_or_404
+from .models import BusinessIdeas
+
 
 def indexPage(request):
     return render(request, 'index.html')
@@ -24,45 +27,115 @@ def service_detail(request):
 def get_startednow(request):
     return render(request, 'get_started.html')
 
-
-def register_entreprenuer(request):
-    return render(request, 'entreprenuer/register_entreprenuer.html')
+## entrepreneurs
+def register_entrepreneur(request):
+    return render(request, 'entrepreneur/register_entrepreneur.html')
  
 def homepage1(request):
-    return render(request, 'entreprenuer/homepage1.html')
+    return render(request, 'entrepreneur/homepage1.html')
 
 def business_ideals(request):
-    return render(request, 'entreprenuer/business_ideals.html')
+    business_ideas = BusinessIdeas.objects.all()
+    return render(request, 'entrepreneur/business_ideals.html', {'proposals': business_ideas,})
+
+def business_ideal_form(request):
+    if request.method == 'POST':
+        title = request.POST.get('title')
+        description = request.POST.get('description')
+        industry = request.POST.get('industry')
+        target_market = request.POST.get('market')
+        business_model = request.POST.get('business-model')
+        projections = request.POST.get('projections')
+        goals = request.POST.get('goals')
+        
+        pitch_deck = request.FILES.get('pitch-deck')
+        plan = request.FILES.get('plan')
+        video = request.FILES.get('video')
+        support = request.FILES.get('support')
+
+        business_idea = BusinessIdeas(
+            title=title,
+            description=description,
+            industry=industry,
+            target_market=target_market,
+            business_model=business_model,
+            projections=projections,
+            goals=goals,
+            pitch_deck=pitch_deck,
+            plan=plan,
+            video=video,
+            support=support,
+        )
+        
+        business_idea.save()
+        return redirect('business_ideals')
+    
+    return render(request, 'entrepreneur/business_ideal_form.html')
 
 def service_requests(request):
-    return render(request, 'entreprenuer/service_request.html')
+    pending_requests = ServiceRequest.objects.filter(status='Pending')
+    completed_requests = ServiceRequest.objects.filter(status='Completed')
+    return render(request, 'entrepreneur/service_request.html', {
+        'pending_requests': pending_requests,
+        'completed_requests': completed_requests,
+    })
 
 def service_request_form(request):
-    return render(request, 'entreprenuer/expert_request_form.html')
+    return render(request, 'entrepreneur/expert_request_form.html')
 
 def consultation_schedule(request):
-    return render(request, 'entreprenuer/consultation_schedule.html')
-
-def consultation_schedule_form(request):
-    return render(request, 'entreprenuer/consultation_schedule_form.html')
+    user_id = request.session.get('user_id')
+    approved_meetings = ScheduledMeeting.objects.filter(status='Approved', entrepreneur = user_id)
+    context = {'approved_meetings': approved_meetings,}
+    return render(request, 'entrepreneur/consultation_schedule.html', context)
 
 def investment_deals(request):
-    return render(request, 'entreprenuer/investment_deals.html')
+    investment_deals = InvestmentDeal.objects.all()
+    return render(request, 'entrepreneur/investment_deals.html', {'deals': investment_deals,})
 
 def investment_deal_form(request):
-    return render(request, 'entreprenuer/investment_deal_form.html')
+    return render(request, 'entrepreneur/investment_deal_form.html')
 
+## Investors
 def register_investor(request):
     return render(request, 'investor/register_investor.html')
+
 def investorhomepage(request):
     return render(request, 'investor/investorHomepage3.html')
+def investment_fundings(request):
+    return render(request, 'investor/investment_fundings.html')
+def investment_funding_form(request):
+    return render(request, 'investor/investment_funding_form.html')
 
+def investor_deals(request):
+    return render(request, 'investor/investor_deals.html')
+
+def businessidea_detail(request, idea_id):
+    idea = get_object_or_404(businessidea_detail, id=idea_id)
+    return render(request, 'businessidea_detail.html', {'idea': idea})
+## Experts
 def register_expert(request):
     return render(request, 'expert/register_expert.html')
+
 def experthomepage(request):
     return render(request, 'expert/expertHomepage2.html')
+def resources(request):
+    return render(request, 'expert/resources.html')
+def resource_form(request):
+    return render(request, 'expert/resource_form.html')
+def assistance_request(request):
+    return render(request, 'expert/assistance_request.html')
+def consultation_packages(request):
+    return render(request, 'expert/consultation_packages.html')
+def consultation_package_form(request):
+    return render(request, 'expert/consultation_package_form.html')
+def feedback(request):
+    return render(request, 'expert/feedback.html')
 
-def login(request):
+def feedback(request):
+    return render(request, 'expert/feedback.html')
+
+def login2(request):
     return render(request, 'login.html')
 
 
@@ -77,15 +150,15 @@ def registration_form(request):
         country = request.POST.get('country')
         company = request.POST.get('company')
         role_in_company = request.POST.get('role_in_company')
-        user_type = "entreprenuer"
+        user_type = "entrepreneur"
         
         # Check if the email is already used
         if Registration.objects.filter(email=email).exists():
             message = 'Email already in use. Please use a different email.'
-            return render(request, 'entreprenuer/register_entreprenuer.html', {'message': message})
+            return render(request, 'entrepreneur/register_entrepreneur.html', {'message': message})
         
         # Save the data to the Registration model
-        Registration.objects.create(
+        entrepreneur = Registration.objects.create(
             surname=surname,
             firstname=firstname,
             gender=gender,
@@ -96,16 +169,22 @@ def registration_form(request):
             company=company,
             role_in_company=role_in_company
         )
+        entrepreneur.save()
+        custom_login(request)
         # Redirect to another page after successful submission
         return redirect('homepage1')
     
-    return redirect('register_entreprenuers')
+    return redirect('register_entrepreneurs')
 
+@login_required
 def logout_view(request):
-    # Redirect to the index page or any other page after logout
+    try:
+        if request.session.exists():
+            del request.session["user_id"]
+            del request.session["user_type"]
+    except KeyError:
+        pass    
     return redirect('index')
-
-
 
 
 def custom_login(request):
@@ -115,10 +194,19 @@ def custom_login(request):
         
 
         if Registration.objects.filter(email=email, firstname=password, user_type= "entrepreneur").exists():
-
+            ent = Registration.objects.get(email=email)
+            request.session['user_id'] = ent.id
+            request.session['user_type'] = ent.user_type
             return redirect('homepage1') # Redirect to the homepage after login
         elif ExpertRegistration.objects.filter(email=email, firstname=password, user_type= "expert").exists():
+            expert = ExpertRegistration.objects.get(email=email)
+            request.session["user_id"] = expert.id
+            request.session['user_type'] = expert.user_type
             return redirect('experthomepage') 
+        elif Investor.objects.filter(email=email, country=password,).exists():
+            investor = Investor.objects.get(email=email)
+            request.session['user_id'] = investor.id
+            return redirect('investorhomepage')
         else:
             message = 'Invalid email or password. Please try again.'
             return render(request, 'login.html', {'message': message})
@@ -163,15 +251,11 @@ def register_expert(request):
         expert.save()
         
         # Redirect to another page after successful submission
-        return redirect('homepage1')
+        return redirect('experthomepage')
     
     return render(request, 'expert/register_expert.html')
 
-
-from django.shortcuts import render, redirect
-from django.core.files.storage import FileSystemStorage
-from .models import ServiceRequest
-
+@login_required
 def submit_service_request(request):
     if request.method == 'POST':
         business_idea = request.POST.get('title')
@@ -206,14 +290,19 @@ def submit_service_request(request):
         return redirect('homepage1')  # Redirect to a success page or another page after submission
 
     return render(request, 'service_request_form.html')
+#posting business ideas
+from django.shortcuts import render, redirect
+from django.core.files.storage import FileSystemStorage
+from .models import BusinessIdeas
+
 
 # admin views
-from django.shortcuts import render
-from django.shortcuts import render
-from django.contrib.auth import authenticate, login
-from django.http import HttpResponseRedirect
 
-def login_view(request):
+@login_required
+def logout(request):
+    return render(request, 'login2.html')
+
+def loginAdmin(request):
     if request.method == "POST":
         username = request.POST['username']
         password = request.POST['password']
@@ -225,16 +314,236 @@ def login_view(request):
             return render(request, 'login2.html', {'error': 'Invalid credentials'})
     return render(request, 'login2.html')
 
-def allTables(request):
-    return render(request, 'pages/tables/simple.html')
-
-def logout(request):
-    return render(request, 'login2.html')
-
-def loginAdmin(request):
-    return render(request, 'login2.html')
-
 def admin2(request):
     return render(request, 'index2.html')
 
+@login_required
+def allTables(request):
+    requests = ServiceRequest.objects.all()
+    scheduled_meetings = ScheduledMeeting.objects.all()
+    context = {
+        'requests': requests,
+        'scheduled_meetings': scheduled_meetings
+    }
+    return render(request, 'pages/tables/simple.html', context)
+
+
+from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+from .models import ServiceRequest
+
+
+
+@login_required
+def approve_request(request, request_id):
+    service_request = get_object_or_404(ServiceRequest, id=request_id)
+    if request.method == 'POST':
+        expert_id = request.POST.get('expert')
+        if expert_id:
+            expert = get_object_or_404(ExpertRegistration, id=expert_id)
+            service_request.assigned_expert = expert
+        service_request.status = 'Completed'
+        service_request.save()
+        return redirect('allTables')
+    experts = ExpertRegistration.objects.filter(user_type='expert')
+    return render(request, 'pages/tables/approve_request.html', {'request': service_request, 'experts': experts})
+
+
 #end of admin views
+
+@login_required
+def list_requestsmade(request):
+    pending_requests = ServiceRequest.objects.filter(status='Pending')
+    completed_requests = ServiceRequest.objects.filter(status='Completed')
+    denied_meetings = ScheduledMeeting.objects.filter(status='Denied')
+    approved_meetings = ScheduledMeeting.objects.filter(status='Approved')
+    context = {
+        'pending_requests': pending_requests,
+        'completed_requests': completed_requests,
+        'denied_meetings': denied_meetings,
+        'approved_meetings': approved_meetings
+    }
+    return render(request, 'entrepreneur/tables4ent.html', context)
+
+
+@login_required
+def create_investment_deal(request):
+    if request.method == 'POST':
+        title = request.POST['title']
+        industry = request.POST['industry']
+        funding_goal = request.POST['funding-goal']
+        valuation = request.POST['valuation']
+        terms = request.POST['terms']
+
+        # Assuming the logged-in user is the investor
+        entrepreneur= Registration.objects.get(user=request.user)
+
+        investment_deal = InvestmentDeal(
+            title=title,
+            industry=industry,
+            funding_goal=funding_goal,
+            valuation=valuation,
+            terms=terms,
+           entrepreneur= entrepreneur
+        )
+        investment_deal.save()
+        return redirect('homepage1') 
+
+    return redirect('investment_deals')  
+
+
+
+#consultation packages
+from .models import ConsultationPackage, ScheduledMeeting
+
+@login_required
+def create_consultation_package(request):
+    if request.method == 'POST':
+        title = request.POST.get('title')
+        description = request.POST.get('description')
+        package_type = request.POST.get('industry')
+        package_price = request.POST.get('package-price')
+
+        expert = get_object_or_404(ExpertRegistration, user=request.user) # Assuming the logged-in user is the expert
+
+        package = ConsultationPackage.objects.create(
+            title=title,
+            description=description,
+            package_type=package_type,
+            package_price=package_price,
+            expert=expert
+        )
+        package.save()
+
+        return redirect('experthomepage')  # Redirect to expert homepage or another URL
+    
+    return render(request, 'consultation_package_form')
+
+
+def consultation_schedule_form(request, request_id):
+    completed_request = get_object_or_404(ServiceRequest, pk=request_id, status='Completed')
+    consultation_packages = ConsultationPackage.objects.all()
+    context = {
+        'consultation_packages': consultation_packages,
+        'completed_request': completed_request
+    }
+    return render(request, 'entrepreneur/consultation_schedule_form.html', context )
+
+
+def schedule_meeting(request):
+    user_id = request.session.get('user_id')
+    if request.method == 'POST':
+        title = request.POST.get('title')
+        expert_name = request.POST.get('expert')
+        consultation_date = request.POST.get('consultation_date')
+        start_time = request.POST.get('start_time')
+        end_time = request.POST.get('end_time')
+        link = request.POST.get('link')
+        package_id = request.POST.get('consultation_package')
+        entrepreneur = get_object_or_404(Registration, id=user_id)
+
+        consultation_package = ConsultationPackage.objects.get(pk=package_id)
+
+        # Save your meeting scheduling logic here, 
+        schedule_meeting = ScheduledMeeting.objects.create(
+            title=title,
+            expert_name=expert_name,
+            consultation_date=consultation_date,
+            start_time=start_time,
+            end_time=end_time,
+            link=link,
+            consultation_package=consultation_package,
+            entrepreneur= entrepreneur 
+        )
+        schedule_meeting.save()
+       
+        return redirect('homepage1')  
+    consultation_packages = ConsultationPackage.objects.all()
+    context = {
+        'consultation_packages': consultation_packages
+    }
+    return redirect('consultation_schedule_form', context)
+
+
+from django.views.decorators.http import require_POST
+
+@require_POST
+def update_meeting_status(request, meeting_id, status):
+    meeting = get_object_or_404(ScheduledMeeting, id=meeting_id)
+    
+    if status == 'Denied':
+        denial_reason = request.POST.get('denial_reason', '')
+        meeting.status = 'Denied'
+        meeting.denial_reason = denial_reason
+    elif status == 'Approved':
+        meeting.status = 'Approved'
+    elif status == 'Pending':
+        meeting.status = 'Pending'
+    
+    meeting.save()
+    return redirect('allTables')
+
+
+from django.shortcuts import render, redirect
+from .models import Investor
+
+def submit_investor_form(request):
+    if request.method == 'POST':
+        form_type = request.POST.get('type')
+
+        # Common fields
+        email = request.POST.get('email')
+        contact = request.POST.get('contact')
+        country = request.POST.get('country')
+        capital = request.POST.get('capital')
+        information = request.POST.get('information')
+        
+        # Preferences
+        preferences = {
+            'tourism': request.POST.get('tourism', False)== 'tourism',
+            'media': request.POST.get('media', False) == 'media',
+            'commercial': request.POST.get('commercial', False) == 'commercial',
+            'estate': request.POST.get('estate', False) == 'estate',
+            'manufacturing': request.POST.get('manufacturing', False) == 'manufacturing',
+            'education': request.POST.get('education', False) == 'education',
+            'health': request.POST.get('health', False) == 'health',
+            'wholesale': request.POST.get('wholesale', False) == 'wholesale',
+        }
+
+        if form_type == 'individual':
+            # Individual-specific fields
+            surname = request.POST.get('surname')
+            firstname = request.POST.get('firstname')
+            gender = request.POST.get('gender')
+            
+            Investor.objects.create(
+                type='individual',
+                email=email,
+                contact=contact,
+                country=country,
+                capital=capital,
+                information=information,
+                surname=surname,
+                firstname=firstname,
+                gender=gender,
+                **preferences
+            )
+
+        elif form_type == 'organization':
+            # Organization-specific fields
+            company = request.POST.get('company')
+
+            Investor.objects.create(
+                type='organization',
+                email=email,
+                contact=contact,
+                country=country,
+                capital=capital,
+                information=information,
+                company=company,
+                **preferences
+            )
+
+        return redirect('investorhomepage') 
+    return redirect('register_investors') 

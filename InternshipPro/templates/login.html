@@ -1,3 +1,4 @@
+
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
@@ -45,8 +46,8 @@
     <div class="container">
         <div class="row mb-60">
             <div class="contact__area-content t-center">
-                <span class="section-top mb-15">Information</span>
-                <h2>We're ready for your solution</h2>                    
+                
+                <h2> WELCOME TO BIZZCONECT. </h2>                    
             </div>
 
         </div>
@@ -81,7 +82,8 @@
                             </div>
                      </form>
                      <h6>Don't have an account</h>
-                        <a href="register_entrprenuer.html">SignIn</a>
+                        <a href="{% url 'get_started' %}" style="color: orange;">SignIn</a>
+
                     </div>
                 </div>                    
             </div>
@@ -160,22 +162,31 @@
 
 
 
-<div class="management__area section-padding lg-center"  >
-    <div class="row align-items-center">
-        <div class="col-xl-8 col-lg-4 lg-mb-10">
-            <div class="management__area-title wow fadeInUp" data-wow-delay="0.05s" >
-                <span class="section-top mb-15">Register</span>
-                <h2 class="mb-45">Manage Promote and Grow Your Business Online</h2>		
-                <a class="theme-banner-btn" href="contact.html">Create Account Now <i class="flaticon-arrow-right"></i></a>				
-            </div>				
-        </div>
-        
-    </div>
-</div>
-</div>
 
 
 {% endblock%}
+ <div class="footer__area-copyright custom-footer pt-35 pb-35" style="background: #030A15; margin-left: 250px;">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-xl-6 col-lg-6 col-md-5 md-mb-20">
+                    <div class="footer__area-copyright-left st-center">
+                        <p>© 2024 Bizconnect - All rights reserved.</p>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-7">
+                    <div class="footer__area-copyright-right t-right st-center">
+                        <ul>
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="about.html">About Us</a></li>
+                            <li><a href="error.html">Error</a></li>
+                            <li><a href="contact.html">Contact Us</a></li>
+                        </ul>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
 
 	
 <!-- Scroll Top Start -->

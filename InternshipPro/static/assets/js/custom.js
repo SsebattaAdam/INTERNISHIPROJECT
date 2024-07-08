@@ -65,6 +65,16 @@
 	$("[data-background]").each(function () {
 		$(this).css("background-image", "url(" + $(this).attr("data-background") + ")")
 	})
+
+	/*========== custom-footer ========= */
+	$(window).on('resize', function(){
+		if (window.innerWidth <= 575) {
+			$('.custom-footer').style.marginLeft = '0';
+		} else {
+			$('.custom-footer').style.marginLeft = '250px';
+		}
+	});
+
 	/*========== scroll to top  ==========*/
 	$(window).on('scroll', function () {
 		if ($(this).scrollTop() > 200) {
@@ -82,6 +92,11 @@
 	/*==========  theme loader  ==========*/
 	$(window).on("load", function () {
 		$(".theme-loader").fadeOut(500);
+		if (window.innerWidth <= 575) {
+			$('.custom-footer').style.marginLeft = '0';
+		} else {
+			$('.custom-footer').style.marginLeft = '250px';
+		}
 		/*==========  Progress Bar  ==========*/
 		if ($('.experience__area-skill-bar').length) {
 			$('.experience__area-skill-bar').appear(function () {

@@ -1,0 +1,81 @@
+{% extends "expert/expertHomepage2.html" %} {% block title %}Package Form | Bizconnect{% endblock title %}{% load static
+%}
+{% block content %}
+<div class="content mt-80">
+    <div class="container">
+        <div class="blog__standard-left">
+            <div class="blog__standard-left-item mb-30">
+                
+                <div class="blog__standard-left-item-content">
+                    <ul>
+                        <li ><h3 style="font-size: 30px;">Create your Consultation packages</h3></li>
+                    </ul>
+                    <p class="mt-20"><span class="small-dot">&bull;</span>Fill out this form to create the consultation packages that entrepreneurs will refer to when
+                        scheduling a meeting with you.</p>
+                </div>
+            </div>
+        </div>        
+    </div>
+    <div class="container mt-25">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="register wow fadeInUp" data-wow-delay="0.8s">
+                    <h4 class="mb-35">All Fields with (*) are required.</h4>
+                    <div class="register-form">
+                        <form action="{% url 'create_package' %}" method="post">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-md-6 mb-30">
+                                    <div class="register-form-group">
+                                        <label>Title <span style="color: red;">*</span></label>
+                                        <input type="text" name="title" placeholder="Title of package" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 mb-30">
+                                    <div class="register-form-group">
+                                        <label>Description <span style="color: red;">*</span></label>
+                                        <textarea name="description" placeholder="Describe your package"
+                                            required></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-30">
+                                    <div class="register-form-group">
+                                        <label>Package Type <span style="color: red;">*</span></label>
+                                        <select id="industry" name="industry" required>
+                                            <option value="">Select an option</option>
+                                            <option value="hourly">Hourly Rate</option>
+                                            <option value="retainer">Retainer-based</option>
+                                            <option value="project">Project-Based</option>
+                                            <option value="specialised">Specialised challenge</option>
+                                            <option value="growth">Growth Strategy</option>
+                                        </select>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-30">
+                                    <div class="register-form-group">
+                                        <label>Fee (per package unit)<span style="color: red;">*</span></label>
+                                        <input type="number" id="package-price" name="package-price" min="500" placeholder="UGX" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xl-3 col-md-6 col-lg-4 mb-20">
+                                    <div class="register-form-group">
+                                        <button class="theme-btn" type="submit">Publish</button>
+                                    </div>
+                                </div>
+                                <div class="col-xl-2 col-md-4 col-lg-5">
+                                    <div class="register-form-group">
+                                        <button class="theme-btn" style="background: #030A15;" type="button" onclick="javascript:history.back()">Back</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
