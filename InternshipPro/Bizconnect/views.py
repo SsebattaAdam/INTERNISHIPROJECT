@@ -176,14 +176,14 @@ def registration_form(request):
     
     return redirect('register_entrepreneurs')
 
-@login_required
+
 def logout_view(request):
-    try:
-        if request.session.exists():
-            del request.session["user_id"]
-            del request.session["user_type"]
-    except KeyError:
-        pass    
+    # try:
+    #     if request.session.exists():
+    #         del request.session["user_id"]
+    #         del request.session["user_type"]
+    # except KeyError:
+    #     pass    
     return redirect('index')
 
 
@@ -255,7 +255,7 @@ def register_expert(request):
     
     return render(request, 'expert/register_expert.html')
 
-@login_required
+
 def submit_service_request(request):
     if request.method == 'POST':
         business_idea = request.POST.get('title')
@@ -321,9 +321,11 @@ def admin2(request):
 def allTables(request):
     requests = ServiceRequest.objects.all()
     scheduled_meetings = ScheduledMeeting.objects.all()
+    reply_requests = ReplyRequest.objects.all()
     context = {
         'requests': requests,
-        'scheduled_meetings': scheduled_meetings
+        'scheduled_meetings': scheduled_meetings,
+        'reply_requests': reply_requests
     }
     return render(request, 'pages/tables/simple.html', context)
 
@@ -367,31 +369,32 @@ def list_requestsmade(request):
     return render(request, 'entrepreneur/tables4ent.html', context)
 
 
-@login_required
+
+
 def create_investment_deal(request):
     if request.method == 'POST':
-        title = request.POST['title']
-        industry = request.POST['industry']
-        funding_goal = request.POST['funding-goal']
-        valuation = request.POST['valuation']
-        terms = request.POST['terms']
+        title = request.POST.get('title')
+        industry = request.POST.get('industry')
+        funding_goal = request.POST.get('funding-goal')
+        valuation = request.POST.get('valuation')
+        terms = request.POST.get('terms')
 
-        # Assuming the logged-in user is the investor
-        entrepreneur= Registration.objects.get(user=request.user)
+      
+        entrepreneur = get_object_or_404(Registration, id=request.session.get('user_id'))
 
+            # Create the investment deal with the fetched entrepreneur
         investment_deal = InvestmentDeal(
-            title=title,
-            industry=industry,
-            funding_goal=funding_goal,
-            valuation=valuation,
-            terms=terms,
-           entrepreneur= entrepreneur
-        )
+                title=title,
+                industry=industry,
+                funding_goal=funding_goal,
+                valuation=valuation,
+                terms=terms,
+                entrepreneur_id=entrepreneur.id  # Assigning the ID directly
+            )
         investment_deal.save()
-        return redirect('homepage1') 
+        return redirect('homepage1')
 
-    return redirect('investment_deals')  
-
+    return redirect('investment_deals')
 
 
 #consultation packages
@@ -405,7 +408,7 @@ def create_consultation_package(request):
         package_type = request.POST.get('industry')
         package_price = request.POST.get('package-price')
 
-        expert = get_object_or_404(ExpertRegistration, user=request.user) # Assuming the logged-in user is the expert
+        expert = get_object_or_404(ExpertRegistration ) # Assuming the logged-in user is the expert
 
         package = ConsultationPackage.objects.create(
             title=title,
@@ -431,8 +434,8 @@ def consultation_schedule_form(request, request_id):
     return render(request, 'entrepreneur/consultation_schedule_form.html', context )
 
 
-def schedule_meeting(request):
-    user_id = request.session.get('user_id')
+def schedule_meeting4theent(request):
+    
     if request.method == 'POST':
         title = request.POST.get('title')
         expert_name = request.POST.get('expert')
@@ -441,7 +444,7 @@ def schedule_meeting(request):
         end_time = request.POST.get('end_time')
         link = request.POST.get('link')
         package_id = request.POST.get('consultation_package')
-        entrepreneur = get_object_or_404(Registration, id=user_id)
+        entrepreneur = get_object_or_404(Registration, id=request.session.get('user_id'))
 
         consultation_package = ConsultationPackage.objects.get(pk=package_id)
 
@@ -547,3 +550,72 @@ def submit_investor_form(request):
 
         return redirect('investorhomepage') 
     return redirect('register_investors') 
+
+def investment_deallists(request):
+    investment_deals = InvestmentDeal.objects.all()
+
+    # Handling search query
+    query = request.GET.get('q')
+    if query:
+        investment_deals = investment_deals.filter(
+            title__icontains=query) | investment_deals.filter(
+            industry__icontains=query)  # Adjust as per your fields
+
+    context = {
+        'deals': investment_deals,
+    }
+    return render(request, 'investor/investor_deals.html', context)
+
+
+
+def replay_requests_made(request):
+    approved_meetings = ScheduledMeeting.objects.filter(status='Approved')
+    context = {
+        'approved_meetings': approved_meetings
+    }
+    return render(request, 'expert/reply.html', context)
+
+
+
+
+from django.shortcuts import render, redirect
+from .models import ReplyRequest
+
+def replay_requests_madetothemeeting(request):
+    if request.method == 'POST':
+        meeting_id = request.POST.get('meeting_id')
+        title = request.POST.get('title')
+        description = request.POST.get('description')
+        text_area = request.POST.get('text_area')
+
+        # Assuming ScheduledMeeting and other necessary imports are present
+        meeting = ScheduledMeeting.objects.get(pk=meeting_id)
+
+        reply_request = ReplyRequest.objects.create(
+            meeting=meeting,
+            title=title,
+            description=description,
+            text_area=text_area,
+            status='NOT_SENT'  # Set default status
+        )
+        reply_request.save()
+
+ 
+        return redirect('investorhomepage')  
+    return render(request, 'expert/reply.html')
+
+def forward_request(request, request_id):
+    request_instance = get_object_or_404(ReplyRequest, id=request_id)
+
+    # Update status to 'SENT' (pseudo code, replace with actual logic)
+    request_instance.status = 'SENT'
+    request_instance.save()
+
+    # Prepare context with specific fields to forward
+    context = {
+        'title': request_instance.title,
+        'description': request_instance.description,
+        'text_area': request_instance.text_area,
+    }
+
+    return render(request, 'forwarded_table.html', context)

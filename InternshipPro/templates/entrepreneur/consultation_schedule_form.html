@@ -44,7 +44,8 @@
                                 <div class="col-md-6 mb-30">
                                     <div class="register-form-group">
                                         <label>Start Time <span style="color: red;">*</span></label>
-                                        <input type="time" id="start_time" name="start_time" value="{{completed_request.consultation_time}}" placeholder="{{ completed_request.consultation_time }}" readonly />
+                                        <input type="time" id="start_time" name="start_time" value="{{ completed_request.consultation_time|time:'H:i' }}" readonly />
+
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-30">

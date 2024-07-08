@@ -56,6 +56,11 @@
             content: "";
             flex: 1;
         }
+
+        .highlight {
+    background-color: yellow; /* Or any color you prefer */
+    color: black; /* Adjust text color as needed */
+}
     </style>
     
     
@@ -83,6 +88,10 @@
                       
             <li>
                 <a href="{% url 'investment_fundings' %}" >Fundings</a>
+                
+            </li>
+             <li>
+                <a href="{% url 'investment_dealists' %}" >Investiment Delas</a>
                 
             </li>
             <li><a href="/settings">Settings</a></li>

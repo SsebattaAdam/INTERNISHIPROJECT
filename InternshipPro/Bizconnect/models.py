@@ -212,3 +212,24 @@ class Investor(models.Model):
 
     def __str__(self):
         return f"{self.type} - {self.email}"
+
+
+
+from django.db import models
+from django.contrib.auth.models import User
+
+class ReplyRequest(models.Model):
+    meeting = models.ForeignKey('ScheduledMeeting', on_delete=models.CASCADE)
+    title = models.CharField(max_length=200)
+    description = models.TextField()
+    text_area = models.TextField()
+    status_choices = [
+        ('SENT', 'Sent'),
+        ('NOT_SENT', 'Not Sent'),
+    ]
+    status = models.CharField(max_length=10, choices=status_choices, default='NOT_SENT')
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.title

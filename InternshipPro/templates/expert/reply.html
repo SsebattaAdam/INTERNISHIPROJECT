@@ -1,0 +1,73 @@
+{% extends "expert/expertHomepage2.html" %}
+
+{% block title %}
+    Reply Requests | Bizconnect
+{% endblock title %}
+
+{% block content %}
+<div class="content wrapper mt-80">
+    <div class="container mb-30">
+        <div class="blog__standard-left">
+            <div class="blog__standard-left-item mb-30">
+                <div class="blog__standard-left-item-content">
+                    <ul>
+                        <li><h3 style="font-size: 30px;">Reply Requests</h3></li>
+                    </ul>
+                    <p class="mb-20"><span class="small-dot">&bull;</span> Provide detailed information about your discussion with the entrepreneur.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container mt-25">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="register wow fadeInUp" data-wow-delay="0.8s">
+                    <h4 class="mb-35">All Fields with (*) are required.</h4>
+                    <div class="register-form">
+                        {% for meeting in approved_meetings %}
+                        <form action="{% url 'replay_requests_madetothemeeting' %}" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="meeting_id" value="{{ meeting.id }}">
+                            <div class="row">
+                                <div class="col-md-6 mb-30">
+                                    <div class="register-form-group">
+                                        <label>Title <span style="color: red;">*</span></label>
+                                        <input type="text" name="title" value="{{ meeting.title }}" required readonly>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 mb-30">
+                                    <div class="register-form-group">
+                                        <label>Description <span style="color: red;">*</span></label>
+                                        <textarea name="description" placeholder="Describe your idea" required></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 mb-30">
+                                    <div class="register-form-group">
+                                        <label>Text Area <span style="color: red;">*</span></label>
+                                        <textarea name="text_area" placeholder="Enter your text here" required></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xl-3 col-md-6 col-lg-4 mt-20">
+                                    <div class="register-form-group">
+                                        <button class="theme-btn" type="submit">Send Reply</button>
+                                    </div>
+                                </div>
+                                <div class="col-xl-2 col-md-4 col-lg-5">
+                                    <div class="register-form-group">
+                                        <button class="theme-btn" style="background: #030A15;" type="button" onclick="javascript:history.back()">Back</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
