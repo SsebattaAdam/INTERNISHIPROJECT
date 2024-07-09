@@ -76,7 +76,7 @@ class ServiceRequest(models.Model):
     submitted_at = models.DateTimeField(auto_now_add=True)
     status = models.CharField(max_length=20, choices=[('Pending', 'Pending'), ('Completed', 'Completed')], default='Pending')
     assigned_expert = models.ForeignKey('ExpertRegistration', on_delete=models.SET_NULL, null=True, blank=True, related_name='assigned_requests',)
-    requester = models.ForeignKey(Registration, on_delete=models.CASCADE, default=1)
+    requester = models.ForeignKey(Registration, on_delete=models.CASCADE)
 
     def __str__(self):
         return f"{self.business_idea} by {self.requester.firstname} {self.requester.surname}"
@@ -209,6 +209,7 @@ class Investor(models.Model):
     education = models.BooleanField(default=False)
     health = models.BooleanField(default=False)
     wholesale = models.BooleanField(default=False)
+    user_type = models.CharField(max_length=20, default='investor')
 
     def __str__(self):
         return f"{self.type} - {self.email}"
