@@ -119,12 +119,12 @@ class InvestmentDeal(models.Model):
 class ConsultationPackage(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField()
-    package_type = models.CharField(max_length=20, choices=[
-        ('hourly', 'Hourly Rate'),
-        ('retainer', 'Retainer-based'),
-        ('project', 'Project-Based'),
-        ('specialised', 'Specialised Challenge'),
-        ('growth', 'Growth Strategy'),
+    package_type = models.CharField(max_length=50, choices=[
+        ('Hourly Rate', 'Hourly Rate'),
+        ('Retainer-based', 'Retainer-based'),
+        ('Project-Based', 'Project-Based'),
+        ('Specialised Challenge', 'Specialised Challenge'),
+        ('Growth Strategy', 'Growth Strategy'),
     ])
     package_price = models.DecimalField(max_digits=10, decimal_places=2)
     expert = models.ForeignKey(ExpertRegistration, on_delete=models.CASCADE)
@@ -162,14 +162,14 @@ class InvestmentFunds(models.Model):
     title = models.CharField(max_length=200)
     industry = models.CharField(max_length=100)
     type = models.CharField(max_length=100, choices=[
-        ('equity', 'Equity'),
-        ('debt', 'Debt'),
-        ('convertible_note', 'Convertible Note'),
+        ('Equity', 'Equity'),
+        ('Debt', 'Debt'),
+        ('Convertible Note', 'Convertible Note'),
     ])
     investment_amount = models.DecimalField(max_digits=10, decimal_places=2)
     contact_method = models.CharField(max_length=100, choices=[
-        ('email', 'Email'),
-        ('phone', 'Phone'),
+        ('Email', 'Email'),
+        ('Phone', 'Phone'),
     ])
     notes = models.TextField()
     supporting_documents = models.FileField(upload_to='supporting_documents/', null=True, blank=True)
@@ -215,9 +215,6 @@ class Investor(models.Model):
         return f"{self.type} - {self.email}"
 
 
-
-from django.db import models
-from django.contrib.auth.models import User
 
 class ReplyRequest(models.Model):
     meeting = models.ForeignKey('ScheduledMeeting', on_delete=models.CASCADE)
