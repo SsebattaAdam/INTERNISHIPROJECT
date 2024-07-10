@@ -4,7 +4,7 @@ from django.contrib.auth import logout
 from .decorators import is_entrepreneur, is_expert, is_investor, login_required
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
-from django.contrib import auth
+from django.contrib import auth, messages
 from .models import Registration, ExpertRegistration, InvestmentDeal
 from django.contrib.auth import authenticate, login
 from django.core.files.storage import FileSystemStorage
@@ -48,6 +48,7 @@ def business_ideals(request):
     return render(request, 'entrepreneur/business_ideals.html', {'proposals': ideals,})
 
 @login_required
+@is_entrepreneur
 def business_ideal_form(request):
     if request.method == 'POST':
         title = request.POST.get('title')
@@ -192,12 +193,18 @@ def resource_form(request):
     return render(request, 'expert/resource_form.html')
 
 @login_required
+@is_expert
 def assistance_request(request):
-    return render(request, 'expert/assistance_request.html')
+    expert = get_object_or_404(ExpertRegistration, pk=request.session['user_id'])
+    requests = ServiceRequest.objects.filter(assigned_expert=expert, status='Completed')
+    return render(request, 'expert/assistance_request.html', {'requests': requests})
 
 @login_required
+@is_expert
 def consultation_packages(request):
-    return render(request, 'expert/consultation_packages.html')
+    expert = get_object_or_404(ExpertRegistration, pk=request.session['user_id'])
+    packages = ConsultationPackage.objects.filter(expert=expert)
+    return render(request, 'expert/consultation_packages.html', {"packages": packages})
 
 @login_required
 def consultation_package_form(request):
@@ -280,8 +287,8 @@ def custom_login(request):
             request.session['user_id'] = investor.id
             return redirect('investorhomepage')
         else:
-            message = 'Invalid email or password. Please try again.'
-            return render(request, 'login.html', {'message': message})
+            messages.add_message(request, messages.ERROR, 'Invalid email or password. Please try again.')
+            return render(request, 'login.html')
 
     return render(request, 'login.html')
 
@@ -298,6 +305,7 @@ def submit_service_request(request):
         urgency_level = request.POST.get('urgency_level')
         comments = request.POST.get('comments')
         attachment = request.FILES.get('attachment')
+        entrepreneur = get_object_or_404(Registration, id=request.session['user_id'])
 
         if attachment:
             fs = FileSystemStorage(location='attachments/')
@@ -316,6 +324,7 @@ def submit_service_request(request):
             urgency_level=urgency_level,
             attachment=attachment_url,
             comments=comments,
+            requester=entrepreneur
         )
 
         return redirect('homepage1')  # Redirect to a success page or another page after submission
@@ -362,8 +371,6 @@ def allTables(request):
 
 
 from django.shortcuts import render, get_object_or_404, redirect
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
 from .models import ServiceRequest
 
 
@@ -439,7 +446,7 @@ def create_consultation_package(request):
         package_type = request.POST.get('industry')
         package_price = request.POST.get('package-price')
 
-        expert = get_object_or_404(ExpertRegistration ) # Assuming the logged-in user is the expert
+        expert = get_object_or_404(ExpertRegistration, pk=request.session['user_id']) # Assuming the logged-in user is the expert
 
         package = ConsultationPackage.objects.create(
             title=title,
@@ -613,9 +620,6 @@ def replay_requests_made(request):
     return render(request, 'expert/reply.html', context)
 
 
-
-
-from django.shortcuts import render, redirect
 from .models import ReplyRequest
 
 def replay_requests_madetothemeeting(request):
