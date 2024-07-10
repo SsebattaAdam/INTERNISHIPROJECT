@@ -1,12 +1,15 @@
 # decorators.py
 from django.core.exceptions import PermissionDenied
+from django.shortcuts import redirect
+from django.contrib import messages
 
 def login_required(function):
     def wrap(request, *args, **kwargs):
         if 'user_id' in request.session:
             return function(request, *args, **kwargs)
         else:
-            raise PermissionDenied
+            messages.add_message(request, messages.WARNING, 'The session has expired. Please login again to continue.')
+            return redirect('custom_login')
     return wrap
 
 def is_entrepreneur(function):
