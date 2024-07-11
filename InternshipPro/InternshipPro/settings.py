@@ -130,7 +130,8 @@ STATICFILES_DIRS = [
 # Use database-backend sessions
 SESSION_ENGINE = 'django.contrib.sessions.backends.db'
 # Session expiration
-SESSION_COOKIE_AGE = 3600 # 1 hour
+SESSION_TIMEOUT = 3600
+SESSION_COOKIE_AGE = SESSION_TIMEOUT 
 SESSION_SAVE_EVERY_REQUEST = True # Reset the session timer on each request
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field

@@ -24,14 +24,15 @@
                             <div class="testimonial__area-item swiper-slide " data-wow-delay="0.8s">
                                 <div class="testimonial__area-item-content mb-30">
                                     <i class="flaticon-quote"></i>
-                                    <h5>{{ request.title }}</h5>
+                                    <h5>{{ request.business_idea }}</h5>
                                     <h6>{{ request.industry }}</h6>
                                     <p>{{ request.description }}</p>
+                                    <div class="mt-20 row">
+                                        <span class="col-md-5 custom-a"><a href="#">Accept</a></span>
+                                        <span class="col-md-4 custom-a"><a href="#">Reject</a></span>
+                                    </div>
                                 </div>
-                                <div class="pr-30 row">
-                                    <span class="col-md-5 custom-a"><a href="#">Accept</a></span>
-                                    <span class="col-md-4 custom-a"><a href="#">Reject</a></span>
-                                </div>
+                                
                             </div>
                             {% endfor %}
                         </div>
@@ -42,11 +43,6 @@
 				</div>
                 	
 			</div>
-            <div class="col-xl-6 col-lg-6 col-md-6 mt-35">
-                <div class="solution__area-right lg-center">
-                    <a class="theme-bg-btn" href="{% url 'expert_request_form' %}">Create your request now <i class="flaticon-arrow-right"></i></a>						
-                </div>					
-            </div>
 		</div>
 	</div>
 </div>

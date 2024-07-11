@@ -1,0 +1,23 @@
+# Ignore Django migrations
+**/migrations/
+
+# Python
+*.pyc
+__pycache__/
+
+# Virtual environment
+venv/
+env/
+
+# Django stuff:
+*.log
+*.pot
+*.pyc
+__pycache__/
+local_settings.py
+db.sqlite3
+media/
+attachment/
+
+# VS Code settings
+.vscode/

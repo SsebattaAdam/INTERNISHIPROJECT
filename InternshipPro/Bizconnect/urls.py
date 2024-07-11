@@ -13,6 +13,7 @@ urlpatterns = [
   path('service/', views.service, name = 'service'),
   path('service_details/', views.service_detail, name = 'service_details'),
   path('get_started/', views.get_startednow, name = 'get_started'),
+  path("membership/", views.after_register, name="after_register"),
   
   ## These are the entrepreneurs' urls
   path('entrepreneurs/', views.homepage1, name = 'homepage1'),
@@ -21,7 +22,8 @@ urlpatterns = [
   path("entrepreneur/requests/", views.service_requests, name="service_requests"),
   path("entrepreneur/requests/form/", views.service_request_form, name="expert_request_form"),
   path("entrepreneur/schedule/", views.consultation_schedule, name="consultation_schedule"),
-  path("entrepreneur/schedule/form/", views.consultation_schedule_form, name="consultation_schedule_form"),
+  path("entrepreneur/schedule/form/<int:request_id>/", views.consultation_schedule_form, name="consultation_schedule_form"),
+  
   path("entrepreneur/investment/deals/", views.investment_deals, name="investment_deals"),
   path("entrepreneur/investment/deals/form/", views.investment_deal_form, name="investment_deal_form"),
   
@@ -59,17 +61,24 @@ urlpatterns = [
 
   #admin urls
   path('tables/', views.allTables, name='allTables'),
-  # path('list_requestsmade/', views.list_requestsmade, name='list_requestsmade1'),
+  path('list_requestsmade/', views.list_requestsmade, name='list_requestsmade1'),
 
   path('loginAdmin/', views.loginAdmin, name='loginAdmin'),
-  path('logout/', views.logout, name='logout'),
+  path('logout/', views.logout2, name='logout2'),
   path('admin2/', views.admin2, name='admin2'),
   path('approve_request/<int:request_id>/', views.approve_request, name='approve_request'),
   path('create_package/', views.create_consultation_package, name='create_package'),
 
-  path('schedule_meeting/', views.schedule_meeting, name='schedule_meeting'),
+  path('schedule_meeting/', views.schedule_meeting4theent, name='schedule_meeting'),
 
 
   path('update-meeting-status/<int:meeting_id>/<str:status>/', views.update_meeting_status, name='update_meeting_status'),
 
+
+  path('investment_dealists/', views.investment_deallists, name='investment_dealists'),
+  path('reply-requests/', views.replay_requests_made, name='replay_requests'),
+  path('reply_madenow/', views.replay_requests_madetothemeeting, name='replay_requests_madetothemeeting'),
+
+
+  path('forward-request/<int:request_id>/', views.forward_request, name='forward_request'),
 ]

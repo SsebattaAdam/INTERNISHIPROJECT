@@ -23,9 +23,9 @@ Bizconnect{% endblock title %}{% load static %}
             <div class="blog__standard-left-item col-lg-6 mb-30 wow fadeInUp" data-wow-delay="0.3s">
                 <div class="blog__standard-left-item-content mt-30">
                     <ul>
-                        <li class="blog__standard-left-item-content-date mr-40 md-mr-25"><span>{{ deal.industry }}</span></li>
-                        <li class="mr-30 md-mr-15">{{ deal.valuation }}</li>
-                        <li> {{ deal.goals }}</li>
+                        <li class="blog__standard-left-item-content-date mr-30 md-mr-25"><span>{{ deal.industry }}</span></li>
+                        <li class="mr-20 md-mr-15"><h6>Valuation:</h6> {{ deal.valuation }}</li>
+                        <li><h6>Funding Goal:</h6> {{ deal.funding_goal }}</li>
                     </ul>
                     <h3 class="mb-15">{{ deal.title }}</h3>
                     <p class="mb-20">{{ deal.terms }} </p>

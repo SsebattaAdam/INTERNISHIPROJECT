@@ -76,7 +76,7 @@ class ServiceRequest(models.Model):
     submitted_at = models.DateTimeField(auto_now_add=True)
     status = models.CharField(max_length=20, choices=[('Pending', 'Pending'), ('Completed', 'Completed')], default='Pending')
     assigned_expert = models.ForeignKey('ExpertRegistration', on_delete=models.SET_NULL, null=True, blank=True, related_name='assigned_requests',)
-    requester = models.ForeignKey(Registration, on_delete=models.CASCADE, default=1)
+    requester = models.ForeignKey(Registration, on_delete=models.CASCADE)
 
     def __str__(self):
         return f"{self.business_idea} by {self.requester.firstname} {self.requester.surname}"
@@ -119,12 +119,12 @@ class InvestmentDeal(models.Model):
 class ConsultationPackage(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField()
-    package_type = models.CharField(max_length=20, choices=[
-        ('hourly', 'Hourly Rate'),
-        ('retainer', 'Retainer-based'),
-        ('project', 'Project-Based'),
-        ('specialised', 'Specialised Challenge'),
-        ('growth', 'Growth Strategy'),
+    package_type = models.CharField(max_length=50, choices=[
+        ('Hourly Rate', 'Hourly Rate'),
+        ('Retainer-based', 'Retainer-based'),
+        ('Project-Based', 'Project-Based'),
+        ('Specialised Challenge', 'Specialised Challenge'),
+        ('Growth Strategy', 'Growth Strategy'),
     ])
     package_price = models.DecimalField(max_digits=10, decimal_places=2)
     expert = models.ForeignKey(ExpertRegistration, on_delete=models.CASCADE)
@@ -162,14 +162,14 @@ class InvestmentFunds(models.Model):
     title = models.CharField(max_length=200)
     industry = models.CharField(max_length=100)
     type = models.CharField(max_length=100, choices=[
-        ('equity', 'Equity'),
-        ('debt', 'Debt'),
-        ('convertible_note', 'Convertible Note'),
+        ('Equity', 'Equity'),
+        ('Debt', 'Debt'),
+        ('Convertible Note', 'Convertible Note'),
     ])
     investment_amount = models.DecimalField(max_digits=10, decimal_places=2)
     contact_method = models.CharField(max_length=100, choices=[
-        ('email', 'Email'),
-        ('phone', 'Phone'),
+        ('Email', 'Email'),
+        ('Phone', 'Phone'),
     ])
     notes = models.TextField()
     supporting_documents = models.FileField(upload_to='supporting_documents/', null=True, blank=True)
@@ -209,6 +209,25 @@ class Investor(models.Model):
     education = models.BooleanField(default=False)
     health = models.BooleanField(default=False)
     wholesale = models.BooleanField(default=False)
+    user_type = models.CharField(max_length=20, default='investor')
 
     def __str__(self):
         return f"{self.type} - {self.email}"
+
+
+
+class ReplyRequest(models.Model):
+    meeting = models.ForeignKey('ScheduledMeeting', on_delete=models.CASCADE)
+    title = models.CharField(max_length=200)
+    description = models.TextField()
+    text_area = models.TextField()
+    status_choices = [
+        ('SENT', 'Sent'),
+        ('NOT_SENT', 'Not Sent'),
+    ]
+    status = models.CharField(max_length=10, choices=status_choices, default='NOT_SENT')
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.title
