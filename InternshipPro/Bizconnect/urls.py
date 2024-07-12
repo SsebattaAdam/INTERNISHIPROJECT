@@ -29,7 +29,10 @@ urlpatterns = [
   path("investor/fundings/", views.investment_fundings, name="investment_fundings"),
   path("investor/funding/form/", views.investment_funding_form, name="investment_funding_form"),
   path('submit-investor/', views.submit_investor_form, name='submit_investor_form'),
-  path('submit-investor_deals/', views.investor_deals, name='investordeals'),
+  path('investors/investor_deals/', views.investor_deals, name='investor_deals'),
+  path('investors/investment_details/', views.investment_details, name='investment_details'),
+ path('investors/businessidea_detail/<int:idea_id>/', views.businessidea_detail, name='businessidea_detail'),
+
   ## These are the Experts' urls
   path('experts/', views.experthomepage, name = 'experthomepage'),
   path('expert/library/', views.resources, name = 'resources'),

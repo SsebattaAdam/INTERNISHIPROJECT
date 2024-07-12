@@ -112,6 +112,11 @@ def investment_funding_form(request):
 def investor_deals(request):
     return render(request, 'investor/investor_deals.html')
 
+def investment_details(request):
+    ideas =BusinessIdeas.objects.all()
+    return render(request, 'investor/investment_details.html', {'ideas': ideas})
+
+
 def businessidea_detail(request, idea_id):
     idea = get_object_or_404(businessidea_detail, id=idea_id)
     return render(request, 'businessidea_detail.html', {'idea': idea})
