@@ -1,0 +1,20 @@
+{% extends "investor/investorHomepage3.html" %}{% block title %}investment_details | Bizconnect{% endblock title %}{% load static %}
+{% block content %}
+<div class="content wrapper mt-80">
+    <div class="testimonial__area section-padding wow fadeInUp">
+        <div class="container">
+           <h1>{{ idea.title }}</h1>
+           <p>{{ idea.description }}</p>
+           <p><strong>Business Industry:</strong> {{ idea.industry }}</p>
+           <p><strong>Target Market:</strong> {{ idea.market }}</p>
+           <p><strong>Monetary Value:</strong> {{ idea.business_model }}</p>
+           <p><strong>Financial Projections:</strong> {{ idea.projections }}</p>
+           <p><strong>Goals:</strong> {{ idea.goals }}</p>
+           <p><strong>Pitch Deck:</strong> <a href="{{ idea.pitch_deck.url }}">Download</a></p>
+           <p><strong>Business Plan:</strong> <a href="{{ idea.plan.url }}">Download</a></p>
+           <p><strong>Video Pitch:</strong> <a href="{{ idea.video.url }}">Download</a></p>
+           <p><strong>Supporting Documents:</strong> <a href="{{ idea.support.url }}">Download</a></p>
+        </div>
+     </div>    
+ </div>
+{% endblock content %}
