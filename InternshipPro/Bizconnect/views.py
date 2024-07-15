@@ -1,15 +1,37 @@
 # Bizconnect/views.py
 from django.http import HttpResponse, JsonResponse
-from django.contrib.auth import logout
-from .decorators import is_entrepreneur, is_expert, is_investor, login_required
 from django.shortcuts import render, redirect
-from django.contrib.auth.models import User
+from django.contrib.auth.models import Group, Permission
 from django.contrib import auth, messages
-from .models import Registration, ExpertRegistration, InvestmentDeal
-from django.contrib.auth import authenticate, login
+from django.contrib.auth.hashers import make_password
+from .models import CustomUser, Registration, ExpertRegistration, InvestmentDeal
+from django.contrib.auth import authenticate, login, logout
 from django.core.files.storage import FileSystemStorage
 from django.shortcuts import render, get_object_or_404
 from .models import BusinessIdeas
+from django.contrib.auth.decorators import permission_required, login_required
+from django.core.mail import send_mail, EmailMessage
+import random
+import string
+from InternshipPro import settings
+
+def generate_password(name):
+    special_characters = "!@#$%^&*()"
+    name_part = name[:4] 
+    random_part = ''.join(random.choices(string.ascii_letters + string.digits, k=5))
+    special_part = ''.join(random.choices(special_characters, k=2))
+    password = name_part + random_part + special_part
+    return password
+
+
+def send_password_email(email, password):
+    subject = 'Welcome to Bizconnect'
+    message = f'Hello , thank you for registering into Bizconnect. Your password is {password}'
+    email_from = settings.EMAIL_HOST_USER
+    recipient_list = [email]
+    cc = [settings.EMAIL_HOST_USER]
+    email = EmailMessage(subject, message, email_from, recipient_list, cc)
+    email.send()
 
 
 def indexPage(request):
@@ -40,15 +62,14 @@ def homepage1(request):
 
 @login_required
 def business_ideals(request):
-    if request.session['user_type'] == "entrepreneur":
-        entrepreneur = get_object_or_404(Registration, id=request.session['user_id'])
+    if request.user.is_entrepreneur():
+        entrepreneur = get_object_or_404(Registration, user_id=request.session['user_id'])
         ideals = BusinessIdeas.objects.filter(entrepreneur=entrepreneur)
     else:
         ideals = BusinessIdeas.objects.all()
     return render(request, 'entrepreneur/business_ideals.html', {'proposals': ideals,})
 
 @login_required
-@is_entrepreneur
 def business_ideal_form(request):
     if request.method == 'POST':
         title = request.POST.get('title')
@@ -63,7 +84,7 @@ def business_ideal_form(request):
         plan = request.FILES.get('plan')
         video = request.FILES.get('video')
         support = request.FILES.get('support')
-        entrepreneur = get_object_or_404(Registration, id=request.session['user_id'])
+        entrepreneur = get_object_or_404(Registration, user_id=request.session['user_id'])
 
         business_idea = BusinessIdeas(
             title=title,
@@ -87,8 +108,8 @@ def business_ideal_form(request):
 
 @login_required
 def service_requests(request):
-    if request.session['user_type'] == "entrepreneur":
-        entrepreneur = get_object_or_404(Registration, id=request.session['user_id'])
+    if request.user.is_entrepreneur():
+        entrepreneur = get_object_or_404(Registration, user_id=request.session['user_id'])
         completed_requests = ServiceRequest.objects.filter(requester=entrepreneur, status="Completed")
     else:
         completed_requests = ServiceRequest.objects.filter(status='Completed')
@@ -102,15 +123,19 @@ def service_request_form(request):
 
 @login_required
 def consultation_schedule(request):
-    user_id = request.session.get('user_id')
-    approved_meetings = ScheduledMeeting.objects.filter(status='Approved', entrepreneur = user_id)
+    entrepreneur = get_object_or_404(Registration, user_id=request.session['user_id'])
+    approved_meetings = ScheduledMeeting.objects.filter(status='Approved', entrepreneur = entrepreneur)
     context = {'approved_meetings': approved_meetings,}
     return render(request, 'entrepreneur/consultation_schedule.html', context)
 
 @login_required
 def investment_deals(request):
-    investment_deals = InvestmentDeal.objects.all()
-    return render(request, 'entrepreneur/investment_deals.html', {'deals': investment_deals,})
+    if request.user.is_entrepreneur():
+        entrepreneur = get_object_or_404(Registration, user_id=request.session['user_id'])
+        deals = InvestmentDeal.objects.filter(entrepreneur=entrepreneur)
+    else:
+        deals = InvestmentDeal.objects.all()
+    return render(request, 'entrepreneur/investment_deals.html', {'deals': deals,})
 
 @login_required
 def investment_deal_form(request):
@@ -156,12 +181,17 @@ def register_expert(request):
         references = request.POST.get('references')
         
         # Check if the email is already used
-        if ExpertRegistration.objects.filter(email=email).exists():
-            message = 'Email already in use. Please use a different email.'
-            return render(request, 'expert/register_expert.html', {'message': message})
-        
+        if CustomUser.objects.filter(email=email).exists():
+            messages.add_message(request, messages.ERROR, 'Email already in use. Please use a different email.')
+            return render(request, 'expert/register_expert.html')
+        # Generate password
+        password = generate_password(firstname) 
+        user = CustomUser.objects.create_user(email=email, password=password, user_type='expert')
+               
         # Save the data to the ExpertRegistration model
+        group = Group.objects.get(name='Expert')
         expert = ExpertRegistration(
+            user=user,
             surname=surname,
             firstname=firstname,
             gender=gender,
@@ -173,9 +203,12 @@ def register_expert(request):
             knowledge=knowledge,
             achievements=achievements,
             references=references,
+            password=make_password(password)
         )
         expert.save()
-        
+        user.groups.add(group)
+        # Send the password via email
+        send_password_email(email, password)
         return redirect('after_register')
     
     return render(request, 'expert/register_expert.html')
@@ -193,16 +226,14 @@ def resource_form(request):
     return render(request, 'expert/resource_form.html')
 
 @login_required
-@is_expert
 def assistance_request(request):
-    expert = get_object_or_404(ExpertRegistration, pk=request.session['user_id'])
+    expert = get_object_or_404(ExpertRegistration, user_id=request.session['user_id'])
     requests = ServiceRequest.objects.filter(assigned_expert=expert, status='Completed')
     return render(request, 'expert/assistance_request.html', {'requests': requests})
 
 @login_required
-@is_expert
 def consultation_packages(request):
-    expert = get_object_or_404(ExpertRegistration, pk=request.session['user_id'])
+    expert = get_object_or_404(ExpertRegistration, user_id=request.session['user_id'])
     packages = ConsultationPackage.objects.filter(expert=expert)
     return render(request, 'expert/consultation_packages.html', {"packages": packages})
 
@@ -235,12 +266,18 @@ def registration_form(request):
         role_in_company = request.POST.get('role_in_company')
         
         # Check if the email is already used
-        if Registration.objects.filter(email=email).exists():
-            message = 'Email already in use. Please use a different email.'
-            return render(request, 'entrepreneur/register_entrepreneur.html', {'message': message})
+        if CustomUser.objects.filter(email=email).exists():
+            messages.add_message(request, messages.ERROR, 'Email already in use. Please use a different email.')
+            return render(request, 'entrepreneur/register_entrepreneur.html')
         
-        # Save the data to the Registration model
+        # Generate password
+        password = generate_password(firstname) 
+        user = CustomUser.objects.create_user(email=email, password=password, user_type='entrepreneur')
+        
+        # Save the data to the Entrepreneur model
+        group = Group.objects.get(name='Entrepreneur')
         entrepreneur = Registration.objects.create(
+            user=user,
             surname=surname,
             firstname=firstname,
             gender=gender,
@@ -249,9 +286,13 @@ def registration_form(request):
             district=district,
             country=country,
             company=company,
-            role_in_company=role_in_company
+            role_in_company=role_in_company,
+            password=make_password(password)
         )
         entrepreneur.save()
+        user.groups.add(group)
+        # Send the password via email
+        send_password_email(email, password)
         return redirect('after_register')
     
     return redirect('register_entrepreneurs')
@@ -259,8 +300,8 @@ def registration_form(request):
 
 def logout_view(request):
     try:
+        logout(request)
         del request.session["user_id"]
-        del request.session["user_type"]
     except KeyError:
         pass    
     return redirect('index')
@@ -270,22 +311,21 @@ def custom_login(request):
     if request.method == 'POST':
         email = request.POST.get('email')
         password = request.POST.get('Password')
-        
+        user_exists = (
+            CustomUser.objects.filter(email=email).exists() and
+            (Registration.objects.filter(email=email).exists() or
+            ExpertRegistration.objects.filter(email=email).exists() or
+            Investor.objects.filter(email=email).exists())
+        )
 
-        if Registration.objects.filter(email=email, firstname=password, user_type= "entrepreneur").exists():
-            ent = Registration.objects.get(email=email)
-            request.session['user_id'] = ent.id
-            request.session['user_type'] = ent.user_type
-            return redirect('homepage1') # Redirect to the homepage after login
-        elif ExpertRegistration.objects.filter(email=email, firstname=password, user_type= "expert").exists():
-            expert = ExpertRegistration.objects.get(email=email)
-            request.session["user_id"] = expert.id
-            request.session['user_type'] = expert.user_type
-            return redirect('experthomepage') 
-        elif Investor.objects.filter(email=email, country=password, user_type = "investor").exists():
-            investor = Investor.objects.get(email=email)
-            request.session['user_id'] = investor.id
-            return redirect('investorhomepage')
+        if not user_exists:
+            messages.add_message(request, messages.ERROR, 'No account found with this email.')
+            return render(request, 'login.html')
+        user = authenticate(request, email=email, password=password)
+        if user is not None:
+            login(request, user)
+            request.session['user_id'] = user.id
+            return redirect('homepage1')
         else:
             messages.add_message(request, messages.ERROR, 'Invalid email or password. Please try again.')
             return render(request, 'login.html')
@@ -305,7 +345,7 @@ def submit_service_request(request):
         urgency_level = request.POST.get('urgency_level')
         comments = request.POST.get('comments')
         attachment = request.FILES.get('attachment')
-        entrepreneur = get_object_or_404(Registration, id=request.session['user_id'])
+        entrepreneur = get_object_or_404(Registration, user_id=request.session['user_id'])
 
         if attachment:
             fs = FileSystemStorage(location='attachments/')
@@ -381,7 +421,7 @@ def approve_request(request, request_id):
     if request.method == 'POST':
         expert_id = request.POST.get('expert')
         if expert_id:
-            expert = get_object_or_404(ExpertRegistration, id=expert_id)
+            expert = get_object_or_404(ExpertRegistration, user_id=expert_id)
             service_request.assigned_expert = expert
         service_request.status = 'Completed'
         service_request.save()
@@ -418,7 +458,7 @@ def create_investment_deal(request):
         terms = request.POST.get('terms')
 
       
-        entrepreneur = get_object_or_404(Registration, id=request.session.get('user_id'))
+        entrepreneur = get_object_or_404(Registration, user_id=request.session.get('user_id'))
 
             # Create the investment deal with the fetched entrepreneur
         investment_deal = InvestmentDeal(
@@ -446,7 +486,7 @@ def create_consultation_package(request):
         package_type = request.POST.get('industry')
         package_price = request.POST.get('package-price')
 
-        expert = get_object_or_404(ExpertRegistration, pk=request.session['user_id']) # Assuming the logged-in user is the expert
+        expert = get_object_or_404(ExpertRegistration, user_id=request.session['user_id']) # Assuming the logged-in user is the expert
 
         package = ConsultationPackage.objects.create(
             title=title,
@@ -482,7 +522,7 @@ def schedule_meeting4theent(request):
         end_time = request.POST.get('end_time')
         link = request.POST.get('link')
         package_id = request.POST.get('consultation_package')
-        entrepreneur = get_object_or_404(Registration, id=request.session.get('user_id'))
+        entrepreneur = get_object_or_404(Registration, user_id=request.session.get('user_id'))
 
         consultation_package = ConsultationPackage.objects.get(pk=package_id)
 
@@ -553,10 +593,15 @@ def submit_investor_form(request):
             'wholesale': request.POST.get('wholesale', False) == 'wholesale',
         }
         # Check if the email is already used
-        if Investor.objects.filter(email=email).exists():
-            message = 'Email already in use. Please use a different email.'
-            return redirect('register_investors', {'message': message})
-
+        if CustomUser.objects.filter(email=email).exists():
+            messages.add_message(request, messages.ERROR, 'Email already in use. Please use a different email.')
+            return redirect('register_investors')
+        
+          # Generate password
+        password = generate_password(email)
+        user = CustomUser.objects.create_user(email=email, password=password, user_type='investor')
+        group = Group.objects.get(name='Investor')
+        
         if form_type == 'individual':
             # Individual-specific fields
             surname = request.POST.get('surname')
@@ -564,6 +609,7 @@ def submit_investor_form(request):
             gender = request.POST.get('gender')
             
             investor = Investor.objects.create(
+                user=user,
                 type='individual',
                 email=email,
                 contact=contact,
@@ -573,6 +619,7 @@ def submit_investor_form(request):
                 surname=surname,
                 firstname=firstname,
                 gender=gender,
+                password=make_password(password),
                 **preferences
             )
 
@@ -581,6 +628,7 @@ def submit_investor_form(request):
             company = request.POST.get('company')
 
             investor = Investor.objects.create(
+                user=user,
                 type='organization',
                 email=email,
                 contact=contact,
@@ -588,9 +636,13 @@ def submit_investor_form(request):
                 capital=capital,
                 information=information,
                 company=company,
+                password=make_password(password),
                 **preferences
             )
         investor.save()
+        user.groups.add(group)
+        # Send the password via email
+        send_password_email(email, password)
 
         return redirect('after_register') 
     return redirect('register_investors') 
