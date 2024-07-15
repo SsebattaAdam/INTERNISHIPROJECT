@@ -1,6 +1,6 @@
 <!-- investor_deals.html -->
 
-{% extends "investor/investorHomepage3.html" %}
+{% extends "user_sidebar.html" %}
 {% block title %}investment_deals | Bizconnect{% endblock title %}
 {% load static %}
 
@@ -16,7 +16,7 @@
                     </div>
                     <form method="GET" action="{% url 'investment_dealists' %}">
                         <div class="search-container mb-30">
-                            <input type="text" name="q" id="deal-search-input" placeholder="Search by title...">
+                            <input type="text" name="q" id="deal-search-input" placeholder="Search by Title, Industry">
                             <button type="submit" id="deal-search-btn" class="theme-bg-btn">Search</button>
                         </div>
                     </form>

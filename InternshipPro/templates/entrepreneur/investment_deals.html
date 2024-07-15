@@ -1,22 +1,55 @@
-{% extends "entrepreneur/homepage1.html" %} {% block title %}Investment Deals |
+{% extends "user_sidebar.html" %} {% block title %}Investment Deals |
 Bizconnect{% endblock title %}{% load static %}
 {% block content %}
 <style>
-    td {
-        font-size: large;
+    .search-container {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        background-color: #ddd;
+        padding-left: 10px;
+        border-radius: 5px;
+    }
+
+    .search-container input {
+        width: 200px;
+        padding: 5px;
+        margin-right: 10px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+    }
+
+    .custom-container {
+        display: flex;
+        justify-content: flex-end; 
+        padding: 20px;
     }
 </style>
 <div class="content wrapper mt-80">
     <div class="container mt-25">
         <div>
             <h2>Investment deals</h2>
+            {% if request.user.is_entrepreneur %}
             <div class=" mt-35">
                 <div class="solution__area-right lg-center">
                     <a class="theme-bg-btn" href="{% url 'investment_deal_form' %}">Get started<i
                             class="flaticon-arrow-right"></i></a>
                 </div>
             </div>
+            {% endif %}
+            
         </div>
+        {% if request.user.is_investor %}
+        <div class="custom-container">
+            <form method="GET" action="{% url 'investment_dealists' %}">
+                <div class="search-container mb-30">
+                    <input required type="text" name="q" id="deal-search-input" placeholder="Search by Title, Industry">
+                    <button type="submit" id="deal-search-btn" class="theme-bg-btn">Search</button>
+                </div>
+            </form>
+        </div>
+        {% endif %}
+        
         {% if deals %}
         <div class="row">
             {% for deal in deals %}
