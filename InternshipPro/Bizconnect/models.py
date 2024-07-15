@@ -1,9 +1,48 @@
 from django.db import models
 # Create your models here.
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
+from .managers import CustomUserManager
 
-class Registration(models.Model):   
+class CustomUser(AbstractBaseUser, PermissionsMixin):
+    # You can add fields that you want in your form not included in the Abstract User here
+    # e.g Gender = model.CharField(max_length=10)
+    USER_TYPE_CHOICES = (
+        ('entrepreneur', 'Entrepreneur'),
+        ('expert', 'Expert'),
+        ('investor', 'Investor'),
+    )
+    user_type = models.CharField(max_length=20, choices=USER_TYPE_CHOICES)
+    username = None
+    email = models.EmailField(blank=True, default='', unique=True, error_messages={
+            'unique': "A user with that email already exists.",
+        },)
+
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = []
+
+    is_active = models.BooleanField(default=True)
+    is_staff = models.BooleanField(default=False)
+
+    USERNAME_FIELD = "email"
+    EMAIL_FIELD = "email"
+    REQUIRED_FIELDS = []
+    
+    def is_entrepreneur(self):
+        return self.user_type == 'entrepreneur'
+
+    def is_expert(self):
+        return self.user_type == 'expert'
+
+    def is_investor(self):
+        return self.user_type == 'investor'
+
+    objects = CustomUserManager()
+    def __str__(self):
+        return self.email
+    
+class Registration(models.Model):
+    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
     surname = models.CharField(max_length=100)
     firstname = models.CharField(max_length=100)
     gender = models.CharField(max_length=10, choices=(('male', 'Male'), ('female', 'Female')))
@@ -15,6 +54,7 @@ class Registration(models.Model):
     country = models.CharField(max_length=255)
     user_type = models.CharField(max_length=20, default='entrepreneur')
     role_in_company = models.CharField(max_length=100, choices=(('founder', 'Founder'), ('owner', 'Owner'), ('director', 'Director')))
+    password = models.CharField(max_length=128)
 
     def __str__(self):
         return f"{self.firstname} {self.surname}"
@@ -45,6 +85,7 @@ class ExpertRegistration(models.Model):
         ('tanzania', 'Tanzania'),
         ('kenya', 'Kenya'),
     ]
+    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
     surname = models.CharField(max_length=255)
     firstname = models.CharField(max_length=255)
     gender = models.CharField(max_length=6, choices=GENDER_CHOICES)
@@ -57,6 +98,7 @@ class ExpertRegistration(models.Model):
     achievements = models.TextField()
     references = models.TextField()
     user_type = models.CharField(max_length=20, default='expert')
+    password = models.CharField(max_length=128)
 
     def __str__(self):
         return f"{self.firstname} {self.surname}"
@@ -183,6 +225,7 @@ class Investor(models.Model):
         ('individual', 'Individual'),
         ('organization', 'Organization'),
     ]
+    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
     type = models.CharField(max_length=20, choices=TYPE_CHOICES)
     
     # Common fields
@@ -191,6 +234,7 @@ class Investor(models.Model):
     country = models.CharField(max_length=50)
     capital = models.CharField(max_length=100)
     information = models.TextField()
+    password = models.CharField(max_length=128)
     
     # Individual-specific fields
     surname = models.CharField(max_length=100, blank=True, null=True)
