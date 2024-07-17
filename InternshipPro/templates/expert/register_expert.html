@@ -65,8 +65,17 @@
             <div class="col-xl-12">
                 <div class="register wow fadeInUp" data-wow-delay="0.8s">
                     <h4 class="mb-35">All Fields are required.</h4>
+                    {% for message in messages %}
+                    <ul class="messages">
+                        {% for message in messages %}
+                            <li class="{% if message.tags %} {{ message.tags }}{% endif %}">
+                                {{ message }}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                    {% endfor %}
                     <div class="register-form">
-                        <form action="{% url 'register_experts' %}" method="post">
+                        <form id="multi-group-form" action="{% url 'register_experts' %}" method="post">
                             {% csrf_token %}
                             <div class="row">
                                 <div class="col-md-6 mb-30">
@@ -129,7 +138,7 @@
                                     </div>
                                 </div>
                                 <h6 class="mb-30 col-md-2">Experienced in:</h6>
-                                <div class="col-md-10 mb-30">
+                                <div id="industry-group" class="col-md-10 mb-30">
                                     <label for="tourism" class="mr-5">
                                         <input type="checkbox" id="tourism" name="tourism" value="tourism">
                                         <span class="custom-checkbox"></span> Tourism and Hospitality
@@ -164,7 +173,7 @@
                                     </label>
                                 </div>
                                 <h6 class="mb-30 col-md-3">Fields of Knowledge/Expertise:</h6>
-                                <div class="col-md-8 mb-30">
+                                <div id="services-group" class="col-md-8 mb-30">
                                     <label for="leadership" class="mr-5">
                                         <input type="checkbox" id="leadership" name="leadership" value="leadership">
                                         <span class="custom-checkbox"></span> Leadership Skills
@@ -274,6 +283,41 @@
     <!-- Scroll Top Start -->
     <div class="scroll-top"> <i class="flaticon-up-arrow"></i>
     </div>
+    <script>
+        document.getElementById('multi-group-form').addEventListener('submit', function(event) {
+            const industryGroup = document.getElementById('industry-group');
+            const servicesGroup = document.getElementById('services-group');
+    
+            const industryCheckboxes = industryGroup.querySelectorAll('input[type="checkbox"]');
+            const servicesCheckboxes = servicesGroup.querySelectorAll('input[type="checkbox"]');
+            
+            let isIndustryChecked = false;
+            let isServicesChecked = false;
+            
+            // Check if at least one checkbox is checked in the industry group
+            for (const checkbox of industryCheckboxes) {
+                if (checkbox.checked) {
+                    isIndustryChecked = true;
+                    break;
+                }
+            }
+            
+            // Check if at least one checkbox is checked in the services group
+            for (const checkbox of servicesCheckboxes) {
+                if (checkbox.checked) {
+                    isServicesChecked = true;
+                    break;
+                }
+            }
+            
+            // If one of the groups has no checkboxes checked, prevent form submission
+            if (!isIndustryChecked || !isServicesChecked) {
+                alert('Please select at least one option from both Experienced and Field of Knowledge.');
+                event.preventDefault(); // Prevent form submission
+            }
+        });
+        </script>
+        
     <!-- Scroll Top End -->
     <!-- Main JS -->
     <script src="{% static 'assets/js/jquery-3.6.0.min.js' %}"></script>

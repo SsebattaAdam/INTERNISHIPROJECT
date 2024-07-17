@@ -103,6 +103,15 @@
                     <div class="col-xl-12">
                         <div class="register wow fadeInUp" data-wow-delay="0.8s">
                             <h4 class="mb-35">All Fields are required.</h4>
+                            {% for message in messages %}
+                            <ul class="messages">
+                                {% for message in messages %}
+                                    <li class="{% if message.tags %} {{ message.tags }}{% endif %}">
+                                        {{ message }}
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                            {% endfor %}
                             <div class="register-form">
                                 <form id="personForm" action="{% url 'submit_investor_form' %}" method="post">
                                     {% csrf_token %}
@@ -153,7 +162,7 @@
                                         <h6 class="mb-30 col-md-2">Investment Preferences:</h6>
                                         <div class="col-md-10 mb-30">
                                             <label for="tourism" class="mr-5">
-                                                <input type="checkbox" id="tourism" name="tourism" value="tourism">
+                                                <input required type="checkbox" id="tourism" name="tourism" value="tourism">
                                                 <span class="custom-checkbox"></span> Tourism and Hospitality
                                             </label>
                                             <label for="media" class="mr-5">

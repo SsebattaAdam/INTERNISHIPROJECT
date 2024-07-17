@@ -52,11 +52,7 @@
                         <h2 class="mb-45">Manage Promote and Grow</h2>	
                     </div>					
                 </div>
-                <div class="col-xl-3 col-lg-3">
-                    <div class="solution__area-right t-right lg-center">
-                        <a class="theme-bg-btn" >Select The option <i class="flaticon-arrow-right"></i></a>						
-                    </div>					
-                </div>
+                
             </div>
         </div>
     </div>
@@ -67,78 +63,19 @@
 
 <div class="blog__area section-padding">
     <div class="container">
-        <div class="row">
-            <div class="col-xl-4 col-lg-4 col-md-6 mb-30">
-                <div class="blog__area-item wow fadeInUp" data-wow-delay="0.4s">
-                    <div class="blog__area-item-image">
-                        <img src="assets/img/blog-1.png" alt="">
-                    </div>
-                    <div class="blog__area-item-content pt-0">
+            <div class="blog__standard-left-item mb-30 wow fadeInUp" data-wow-delay="0.3s">
+                <div class="blog__standard-left-item-content mt-30">
 
-                        <a href="{% url 'register_entrepreneurs' %}">
-                            <div class="blog__area-item-content-date" style="padding: 20px; margin: 10px 0;">
-                                <span style="font-size: 1.6em; "><i class="fas fa-user"></i>Sign Up as </span>								
-                            </div>
-                        </a>
-                        
-                        <h5><a href="{% url 'homepage1'%}">Entrepreneurs</a></h5>
-
-                        <ul>
-                                <li><i class="fas fa-info-circle"></i> Already have an Account?</li>
-                        </ul>
-                        <div class="blog__area-item-content-btn">
-                            <a href="{% url 'login' %}">Sign In</a>
-                        </div>
-                    </div>
+                    <h3 class="mb-15">Thank you for creating an account. Check your email for your temporary password.</h3>
+                    
+                </div>
+                <div class="col-xl-3 col-lg-3">
+                    <div class="solution__area-right lg-center">
+                        <a class="theme-bg-btn" href="{% url "custom_login" %}">Next <i class="flaticon-arrow-right"></i></a>						
+                    </div>					
                 </div>
             </div>
-            <div class="col-xl-4 col-lg-4 col-md-6 md-mb-30">
-                <div class="blog__area-item wow fadeInUp" data-wow-delay="0.8s">
-                    <div class="blog__area-item-image">
-                        <img src="assets/img/blog-2.jpg" alt="">
-                    </div>
-                    <div class="blog__area-item-content pt-0">
-                        <a href="{% url 'register_investors' %}">
-                            <div class="blog__area-item-content-date" style="padding: 20px; margin: 10px 0;">
-                                <span style="font-size: 1.6em; "><i class="fas fa-user"></i>Sign Up as </span>								
-                            </div>
-                        </a>
-                        
-                        <h5><a href="{% url 'investorhomepage' %}">Investors</a></h5>
-                        <ul>
-                                <li><i class="fas fa-info-circle"></i> Already have an Account?</li>
-                        </ul>
-                        <div class="blog__area-item-content-btn">
-                            <a href="{% url 'login' %}">Sign In</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-4 col-lg-4 col-md-6 md-mb-30">
-                <div class="blog__area-item wow fadeInUp" data-wow-delay="1.2s">
-                    <div class="blog__area-item-image">
-                        <img src="assets/img/blog-3.png" alt="">
-                    </div>
-                    <div class="blog__area-item-content pt-0">
-                        <a href="{% url 'register_experts' %}">
-                            <div class="blog__area-item-content-date" style="padding: 20px; margin: 10px 0;">
-                                <span style="font-size: 1.6em; "><i class="fas fa-user"></i>Sign Up as</span>								
-                            </div>
-                        </a>
-                        
-                        <h5><a href="{% url 'experthomepage' %}">Experts</a></h5>
-                        <ul>
-                                <li><i class="fas fa-info-circle"></i> Already have an Account?</li>
-                        </ul>
-                        <div class="blog__area-item-content-btn">
-                            <a href="{% url 'login' %}">Sign In</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-        </div>
-       
+                   
     </div>
 </div>
 

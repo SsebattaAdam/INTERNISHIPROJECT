@@ -1,4 +1,4 @@
-{% extends "entrepreneur/homepage1.html" %} {% block title %}Business Proposals | Bizconnect{% endblock title %} {% load static %}
+{% extends "user_sidebar.html" %} {% block title %}Business Proposals | Bizconnect{% endblock title %} {% load static %}
 
 {% block content %}
 <div class="content wrapper mt-80">
@@ -41,9 +41,11 @@
                 	
 			</div>
             <div class="col-xl-6 col-lg-6 col-md-6 mt-35">
+                {% if request.user.is_entrepreneur %}
                 <div class="solution__area-right lg-center">
-                    <a class="theme-bg-btn" href="{% url 'business_ideal_form' %}">Get started <i class="flaticon-arrow-right"></i></a>						
-                </div>					
+                    <a class="theme-bg-btn" href="{% url 'business_ideal_form' %}">Get started <i class="flaticon-arrow-right"></i></a>                        
+                </div>
+                {% endif %}				
             </div>
 		</div>
 	</div>
