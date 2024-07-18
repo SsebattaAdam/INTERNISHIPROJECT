@@ -189,7 +189,7 @@ def register_expert(request):
         user = CustomUser.objects.create_user(email=email, password=password, user_type='expert')
                
         # Save the data to the ExpertRegistration model
-        group = Group.objects.get(name='Expert')
+        
         expert = ExpertRegistration(
             user=user,
             surname=surname,
@@ -206,7 +206,7 @@ def register_expert(request):
             password=make_password(password)
         )
         expert.save()
-        user.groups.add(group)
+      
         # Send the password via email
         send_password_email(email, password)
         return redirect('after_register')
@@ -402,10 +402,12 @@ def allTables(request):
     requests = ServiceRequest.objects.all()
     scheduled_meetings = ScheduledMeeting.objects.all()
     reply_requests = ReplyRequest.objects.all()
+    forward = ReplyRequest.objects.filter(status='sent')
     context = {
         'requests': requests,
         'scheduled_meetings': scheduled_meetings,
-        'reply_requests': reply_requests
+        'reply_requests': reply_requests,
+        'forward': forward
     }
     return render(request, 'pages/tables/simple.html', context)
 
@@ -421,7 +423,7 @@ def approve_request(request, request_id):
     if request.method == 'POST':
         expert_id = request.POST.get('expert')
         if expert_id:
-            expert = get_object_or_404(ExpertRegistration, user_id=expert_id)
+            expert = get_object_or_404(ExpertRegistration, id=expert_id)
             service_request.assigned_expert = expert
         service_request.status = 'Completed'
         service_request.save()
@@ -522,7 +524,7 @@ def schedule_meeting4theent(request):
         end_time = request.POST.get('end_time')
         link = request.POST.get('link')
         package_id = request.POST.get('consultation_package')
-        entrepreneur = get_object_or_404(Registration, user_id=request.session.get('user_id'))
+        entrepreneur = get_object_or_404(Registration, user_id=request.session['user_id'])
 
         consultation_package = ConsultationPackage.objects.get(pk=package_id)
 
@@ -700,15 +702,20 @@ def replay_requests_madetothemeeting(request):
 def forward_request(request, request_id):
     request_instance = get_object_or_404(ReplyRequest, id=request_id)
 
-    # Update status to 'SENT' (pseudo code, replace with actual logic)
+    # Update status to 'SENT'
     request_instance.status = 'SENT'
     request_instance.save()
 
     # Prepare context with specific fields to forward
-    context = {
+    context2 = {
         'title': request_instance.title,
         'description': request_instance.description,
         'text_area': request_instance.text_area,
+        'status': request_instance.get_status_display(),
+        'created_at': request_instance.created_at.strftime('%Y-%m-%d %H:%M:%S'),
+        'updated_at': request_instance.updated_at.strftime('%Y-%m-%d %H:%M:%S'),
+        'meeting_id': request_instance.meeting_id,
     }
-
-    return render(request, 'forwarded_table.html', context)
+     # Save context in session or pass as query parameters
+    request.session['forwarded_context'] = context2
+    return redirect( 'allTables')
