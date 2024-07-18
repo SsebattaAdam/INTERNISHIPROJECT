@@ -83,14 +83,15 @@
 
     <div class="custom_sidebar sidebar">
         <ul>
-            {% if request.user.is_entrepreneur or request.user.is_investor or request.user.is_expert %}
             <li><a href="{% url 'homepage1'%}">Dashboard</a></li>
-            {% endif %}
-            {% if request.user.is_entrepreneur %}
             
+            {% if request.user.is_entrepreneur or request.user.is_investor %}
             <li>
                 <a href="{% url 'business_ideals'%}">Business Proposals</a>
             </li>
+            {% endif %}
+            {% if request.user.is_entrepreneur %}
+            
             <li>
                 <a href="javascript:void(0)" class="dropdown-btn">Expert Consultation</a>
                 <ul class="dropdown-container">
@@ -99,7 +100,6 @@
                 </ul>
             </li>
             
-            <li><a href="{% url 'list_requestsmade1' %}">REQUESTST</a></li> 
             {% endif %}
             {% if request.user.is_expert %}
             <li><a href="{% url 'assistance_request' %}" > Assistance Requests</a></li>
@@ -107,19 +107,15 @@
             <li><a href="{% url 'resources' %}">Content Library</a></li>
             <li><a href="{% url 'feedback' %}">Feedback</a></li>
             {% endif %}
-            {% if request.user.is_investor %}
-                      
-            <li>
-                <a href="{% url 'investment_fundings' %}" >Fundings</a>                
-            </li>
-             <li>
-                <a href="{% url 'investment_dealists' %}" >Investment Delas</a>
-                
-            </li>  
-            {% endif %}
-            
+                        
             {% if request.user.is_entrepreneur or request.user.is_investor %}
-            <li><a href="{% url 'investment_deals' %}" >Investment Management</a></li>
+            <li>
+                <a href="javascript:void(0)" class="dropdown-btn">Investments</a>
+                <ul class="dropdown-container">
+                    <li><a href="{% url 'investment_deals' %}"><span class="small-dot">&bull;</span>Investment Deals</a></li>
+                    <li><a href="{% url 'investment_fundings' %}" ><span class="small-dot">&bull;</span>Fundings</a></li>
+                </ul>
+            </li>
             {% endif %}
             
         </ul>

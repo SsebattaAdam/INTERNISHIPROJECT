@@ -1,6 +1,7 @@
 # middleware.py
 from django.shortcuts import redirect
 from django.urls import reverse
+from django.contrib import messages
 from django.utils.deprecation import MiddlewareMixin
 
 class SessionManagementMiddleware(MiddlewareMixin):
@@ -11,7 +12,8 @@ class SessionManagementMiddleware(MiddlewareMixin):
         if request.user.is_authenticated and request.path == reverse('index'):
             return redirect('homepage1')
         if not request.user.is_authenticated and request.path.startswith(reverse('homepage1')):
-            return redirect('index')
+            messages.add_message(request, messages.ERROR, 'Your session has expired. Please log in again.')
+            return redirect('login')
         
         response = self.get_response(request)
         return response

@@ -36,10 +36,12 @@ Bizconnect{% endblock title %}{% load static %} {% block content %}
       </div>
       <!-- /.card -->
     </div>
+    {% if request.user.is_entrepreneur %}
     <div class="col-lg-4 col-md-6">
       <div class="blog__sidebar-item mb-30" >
         <h4 class="mb-10">Upcoming</h4>
         <div class="swiper swiper-container">
+          {% if approved_meetings %}
           <div class="swiper-wrapper mr-30">
             {% for meeting in approved_meetings %}
             <div class="swiper-slide blog__sidebar-item-post d-flex align-items-center mb-15">
@@ -56,105 +58,54 @@ Bizconnect{% endblock title %}{% load static %} {% block content %}
             </div>
             {% endfor %}
             
-            <div class="swiper-slide blog__sidebar-item-post d-flex align-items-center pb-15 mb-15">
-              <div class="blog__sidebar-item-post-content">
-                <h6>
-                  <a href="blog-details.html">Topic: Marketing Strategy</a>
-                </h6>
-                <span><i class="flaticon-calendar-1"></i>Date and Time: 2023-05-01
-                  10:00 AM</span>
-                <div>
-                  <span><i class="flaticon-user"></i>Expert: Expert 1</span>
-                </div>
-              </div>
-            </div>
-            <div class="swiper-slide blog__sidebar-item-post d-flex align-items-center pb-15 mb-15">
-              <div class="blog__sidebar-item-post-content">
-                <h6>
-                  <a href="blog-details.html">Topic: Marketing Strategy</a>
-                </h6>
-                <span><i class="flaticon-calendar-1"></i>Date and Time: 2023-05-01
-                  10:00 AM</span>
-                <div>
-                  <span><i class="flaticon-user"></i>Expert: Expert 1</span>
-                </div>
-              </div>
-            </div>
-            <div class="swiper-slide blog__sidebar-item-post d-flex align-items-center pb-15 mb-15">
-              <div class="blog__sidebar-item-post-content">
-                <h6>
-                  <a href="blog-details.html">Topic: Marketing Strategy</a>
-                </h6>
-                <span><i class="flaticon-calendar-1"></i>Date and Time: 2023-05-01
-                  10:00 AM</span>
-                <div>
-                  <span><i class="flaticon-user"></i>Expert: Expert 1</span>
-                </div>
-              </div>
-            </div>
           </div>
+          {% else %}
+          <div class="blog__sidebar-item-post-content">
+            <h6>
+              No Approved meetings present
+            </h6>
+          </div>
+          {% endif %}
+          
           <div class="swiper-pagination"></div>
         </div>
       </div>
 
       <div class="blog__sidebar-item mb-30" >
-        <h4 class="mb-10">Recent</h4>
+        <h4 class="mb-10">Denied</h4>
         <div class="swiper swiper-container">
+          {% if denied_meetings %}
           <div class="swiper-wrapper mr-30">
+            {% for meeting in denied_meetings %}
             <div class="swiper-slide blog__sidebar-item-post d-flex align-items-center mb-15">
               <div class="blog__sidebar-item-post-content">
                 <h6>
-                  <a href="blog-details.html">Topic: Marketing Strategy</a>
+                  <a href="blog-details.html">Topic: {{ meeting.title }}</a>
                 </h6>
-                <span><i class="flaticon-calendar-1"></i>Date and Time: 2023-05-01
-                  10:00 AM</span>
+                <span><i class="flaticon-calendar-1"></i>Date and Time: {{ meeting.consultation_date }}
+                  {{ meeting.start_time }}</span>
                 <div>
-                  <span><i class="flaticon-user"></i>Expert: Expert 1</span>
+                  <span><i class="flaticon-envelope"></i>Reason: {{ meeting.denial_reason }}</span>
                 </div>
               </div>
             </div>
-            <div class="swiper-slide blog__sidebar-item-post d-flex align-items-center pb-15 mb-15">
-              <div class="blog__sidebar-item-post-content">
-                <h6>
-                  <a href="blog-details.html">Topic: Marketing Strategy</a>
-                </h6>
-                <span><i class="flaticon-calendar-1"></i>Date and Time: 2023-05-01
-                  10:00 AM</span>
-                <div>
-                  <span><i class="flaticon-user"></i>Expert: Expert 1</span>
-                </div>
-              </div>
-            </div>
-            <div class="swiper-slide blog__sidebar-item-post d-flex align-items-center pb-15 mb-15">
-              <div class="blog__sidebar-item-post-content">
-                <h6>
-                  <a href="blog-details.html">Topic: Marketing Strategy</a>
-                </h6>
-                <span><i class="flaticon-calendar-1"></i>Date and Time: 2023-05-01
-                  10:00 AM</span>
-                <div>
-                  <span><i class="flaticon-user"></i>Expert: Expert 1</span>
-                </div>
-              </div>
-            </div>
-            <div class="swiper-slide blog__sidebar-item-post d-flex align-items-center pb-15 mb-15">
-              <div class="blog__sidebar-item-post-content">
-                <h6>
-                  <a href="blog-details.html">Topic: Marketing Strategy</a>
-                </h6>
-                <span><i class="flaticon-calendar-1"></i>Date and Time: 2023-05-01
-                  10:00 AM</span>
-                <div>
-                  <span><i class="flaticon-user"></i>Expert: Expert 1</span>
-                </div>
-              </div>
-            </div>
+            {% endfor %}
+
           </div>
+          {% else %}
+          <div class="blog__sidebar-item-post-content">
+            <h6>
+              No Denied meetings present
+            </h6>
+          </div>
+          {% endif %}
+          
           <div class="swiper-pagination"></div>
         </div>
       </div>
       
     </div>
+    {% endif %}
 
   </div>
   <!-- /.row -->

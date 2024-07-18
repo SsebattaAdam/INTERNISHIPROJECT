@@ -20,7 +20,7 @@
                 <div class="register wow fadeInUp" data-wow-delay="0.8s">
                     <h4 class="mb-35">All Fields with (*) are required.</h4>
                     <div class="register-form">
-                        <form action="#" method="post">
+                        <form action="{% url "resource_form" %}" method="post">
                             {% csrf_token %}
                             <div class="row">
                                 <div class="col-md-6 mb-30">
@@ -41,9 +41,9 @@
                                         <label>Type: <span style="color: red;">*</span></label>
                                         <select id="type" name="type" required>
                                             <option value="">Select an option</option>
-                                            <option value="articles">Articles</option>
-                                            <option value="templates">Templates</option>
-                                            <option value="practices">Best practices</option>
+                                            <option value="Article">Articles</option>
+                                            <option value="Template">Templates</option>
+                                            <option value="Best Practice">Best practices</option>
                                         </select>
                                     </div>
                                 </div>
@@ -51,13 +51,13 @@
                                 <div class="col-md-6 mb-30">
                                     <div class="register-form-group">
                                         <label>Upload your file (.pdf,.ppt,.pptx) <span style="color: red;">*</span></label>
-                                        <input type="file" style="padding-top: 5px;" name="pitch-deck" placeholder="Upload the pitch deck in PDF or PowerPoint format (Max. 32MB)" required accept=".pdf,.ppt,.pptx">
+                                        <input type="file" style="padding-top: 5px;" name="documents" required accept=".pdf,.ppt,.pptx">
                                     </div>
                                 </div>                                                          
 
                             </div>
                             <div class="row">
-                                <div class="col-xl-3 col-md-6 col-lg-4 mt-20">
+                                <div class="col-xl-3 col-md-6 col-lg-4 mb-20">
                                     <div class="register-form-group">
                                         <button class="theme-btn" type="submit">Share</button>
                                     </div>

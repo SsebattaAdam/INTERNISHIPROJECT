@@ -5,12 +5,7 @@
     <div class="container mt-25">
         <div>
             <h2>Investment Fundings</h2>
-            <div class=" mt-35">
-                <div class="solution__area-right lg-center">
-                    <a class="theme-bg-btn" href="{% url 'investment_funding_form' %}">Get started<i
-                            class="flaticon-arrow-right"></i></a>
-                </div>
-            </div>
+            
         </div>
         {% if funds %}
         <div class="row">
@@ -19,11 +14,13 @@
                 <div class="blog__standard-left-item-content mt-30">
                     <ul>
                         <li class="mr-30 md-mr-15"><i class="flaticon-suitcase"></i> {{ fund.type }}</li>
-                        <li><i class="flaticon-time-is-money"></i> {{ fund.type }}</li>
+                        <li><i class="flaticon-time-is-money"></i> {{ fund.investment_amount }}</li>
                     </ul>
                     <h3 class="mb-15">{{ fund.title }}</h3>
-                    <p class="mb-20">{{ fund.description }} </p>
-                    
+                    <p class="mb-20">{{ fund.notes }} </p>
+                    <div class="pr-30">
+                        <a class="pr-50" href="{% url 'businessidea_detail' fund.id %}?type=fund">Read More</a>                        
+                    </div>
                 </div>               
             </div>
             {% endfor %}           
@@ -42,20 +39,7 @@
 
         </div>
         {% endif %}
-        <div class="blog__standard-left-item col-lg-6 mb-30 wow fadeInUp" data-wow-delay="0.3s">
-            <div class="blog__standard-left-item-content mt-30">
-                <ul>
-                    <li class="mr-30 md-mr-15"><i class="flaticon-suitcase"></i> type</li>
-                    <li><i class="flaticon-time-is-money"></i> type</li>
-                </ul>
-                <h3 class="mb-15">Title</h3>
-                <p class="mb-20">descriptionsdescriptionsdescriptionsdescriptions descriptionsdescriptionsdescriptions descriptionsdescriptionsdescriptionsdescriptions descriptionsdescriptions </p>
-                <div class="pr-30 row">
-                    <span class="col-md-4"><a href="#">Accept</a></span>
-                    <span class="col-md-4"><a href="#">Reject</a></span>
-                </div>
-            </div>               
-        </div>
+        
         
 
     </div>

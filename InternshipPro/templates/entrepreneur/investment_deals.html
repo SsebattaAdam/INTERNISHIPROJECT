@@ -7,7 +7,7 @@ Bizconnect{% endblock title %}{% load static %}
         justify-content: flex-end;
         align-items: center;
         background-color: #ddd;
-        padding-left: 10px;
+        padding: 10px;
         border-radius: 5px;
     }
 
@@ -41,10 +41,10 @@ Bizconnect{% endblock title %}{% load static %}
         </div>
         {% if request.user.is_investor %}
         <div class="custom-container">
-            <form method="GET" action="{% url 'investment_dealists' %}">
+            <form method="GET" action="{% url 'investment_deals' %}">
                 <div class="search-container mb-30">
                     <input required type="text" name="q" id="deal-search-input" placeholder="Search by Title, Industry">
-                    <button type="submit" id="deal-search-btn" class="theme-bg-btn">Search</button>
+                    <button type="submit"><i class="flaticon-loupe"></i></button>
                 </div>
             </form>
         </div>
@@ -63,8 +63,13 @@ Bizconnect{% endblock title %}{% load static %}
                     <h3 class="mb-15">{{ deal.title }}</h3>
                     <p class="mb-20">{{ deal.terms }} </p>
                     <div class="pr-30">
-                        <a class="pr-50" href="#">Edit</a>
+                        <a class="pr-50" href="{% url 'businessidea_detail' deal.id %}?type=deal">Read More</a>
+                        {% if request.user.is_entrepreneur %}
                         <a href="#">Delete</a>
+                        {% elif request.user.is_investor and deal.status == 'Pending' %}
+                        <a href="{% url "investment_funding_form" deal.id %}"> Fund</a>
+                        {% endif %}
+                        
                     </div>
                 </div>               
             </div>

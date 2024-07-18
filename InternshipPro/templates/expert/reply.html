@@ -1,4 +1,4 @@
-{% extends "expert/expertHomepage2.html" %}
+{% extends "user_sidebar.html" %}
 
 {% block title %}
     Reply Requests | Bizconnect
@@ -24,8 +24,8 @@
                 <div class="register wow fadeInUp" data-wow-delay="0.8s">
                     <h4 class="mb-35">All Fields with (*) are required.</h4>
                     <div class="register-form">
-                        {% for meeting in approved_meetings %}
-                        <form action="{% url 'replay_requests_madetothemeeting' %}" method="post">
+                        {% if meeting %}
+                        <form action="{% url 'replay_requests_madetothemeeting' %}?request={{request.id}}" method="post">
                             {% csrf_token %}
                             <input type="hidden" name="meeting_id" value="{{ meeting.id }}">
                             <div class="row">
@@ -35,23 +35,32 @@
                                         <input type="text" name="title" value="{{ meeting.title }}" required readonly>
                                     </div>
                                 </div>
+                                <div class="col-md-6 mb-30">
+                                    <div class="register-form-group">
+                                        <label>Share resources <span style="color: red;">*</span></label>
+                                        <select id="consultation_package" name="consultation_package" required>
+                                            <option value="">Select a resource</option>
+                                            {% for resource in resources %}
+                                            <option value="{{ resource.id }}">{{ resource.title }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
                                 <div class="col-md-12 mb-30">
                                     <div class="register-form-group">
                                         <label>Description <span style="color: red;">*</span></label>
-                                        <textarea name="description" placeholder="Describe your idea" required></textarea>
+                                        <textarea name="description" placeholder="Describe your reply message" required></textarea>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row">
                                 <div class="col-md-12 mb-30">
                                     <div class="register-form-group">
-                                        <label>Text Area <span style="color: red;">*</span></label>
-                                        <textarea name="text_area" placeholder="Enter your text here" required></textarea>
+                                        <label>Comments <span style="color: red;">*</span></label>
+                                        <textarea name="comments" placeholder="Enter your text here" required></textarea>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-xl-3 col-md-6 col-lg-4 mt-20">
+                                <div class="col-xl-3 col-md-6 col-lg-4 mb-20">
                                     <div class="register-form-group">
                                         <button class="theme-btn" type="submit">Send Reply</button>
                                     </div>
@@ -63,7 +72,7 @@
                                 </div>
                             </div>
                         </form>
-                        {% endfor %}
+                        {% endif %}
                     </div>
                 </div>
             </div>

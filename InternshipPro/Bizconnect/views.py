@@ -1,10 +1,11 @@
 # Bizconnect/views.py
+from socket import gaierror
+from django.forms import ValidationError
 from django.http import HttpResponse, JsonResponse
-from django.shortcuts import render, redirect
-from django.contrib.auth.models import Group, Permission
+from django.shortcuts import get_list_or_404, render, redirect
 from django.contrib import auth, messages
 from django.contrib.auth.hashers import make_password
-from .models import CustomUser, Registration, ExpertRegistration, InvestmentDeal
+from .models import CustomUser, InvestmentFunds, Registration, ExpertRegistration, InvestmentDeal, Resource
 from django.contrib.auth import authenticate, login, logout
 from django.core.files.storage import FileSystemStorage
 from django.shortcuts import render, get_object_or_404
@@ -56,11 +57,11 @@ def after_register(request):
 def register_entrepreneur(request):
     return render(request, 'entrepreneur/register_entrepreneur.html')
  
-@login_required
+@login_required(login_url='login')
 def homepage1(request):
     return render(request, 'entrepreneur/homepage1.html')
 
-@login_required
+@login_required(login_url='login')
 def business_ideals(request):
     if request.user.is_entrepreneur():
         entrepreneur = get_object_or_404(Registration, user_id=request.session['user_id'])
@@ -69,7 +70,7 @@ def business_ideals(request):
         ideals = BusinessIdeas.objects.all()
     return render(request, 'entrepreneur/business_ideals.html', {'proposals': ideals,})
 
-@login_required
+@login_required(login_url='login')
 def business_ideal_form(request):
     if request.method == 'POST':
         title = request.POST.get('title')
@@ -106,38 +107,51 @@ def business_ideal_form(request):
     
     return render(request, 'entrepreneur/business_ideal_form.html')
 
-@login_required
+@login_required(login_url='login')
 def service_requests(request):
     if request.user.is_entrepreneur():
         entrepreneur = get_object_or_404(Registration, user_id=request.session['user_id'])
         completed_requests = ServiceRequest.objects.filter(requester=entrepreneur, status="Completed")
+        denied_requests = ServiceRequest.objects.filter(requester=entrepreneur, status="Denied")
     else:
         completed_requests = ServiceRequest.objects.filter(status='Completed')
     return render(request, 'entrepreneur/service_request.html', {
         'completed_requests': completed_requests,
+        'denied_requests': denied_requests,
     })
 
-@login_required
+@login_required(login_url='login')
 def service_request_form(request):
     return render(request, 'entrepreneur/expert_request_form.html')
 
-@login_required
+@login_required(login_url='login')
 def consultation_schedule(request):
-    entrepreneur = get_object_or_404(Registration, user_id=request.session['user_id'])
-    approved_meetings = ScheduledMeeting.objects.filter(status='Approved', entrepreneur = entrepreneur)
-    context = {'approved_meetings': approved_meetings,}
-    return render(request, 'entrepreneur/consultation_schedule.html', context)
+    if request.user.is_entrepreneur():
+        entrepreneur = get_object_or_404(Registration, user_id=request.session['user_id'])
+        approved_meetings = ScheduledMeeting.objects.filter(status='Approved', entrepreneur = entrepreneur)
+        denied_meetings = ScheduledMeeting.objects.filter(status='Denied', entrepreneur=entrepreneur)
+        context = {'approved_meetings': approved_meetings, 'denied_meetings': denied_meetings}
+        return render(request, 'entrepreneur/consultation_schedule.html', context) 
+    
+    return render(request, 'entrepreneur/consultation_schedule.html')
 
-@login_required
+@login_required(login_url='login')
 def investment_deals(request):
     if request.user.is_entrepreneur():
         entrepreneur = get_object_or_404(Registration, user_id=request.session['user_id'])
-        deals = InvestmentDeal.objects.filter(entrepreneur=entrepreneur)
+        investment_deals = InvestmentDeal.objects.filter(entrepreneur=entrepreneur)
     else:
-        deals = InvestmentDeal.objects.all()
-    return render(request, 'entrepreneur/investment_deals.html', {'deals': deals,})
+        investment_deals = InvestmentDeal.objects.all()
+        # Handling search query
+        query = request.GET.get('q')
+        if query:
+            investment_deals = investment_deals.filter(
+                title__icontains=query) | investment_deals.filter(
+                industry__icontains=query)  # Adjust as per your fields
 
-@login_required
+    return render(request, 'entrepreneur/investment_deals.html', {'deals': investment_deals,})
+
+@login_required(login_url='login')
 def investment_deal_form(request):
     return render(request, 'entrepreneur/investment_deal_form.html')
 
@@ -145,26 +159,89 @@ def investment_deal_form(request):
 def register_investor(request):
     return render(request, 'investor/register_investor.html')
 
-@login_required
-def investorhomepage(request):
-    return render(request, 'investor/investorHomepage3.html')
 
-@login_required
+@login_required(login_url='login')
 def investment_fundings(request):
-    return render(request, 'investor/investment_fundings.html')
+    if request.user.is_entrepreneur():
+        entrepreneur = get_object_or_404(Registration, user_id=request.session['user_id'])
+        investment_deals = InvestmentDeal.objects.filter(entrepreneur_id=entrepreneur)
+        
+        if investment_deals.exists():
+            funds = InvestmentFunds.objects.filter(investment_deal__in=investment_deals)
+            return render(request, 'investor/investment_fundings.html', {'funds': funds})
+        else:
+            # No investment deals found
+            return render(request, 'investor/investment_fundings.html', {'funds': []})
+    elif request.user.is_investor():
+        investor = get_object_or_404(Investor, user_id = request.session['user_id'])
+        funds = InvestmentFunds.objects.filter(investor=investor)
+        return render(request, 'investor/investment_fundings.html', {'funds': funds})
 
-@login_required
-def investment_funding_form(request):
-    return render(request, 'investor/investment_funding_form.html')
 
-@login_required
+@login_required(login_url='login')
+def investment_funding_form(request, deal_id):
+    deal = get_object_or_404(InvestmentDeal, id=deal_id)
+    if request.method == 'POST':
+        title = request.POST.get('title')
+        industry = request.POST.get('industry')
+        type = request.POST.get('type')
+        investment_amount = request.POST.get('investment_amount')
+        contact_method = request.POST.get('contact_method')
+        notes = request.POST.get('notes')
+        supporting_documents = request.FILES.get('supporting_documents')
+        investor = get_object_or_404(Investor, user_id=request.session['user_id'])
+        
+        investment_fund = InvestmentFunds.objects.create(
+            title=title,
+            industry=industry,
+            type=type,
+            investment_amount=investment_amount,
+            contact_method=contact_method,
+            notes=notes,
+            supporting_documents=supporting_documents,
+            investment_deal=deal,
+            investor=investor,
+        )
+        investment_fund.save()
+        deal.status = 'Funded'
+        deal.save()
+        return redirect('investment_fundings')
+    return render(request, 'investor/investment_funding_form.html', {'deal': deal})
+
+
+@login_required(login_url='login')
 def investor_deals(request):
     return render(request, 'investor/investor_deals.html')
 
-@login_required
+@login_required(login_url='login')
 def businessidea_detail(request, idea_id):
-    idea = get_object_or_404(businessidea_detail, id=idea_id)
-    return render(request, 'businessidea_detail.html', {'idea': idea})
+    entity_type = request.GET.get('type')
+    
+    if not idea_id or not entity_type:
+        return render(request, 'error.html', {'error': 'Missing ID or type parameter.'})
+    
+    if entity_type == 'idea':
+        try:
+            idea = get_object_or_404(BusinessIdeas, id=idea_id)
+            return render(request, 'investor/businessidea_detail.html', {'idea': idea,})
+        except Exception as e:
+            return render(request, 'error.html', {'error': f'An unexpected error occurred: {str(e)}'})
+    elif entity_type == 'deal':
+        try:
+            deal = get_object_or_404(InvestmentDeal, id=idea_id)
+            return render(request, 'investor/businessidea_detail.html', {'deal': deal,})
+        except Exception as e:
+            return render(request, 'error.html', {'error': f'An unexpected error occurred: {str(e)}'})
+    elif entity_type == 'fund':
+        try:
+            fund = get_object_or_404(InvestmentFunds, id=idea_id)
+            return render(request, 'investor/businessidea_detail.html', {'fund': fund,})
+        except Exception as e:
+            return render(request, 'error.html', {'error': f'An unexpected error occurred: {str(e)}'})
+    else:
+        # Handle invalid entity type
+        return render(request, 'error.html', {'error': 'Invalid entity type.'})
+    
 ## Experts
 def register_expert(request):
     if request.method == 'POST':
@@ -186,6 +263,12 @@ def register_expert(request):
             return render(request, 'expert/register_expert.html')
         # Generate password
         password = generate_password(firstname) 
+        try:
+             # Send the password via email
+            send_password_email(email, password)
+        except gaierror:
+            return render(request, 'error.html', {'error': 'Failed to send the password via Email. Please make sure your email is correct or have internet connection!'})
+            
         user = CustomUser.objects.create_user(email=email, password=password, user_type='expert')
                
         # Save the data to the ExpertRegistration model
@@ -205,47 +288,61 @@ def register_expert(request):
             references=references,
             password=make_password(password)
         )
+        
         expert.save()
-      
-        # Send the password via email
-        send_password_email(email, password)
+        
         return redirect('after_register')
     
     return render(request, 'expert/register_expert.html')
 
-@login_required
-def experthomepage(request):
-    return render(request, 'expert/expertHomepage2.html')
 
-@login_required
+@login_required(login_url='login')
 def resources(request):
-    return render(request, 'expert/resources.html')
+    expert = get_object_or_404(ExpertRegistration, user_id=request.session['user_id'])
+    resources = Resource.objects.filter(expert=expert)
+    return render(request, 'expert/resources.html', {'resources': resources})
 
-@login_required
+@login_required(login_url='login')
 def resource_form(request):
+    if request.method == 'POST':
+        title = request.POST.get('title')
+        description = request.POST.get('description')
+        type = request.POST.get('type')
+        supporting_documents = request.POST.get('documents')
+        expert = get_object_or_404(ExpertRegistration, user_id=request.session['user_id'])
+        
+        resource = Resource.objects.create(
+            expert = expert,
+            title = title,
+            description = description,
+            type = type,
+            supporting_documents = supporting_documents,
+        )
+        resource.save()
+        return redirect('resources')
     return render(request, 'expert/resource_form.html')
 
-@login_required
+@login_required(login_url='login')
 def assistance_request(request):
     expert = get_object_or_404(ExpertRegistration, user_id=request.session['user_id'])
-    requests = ServiceRequest.objects.filter(assigned_expert=expert, status='Completed')
+    requests = ServiceRequest.objects.filter(assigned_expert=expert, status='Scheduled')
     return render(request, 'expert/assistance_request.html', {'requests': requests})
 
-@login_required
+@login_required(login_url='login')
 def consultation_packages(request):
     expert = get_object_or_404(ExpertRegistration, user_id=request.session['user_id'])
     packages = ConsultationPackage.objects.filter(expert=expert)
     return render(request, 'expert/consultation_packages.html', {"packages": packages})
 
-@login_required
+@login_required(login_url='login')
 def consultation_package_form(request):
     return render(request, 'expert/consultation_package_form.html')
 
-@login_required
+@login_required(login_url='login')
 def feedback(request):
     return render(request, 'expert/feedback.html')
 
-@login_required
+@login_required(login_url='login')
 def feedback(request):
     return render(request, 'expert/feedback.html')
 
@@ -271,11 +368,16 @@ def registration_form(request):
             return render(request, 'entrepreneur/register_entrepreneur.html')
         
         # Generate password
-        password = generate_password(firstname) 
+        password = generate_password(firstname)
+        try:
+             # Send the password via email
+            send_password_email(email, password)
+        except gaierror:
+            return render(request, 'error.html', {'error': 'Failed to send the password via Email. Please make sure your email is correct or have internet connection!'})
+        
         user = CustomUser.objects.create_user(email=email, password=password, user_type='entrepreneur')
         
         # Save the data to the Entrepreneur model
-        group = Group.objects.get(name='Entrepreneur')
         entrepreneur = Registration.objects.create(
             user=user,
             surname=surname,
@@ -289,10 +391,9 @@ def registration_form(request):
             role_in_company=role_in_company,
             password=make_password(password)
         )
+        
         entrepreneur.save()
-        user.groups.add(group)
-        # Send the password via email
-        send_password_email(email, password)
+        
         return redirect('after_register')
     
     return redirect('register_entrepreneurs')
@@ -312,7 +413,7 @@ def custom_login(request):
         email = request.POST.get('email')
         password = request.POST.get('Password')
         user_exists = (
-            CustomUser.objects.filter(email=email).exists() and
+            CustomUser.objects.filter(email=email).exists() or
             (Registration.objects.filter(email=email).exists() or
             ExpertRegistration.objects.filter(email=email).exists() or
             Investor.objects.filter(email=email).exists())
@@ -333,7 +434,7 @@ def custom_login(request):
     return render(request, 'login.html')
 
 
-@login_required
+@login_required(login_url='login')
 def submit_service_request(request):
     if request.method == 'POST':
         business_idea = request.POST.get('title')
@@ -378,8 +479,9 @@ from .models import BusinessIdeas
 
 # admin views
 
-@login_required
+@login_required(login_url='loginAdmin')
 def logout2(request):
+    logout(request)
     return render(request, 'login2.html')
 
 def loginAdmin(request):
@@ -387,7 +489,7 @@ def loginAdmin(request):
         username = request.POST['username']
         password = request.POST['password']
         user = authenticate(request, username= username, password= password )
-        if user is not None:
+        if user is not None and user.user_type == "admin":
             login(request, user)
             return redirect('admin2')
         else:
@@ -397,7 +499,7 @@ def loginAdmin(request):
 def admin2(request):
     return render(request, 'index2.html')
 
-@login_required
+@login_required(login_url='loginAdmin')
 def allTables(request):
     requests = ServiceRequest.objects.all()
     scheduled_meetings = ScheduledMeeting.objects.all()
@@ -412,12 +514,9 @@ def allTables(request):
     return render(request, 'pages/tables/simple.html', context)
 
 
-from django.shortcuts import render, get_object_or_404, redirect
 from .models import ServiceRequest
 
-
-
-@login_required
+@login_required(login_url='loginAdmin')
 def approve_request(request, request_id):
     service_request = get_object_or_404(ServiceRequest, id=request_id)
     if request.method == 'POST':
@@ -434,23 +533,7 @@ def approve_request(request, request_id):
 
 #end of admin views
 
-@login_required
-def list_requestsmade(request):
-    pending_requests = ServiceRequest.objects.filter(status='Pending')
-    completed_requests = ServiceRequest.objects.filter(status='Completed')
-    denied_meetings = ScheduledMeeting.objects.filter(status='Denied')
-    approved_meetings = ScheduledMeeting.objects.filter(status='Approved')
-    context = {
-        'pending_requests': pending_requests,
-        'completed_requests': completed_requests,
-        'denied_meetings': denied_meetings,
-        'approved_meetings': approved_meetings
-    }
-    return render(request, 'entrepreneur/tables4ent.html', context)
-
-
-
-
+@login_required(login_url='login')
 def create_investment_deal(request):
     if request.method == 'POST':
         title = request.POST.get('title')
@@ -469,7 +552,7 @@ def create_investment_deal(request):
                 funding_goal=funding_goal,
                 valuation=valuation,
                 terms=terms,
-                entrepreneur_id=entrepreneur.id  # Assigning the ID directly
+                entrepreneur_id=entrepreneur.id  
             )
         investment_deal.save()
         return redirect('homepage1')
@@ -480,7 +563,7 @@ def create_investment_deal(request):
 #consultation packages
 from .models import ConsultationPackage, ScheduledMeeting
 
-@login_required
+@login_required(login_url='login')
 def create_consultation_package(request):
     if request.method == 'POST':
         title = request.POST.get('title')
@@ -488,7 +571,7 @@ def create_consultation_package(request):
         package_type = request.POST.get('industry')
         package_price = request.POST.get('package-price')
 
-        expert = get_object_or_404(ExpertRegistration, user_id=request.session['user_id']) # Assuming the logged-in user is the expert
+        expert = get_object_or_404(ExpertRegistration, user_id=request.session['user_id']) 
 
         package = ConsultationPackage.objects.create(
             title=title,
@@ -499,23 +582,23 @@ def create_consultation_package(request):
         )
         package.save()
 
-        return redirect('experthomepage')  # Redirect to expert homepage or another URL
+        return redirect('homepage1')  # Redirect to expert homepage or another URL
     
     return render(request, 'consultation_package_form')
 
-@login_required
+@login_required(login_url='login')
 def consultation_schedule_form(request, request_id):
     completed_request = get_object_or_404(ServiceRequest, pk=request_id, status='Completed')
-    consultation_packages = ConsultationPackage.objects.all()
+    expert = get_object_or_404(ExpertRegistration, id=completed_request.assigned_expert)
+    consultation_packages = get_list_or_404(ConsultationPackage, expert=expert)
     context = {
         'consultation_packages': consultation_packages,
         'completed_request': completed_request
     }
     return render(request, 'entrepreneur/consultation_schedule_form.html', context )
 
-@login_required
-def schedule_meeting4theent(request):
-    
+@login_required(login_url='login')
+def schedule_meeting4theent(request, request_id):
     if request.method == 'POST':
         title = request.POST.get('title')
         expert_name = request.POST.get('expert')
@@ -524,7 +607,8 @@ def schedule_meeting4theent(request):
         end_time = request.POST.get('end_time')
         link = request.POST.get('link')
         package_id = request.POST.get('consultation_package')
-        entrepreneur = get_object_or_404(Registration, user_id=request.session['user_id'])
+        entrepreneur = get_object_or_404(Registration, user_id=request.session.get('user_id'))
+        completed_request = get_object_or_404(ServiceRequest, pk=request_id,)
 
         consultation_package = ConsultationPackage.objects.get(pk=package_id)
 
@@ -537,9 +621,12 @@ def schedule_meeting4theent(request):
             end_time=end_time,
             link=link,
             consultation_package=consultation_package,
-            entrepreneur= entrepreneur 
+            entrepreneur= entrepreneur,
+            service_request=completed_request, 
         )
         schedule_meeting.save()
+        completed_request.status = 'Scheduled'
+        completed_request.save()
        
         return redirect('homepage1')  
     consultation_packages = ConsultationPackage.objects.all()
@@ -551,7 +638,7 @@ def schedule_meeting4theent(request):
 
 from django.views.decorators.http import require_POST
 
-@login_required
+@login_required(login_url='loginAdmin')
 @require_POST
 def update_meeting_status(request, meeting_id, status):
     meeting = get_object_or_404(ScheduledMeeting, id=meeting_id)
@@ -569,7 +656,6 @@ def update_meeting_status(request, meeting_id, status):
     return redirect('allTables')
 
 
-from django.shortcuts import render, redirect
 from .models import Investor
 
 def submit_investor_form(request):
@@ -601,8 +687,13 @@ def submit_investor_form(request):
         
           # Generate password
         password = generate_password(email)
+        try:
+             # Send the password via email
+            send_password_email(email, password)
+        except gaierror:
+            return render(request, 'error.html', {'error': 'Failed to send the password via Email. Please make sure your email is correct or have internet connection!'})
+            
         user = CustomUser.objects.create_user(email=email, password=password, user_type='investor')
-        group = Group.objects.get(name='Investor')
         
         if form_type == 'individual':
             # Individual-specific fields
@@ -640,77 +731,69 @@ def submit_investor_form(request):
                 company=company,
                 password=make_password(password),
                 **preferences
-            )
-        investor.save()
-        user.groups.add(group)
-        # Send the password via email
-        send_password_email(email, password)
+            )  
+           
+        investor.save()    
 
         return redirect('after_register') 
     return redirect('register_investors') 
 
-def investment_deallists(request):
-    investment_deals = InvestmentDeal.objects.all()
-
-    # Handling search query
-    query = request.GET.get('q')
-    if query:
-        investment_deals = investment_deals.filter(
-            title__icontains=query) | investment_deals.filter(
-            industry__icontains=query)  # Adjust as per your fields
-
-    context = {
-        'deals': investment_deals,
-    }
-    return render(request, 'investor/investor_deals.html', context)
-
-
-
+@login_required(login_url='login')
 def replay_requests_made(request):
-    approved_meetings = ScheduledMeeting.objects.filter(status='Approved')
+    service_request = get_object_or_404(ServiceRequest, id=request.GET.get('request_id'))
+    approved_meeting = get_object_or_404(ScheduledMeeting, service_request=service_request)
+    expert = get_object_or_404(ExpertRegistration, user_id=request.session['user_id'])
+    resources = Resource.objects.filter(expert=expert)
     context = {
-        'approved_meetings': approved_meetings
+        'resources': resources,
+        'meeting': approved_meeting,
+        'request': service_request,
     }
     return render(request, 'expert/reply.html', context)
 
 
 from .models import ReplyRequest
 
+@login_required(login_url='login')
 def replay_requests_madetothemeeting(request):
     if request.method == 'POST':
         meeting_id = request.POST.get('meeting_id')
         title = request.POST.get('title')
         description = request.POST.get('description')
-        text_area = request.POST.get('text_area')
+        comments = request.POST.get('text_area')
 
         # Assuming ScheduledMeeting and other necessary imports are present
         meeting = ScheduledMeeting.objects.get(pk=meeting_id)
+        request_id = get_object_or_404(ServiceRequest, id=request.GET.get('request'))
 
         reply_request = ReplyRequest.objects.create(
             meeting=meeting,
             title=title,
             description=description,
-            text_area=text_area,
+            comments=comments,
+            service_request=request_id,
             status='NOT_SENT'  # Set default status
         )
         reply_request.save()
 
  
-        return redirect('investorhomepage')  
+        return redirect('homepage1')  
     return render(request, 'expert/reply.html')
 
+@login_required(login_url='login')
 def forward_request(request, request_id):
     request_instance = get_object_or_404(ReplyRequest, id=request_id)
-
-    # Update status to 'SENT'
+    service_request = get_object_or_404(ServiceRequest, id=request_instance.service_request.id)
+    service_request.status = 'Concluded'
+    service_request.save()
+    # Update status to 'SENT' (pseudo code, replace with actual logic)
     request_instance.status = 'SENT'
     request_instance.save()
 
-    # Prepare context with specific fields to forward
     context2 = {
         'title': request_instance.title,
         'description': request_instance.description,
-        'text_area': request_instance.text_area,
+        'comments': request_instance.comments,
         'status': request_instance.get_status_display(),
         'created_at': request_instance.created_at.strftime('%Y-%m-%d %H:%M:%S'),
         'updated_at': request_instance.updated_at.strftime('%Y-%m-%d %H:%M:%S'),
