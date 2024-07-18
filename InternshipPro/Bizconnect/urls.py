@@ -80,5 +80,5 @@ urlpatterns = [
   path('reply_madenow/', views.replay_requests_madetothemeeting, name='replay_requests_madetothemeeting'),
 
 
-  path('forward-request/<int:request_id>/', views.forward_request, name='forward_request'),
+ path('forward_request/<int:request_id>/', views.forward_request, name='forward_request'),
 ]
