@@ -28,8 +28,8 @@
                                     <h6>{{ request.industry }}</h6>
                                     <p>{{ request.description }}</p>
                                     <div class="mt-20 row">
-                                        <span class="col-md-5 custom-a"><a href="#">Accept</a></span>
-                                        <span class="col-md-4 custom-a"><a href="#">Reject</a></span>
+                                        <span class="col-md-5 custom-a"><a href="{% url 'consultation_schedule' %}">{{request.consultation_date}}; {{request.consultation_time|time:'H:i a' }}</a></span>
+                                        <span class="col-md-4 custom-a"><a href="{% url 'replay_requests' %}?request_id={{ request.id }}">Send Reply</a></span>
                                     </div>
                                 </div>
                                 

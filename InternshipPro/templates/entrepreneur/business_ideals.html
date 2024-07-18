@@ -27,6 +27,9 @@
                                     <h5>{{ proposal.title }}</h5>
                                     <h6>{{ proposal.industry }}</h6>
                                     <p>{{ proposal.description }}</p>
+                                    <div class="ml-10 mt-10 row">
+                                        <a class="custom-a" href="{% url 'businessidea_detail' proposal.id %}?type=ideal">Read More</a>
+                                    </div>
                                 </div>
                             </div>
                             {% endfor %}

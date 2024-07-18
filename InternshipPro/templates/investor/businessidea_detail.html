@@ -1,0 +1,85 @@
+{% extends "user_sidebar.html" %}{% block title %}businessdeal_detail | Bizconnect{% endblock title %}{% load static %}
+{% block content %}
+<div class="content wrapper mt-80">
+    <div class="container">
+        <div class="row">
+            {% if idea %}
+            <div class="blog__details-left">
+                <div class="blog__details-left-content mb-40">
+                    <ul>
+                        <h1>{{ idea.title }}</h1>
+                        <li class="blog__details-left-content-date mr-40"><h6 style="font-size: 15px; color: #fff;">{{ idea.industry }}</h6></li>
+                    </ul>
+                    <h3 class="mb-15">Description</h3>
+                    <p class="mb-40">{{ idea.description }}</p>
+                    <h3 class="mb-15">Target Market</h3>
+                    <p class="mb-40">{{ idea.target_market }}</p>
+                    <h3 class="mb-15">Monetary Value</h3>
+                    <p class="mb-40">{{ idea.business_model }}</p>
+                    <h3 class="mb-15">Financial Projections</h3>
+                    <p class="mb-40">{{ idea.projections }}</p>
+                    <h3 class="mb-15">Goals</h3>
+                    <p class="mb-40">{{ idea.goals }}</p>
+                    
+                </div>
+                <div class="blog__details-left-related mb-50">
+                    <div class="row align-items-baseline">									
+                        <div class="col-lg-8 col-md-7">                                               
+                            <div class="blog__details-left-related-tag align-items-baseline">
+                                <h6 class="mr-10">Documents:</h6>
+                                <a href="{{ idea.pitch_deck.url }}">Pitch Deck:</a>
+                                <a href="{{ idea.plan.url }}"><div>Business Plan</div></a>
+                                <a href="{{ idea.support.url }}">Supporting Documents</a>
+                            </div>							
+                        </div>	
+                    </div>							
+                </div>
+            </div>
+            {% elif deal %}
+            <div class="blog__details-left">
+                <div class="blog__details-left-content mb-40">
+                    <ul>
+                        <h1>{{ deal.title }}</h1>
+                        <li class="blog__details-left-content-date mr-40"><h6 style="font-size: 15px; color: #fff;">{{ deal.industry }}</h6></li>
+                    </ul>
+                    <h3 class="mb-15">Funding Goals</h3>
+                    <p class="mb-40">{{ deal.funding_goal }}</p>
+                    <h3 class="mb-15">Valuation</h3>
+                    <p class="mb-40">{{ deal.valuation }}</p>
+                    <h3 class="mb-15">Terms</h3>
+                    <p class="mb-40">{{ deal.terms }}</p>
+                    <h3 class="mb-15">Status</h3>
+                    <p class="mb-40">{{ deal.status }}</p>
+                </div>
+            </div>
+            {% elif fund %}
+            <div class="blog__details-left">
+                <div class="blog__details-left-content mb-40">
+                    <ul>
+                        <h1>{{ fund.title }}</h1>
+                        <li class="blog__details-left-content-date mr-40"><h6 style="font-size: 15px; color: #fff;">{{ fund.industry }}</h6></li>
+                    </ul>
+                    <h3 class="mb-15">Type of Funding</h3>
+                    <p class="mb-40">{{ fund.type }}</p>
+                    <h3 class="mb-15">Notes</h3>
+                    <p class="mb-40">{{ fund.notes }}</p>
+                    <h3 class="mb-15">Investment Amount</h3>
+                    <p class="mb-40">{{ fund.investment_amount }}</p>                    
+                </div>
+                <div class="blog__details-left-related mb-50">
+                    <div class="row align-items-baseline">									
+                        <div class="col-lg-8 col-md-7">                                               
+                            <div class="blog__details-left-related-tag align-items-baseline">
+                                <h6 class="mr-10">Documents:</h6>
+                                <a href="{{ idea.supporting_documents.url }}">Supporting Documents</a>
+                            </div>							
+                        </div>	
+                    </div>							
+                </div>
+            </div>
+            {% endif %}
+            
+        </div>
+    </div>
+ </div>
+{% endblock content %}
