@@ -112,12 +112,14 @@ def service_requests(request):
     if request.user.is_entrepreneur():
         entrepreneur = get_object_or_404(Registration, user_id=request.session['user_id'])
         completed_requests = ServiceRequest.objects.filter(requester=entrepreneur, status="Completed")
-        denied_requests = ServiceRequest.objects.filter(requester=entrepreneur, status="Denied")
+        service_request = ServiceRequest.objects.filter(requester_id=entrepreneur, status='Concluded')
+        if service_request.exists():
+            replies = ReplyRequest.objects.filter(service_request__in=service_request)
+            return render(request, 'entrepreneur/service_request.html', {'completed_requests': completed_requests, 'replies': replies})
     else:
         completed_requests = ServiceRequest.objects.filter(status='Completed')
     return render(request, 'entrepreneur/service_request.html', {
         'completed_requests': completed_requests,
-        'denied_requests': denied_requests,
     })
 
 @login_required(login_url='login')
@@ -780,25 +782,11 @@ def replay_requests_madetothemeeting(request):
         return redirect('homepage1')  
     return render(request, 'expert/reply.html')
 
-@login_required(login_url='login')
-def forward_request(request, request_id):
+@login_required(login_url='loginAdmin')
+def forward_request(request_id):
     request_instance = get_object_or_404(ReplyRequest, id=request_id)
     service_request = get_object_or_404(ServiceRequest, id=request_instance.service_request.id)
     service_request.status = 'Concluded'
     service_request.save()
-    # Update status to 'SENT' (pseudo code, replace with actual logic)
     request_instance.status = 'SENT'
     request_instance.save()
-
-    context2 = {
-        'title': request_instance.title,
-        'description': request_instance.description,
-        'comments': request_instance.comments,
-        'status': request_instance.get_status_display(),
-        'created_at': request_instance.created_at.strftime('%Y-%m-%d %H:%M:%S'),
-        'updated_at': request_instance.updated_at.strftime('%Y-%m-%d %H:%M:%S'),
-        'meeting_id': request_instance.meeting_id,
-    }
-     # Save context in session or pass as query parameters
-    request.session['forwarded_context'] = context2
-    return redirect( 'allTables')
