@@ -591,8 +591,8 @@ def create_consultation_package(request):
 @login_required(login_url='login')
 def consultation_schedule_form(request, request_id):
     completed_request = get_object_or_404(ServiceRequest, pk=request_id, status='Completed')
-    expert = get_object_or_404(ExpertRegistration, id=completed_request.assigned_expert)
-    consultation_packages = get_list_or_404(ConsultationPackage, expert=expert)
+    expert = get_object_or_404(ExpertRegistration, id=completed_request.assigned_expert.id)
+    consultation_packages = ConsultationPackage.objects.filter(expert=expert)
     context = {
         'consultation_packages': consultation_packages,
         'completed_request': completed_request
