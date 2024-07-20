@@ -65,12 +65,17 @@
                                         <label>Select Consultation Package <span style="color: red;">*</span></label>
                                         <select id="consultation_package" name="consultation_package" required>
                                             <option value="">Select a package</option>
-                                            {% for package in consultation_packages %}
-                                            <option value="{{ package.id }}">{{ package.title }}</option>
-                                            {% endfor %}
+                                            {% if consultation_packages.exists %}
+                                                {% for package in consultation_packages %}
+                                                    <option value="{{ package.id }}">{{ package.title }}</option>
+                                                {% endfor %}
+                                            {% else %}
+                                                <option value="" disabled>No packages available</option>
+                                            {% endif %}
                                         </select>
                                     </div>
                                 </div>
+                                
                                 
                             </div>
                             <div class="row">
