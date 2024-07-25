@@ -79,7 +79,7 @@
         </td>
         <td>
             {% if request.assigned_expert %}
-                <a href="{% url 'consultation_schedule_form' %}">Schedule Meeting with {{ request.assigned_expert.surname }}</a>
+                <a href="{% url 'consultation_schedule_form' request.id  %}">Schedule Meeting with {{ request.assigned_expert.surname }}</a>
             {% else %}
                 Not assigned
             {% endif %}
@@ -143,8 +143,11 @@
         <td>
             <form action="" method="post" style="display:inline;">
                 {% csrf_token %}
+               
+
                 
-                <button class="btn btn-primary btn-sm" type="submit">Send Reply</button>
+                
+                <a href="{%url 'replay_requests'%}" class="btn btn-primary btn-sm">Send Reply</a>
             </form>
         </td>
     </tr>

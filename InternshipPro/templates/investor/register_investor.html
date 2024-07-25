@@ -103,6 +103,15 @@
                     <div class="col-xl-12">
                         <div class="register wow fadeInUp" data-wow-delay="0.8s">
                             <h4 class="mb-35">All Fields are required.</h4>
+                            {% for message in messages %}
+                            <ul class="messages">
+                                {% for message in messages %}
+                                    <li class="{% if message.tags %} {{ message.tags }}{% endif %}">
+                                        {{ message }}
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                            {% endfor %}
                             <div class="register-form">
                                 <form id="personForm" action="{% url 'submit_investor_form' %}" method="post">
                                     {% csrf_token %}
@@ -151,9 +160,9 @@
                                             </div>
                                         </div>
                                         <h6 class="mb-30 col-md-2">Investment Preferences:</h6>
-                                        <div class="col-md-10 mb-30">
+                                        <div id="investment-group" class="col-md-10 mb-30">
                                             <label for="tourism" class="mr-5">
-                                                <input type="checkbox" id="tourism" name="tourism" value="tourism">
+                                                <input required type="checkbox" id="tourism" name="tourism" value="tourism">
                                                 <span class="custom-checkbox"></span> Tourism and Hospitality
                                             </label>
                                             <label for="media" class="mr-5">
@@ -229,6 +238,15 @@
                     <div class="col-xl-12">
                         <div class="register wow fadeInUp" data-wow-delay="0.8s">
                             <h4 class="mb-35">All Fields are required.</h4>
+                            {% if messages %}
+                            <ul class="messages">
+                                {% for message in messages %}
+                                    <li class="{% if message.tags %} {{ message.tags }}{% endif %}">
+                                        {{ message }}
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                            {% endif %}
                             <div class="register-form">
                                 <form id="companyForm" action="{% url 'submit_investor_form' %}" method="post">
                                     {% csrf_token %}
@@ -264,7 +282,7 @@
                                             </div>
                                         </div>
                                         <h6 class="mb-30 col-md-2">Investment Preferences:</h6>
-                                        <div class="col-md-10 mb-30">
+                                        <div id="investment-group" class="col-md-10 mb-30">
                                             <label for="tourism-company" class="mr-5">
                                                 <input type="checkbox" id="tourism-company" name="tourism" value="tourism">
                                                 <span class="custom-checkbox"></span> Tourism and Hospitality
@@ -366,6 +384,27 @@
 <div class="scroll-top"> <i class="flaticon-up-arrow"></i>
 </div>
     <script>
+        document.getElementById('personForm, companyForm').addEventListener('submit', function(event) {
+            const investmentGroup = document.getElementById('investment-group');
+    
+            const investmentCheckboxes = investmentGroup.querySelectorAll('input[type="checkbox"]');
+            
+            let isInvestmentChecked = false;
+            
+            // Check if at least one checkbox is checked in the investment group
+            for (const checkbox of investmentCheckboxes) {
+                if (checkbox.checked) {
+                    isInvestmentChecked = true;
+                    break;
+                }
+            }
+                        
+            // If one of the groups has no checkboxes checked, prevent form submission
+            if (!isInvestmentChecked) {
+                alert('Please select at least one option from Investment Preferences.');
+                event.preventDefault(); // Prevent form submission
+            }
+        });
         function openForm(evt, formName) {
             var i, tabcontent, tablinks;
             document.getElementById('personForm').reset();

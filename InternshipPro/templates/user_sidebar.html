@@ -1,4 +1,3 @@
-
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
@@ -12,7 +11,7 @@
     <meta name="author" content="ThemeOri">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Title of Site -->
-    <title>Investors | Bizconnect</title>
+    <title>{%block title%} Bizconnect{% endblock title%}</title>
     <!-- Favicons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha256-lQPthLnNj1D8rDsy3i+2r5PpBqObJ8v2T1RQJ/6mPcI=" crossorigin="anonymous" />
 
@@ -20,11 +19,16 @@
     <link rel="icon" type="image/png" sizes="32x32" href="{% static 'assets/img/favicon-32x32.png' %}">
     <link rel="icon" type="image/png" sizes="16x16" href="{% static 'assets/img/favicon-16x16.png' %}">
     <link rel="manifest" href="{% static 'assets/img/site.webmanifest' %}">
+
+    <!-- FullCalendar -->
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.14/index.global.min.js'></script>
+    
+
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
     <!-- fontawesome -->
-    <link rel="stylesheet" href="{% static 'assets/css/fontawesome.min.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'assets/css/fontawesome.min.css' %}">
     <!-- Animate CSS -->
     <link rel="stylesheet" href="{% static 'assets/css/animate.css' %}">
     <!-- Swiper -->
@@ -37,11 +41,12 @@
     <link rel="stylesheet" href="{% static 'assets/css/meanmenu.min.css' %}">
     <!-- Flaticon -->
     <link rel="stylesheet" href="{% static 'assets/fonts/flaticon.css' %}">
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="{% static 'assets/sass/style.css' %}">
     <!-- Custom Charts -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'assets/sass/style.css' %}">
     <!-- Include your custom CSS -->
+
     <style>
         html, body {
             height: 100%;
@@ -57,8 +62,7 @@
             flex: 1;
         }
     </style>
-    
-    
+   
 </head>
 
 <body>
@@ -79,124 +83,48 @@
 
     <div class="custom_sidebar sidebar">
         <ul>
-            <li><a href="{% url 'investorhomepage' %}">Dashboard</a></li>
-                      
+            <li><a href="{% url 'homepage1'%}">Dashboard</a></li>
+            
+            {% if request.user.is_entrepreneur or request.user.is_investor %}
             <li>
-                <a href="{% url 'investment_fundings' %}" >Fundings</a>
-                
+                <a href="{% url 'business_ideals'%}">Business Proposals</a>
             </li>
-            <li><a href="/settings">Settings</a></li>
+            {% endif %}
+            {% if request.user.is_entrepreneur %}
+            
+            <li>
+                <a href="javascript:void(0)" class="dropdown-btn">Expert Consultation</a>
+                <ul class="dropdown-container">
+                    <li><a href="{% url 'service_requests' %}"><span class="small-dot">&bull;</span>Service Requests</a></li>
+                    <li><a href="{% url 'consultation_schedule' %}"><span class="small-dot">&bull;</span>Calendar</a></li>
+                </ul>
+            </li>
+            
+            {% endif %}
+            {% if request.user.is_expert %}
+            <li><a href="{% url 'assistance_request' %}" > Assistance Requests</a></li>
+            <li><a href="{% url 'consultation_packages' %}">Consultation Packages</a></li>
+            <li><a href="{% url 'resources' %}">Content Library</a></li>
+            <li><a href="{% url 'feedback' %}">Feedback</a></li>
+            {% endif %}
+                        
+            {% if request.user.is_entrepreneur or request.user.is_investor %}
+            <li>
+                <a href="javascript:void(0)" class="dropdown-btn">Investments</a>
+                <ul class="dropdown-container">
+                    <li><a href="{% url 'investment_deals' %}"><span class="small-dot">&bull;</span>Investment Deals</a></li>
+                    <li><a href="{% url 'investment_fundings' %}" ><span class="small-dot">&bull;</span>Fundings</a></li>
+                </ul>
+            </li>
+            {% endif %}
+            
         </ul>
     </div>
-  
     {% block content %}
-    <div class="content wrapper">
-        <p>welcome back </p>
-         <div class="features__area section-padding pb-0">
-             <div class="container">
-                 <div class="row">
-                     <div class="col-xl-3 col-lg-3 col-md-6 lg-mb-30">
-                         <div class="features__area-item wow fadeInUp" data-wow-delay="0.3s">
-                             <div class="features__area-item-image" style="background-image: url(assets/img/features.jpg);"></div>
-                             <span>01</span>
-                             <div class="features__area-item-icon">
-                                 <i class="flaticon-analysis"></i>
-                             </div>
-                             <div class="features__area-item-content">
-                                 <h4>Strong Business Planing</h4>
-                             </div>
-                         </div>
-                     </div>
-                     <div class="col-xl-3 col-lg-3 col-md-6 md-mb-30">
-                         <div class="features__area-item wow fadeInUp" data-wow-delay="0.6s">
-                             <div class="features__area-item-image" style="background-image: url(assets/img/features.jpg);"></div>
-                             <span>02</span>
-                             <div class="features__area-item-icon">
-                                 <i class="flaticon-data-scientist"></i>
-                             </div>
-                             <div class="features__area-item-content">
-                                 <h4>Business Management</h4>
-                             </div>
-                         </div>
-                     </div>
-                     <div class="col-xl-3 col-lg-3 col-md-6 md-mb-30">
-                         <div class="features__area-item wow fadeInUp" data-wow-delay="0.9s">
-                             <div class="features__area-item-image" style="background-image: url(assets/img/features.jpg);"></div>
-                             <span>03</span>
-                             <div class="features__area-item-icon">
-                                 <i class="flaticon-digital-marketing"></i>
-                             </div>
-                             <div class="features__area-item-content">
-                                 <h4>Marketing Advice</h4>
-                             </div>
-                         </div>
-                     </div>
-                     <div class="col-xl-3 col-lg-3 col-md-6">
-                         <div class="features__area-item wow fadeInUp" data-wow-delay="1.2s">
-                             <div class="features__area-item-image" style="background-image: url(assets/img/features.jpg);"></div>
-                             <span>04</span>
-                             <div class="features__area-item-icon">
-                                 <i class="flaticon-big-data"></i>
-                             </div>
-                             <div class="features__area-item-content">
-                                 <h4>Expert User Research</h4>
-                             </div>
-                         </div>
-                     </div>
-                 </div>
-             </div>
-         </div>
-         <div class="blog__area section-padding">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-6 mb-30">
-                        <div class="blog__area-item wow fadeInUp" data-wow-delay="0.4s">
-                            
-                            <div class="blog__area-item-content pt-0">
-                                <div>
-                                    <h4>ROI Trends Over 6 Months</h4>
-                                    <canvas id="roiTrends" width="600" height="600"></canvas>
-                                </div> 
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 mb-30">
-                        <div class="blog__area-item wow fadeInUp" data-wow-delay="0.4s">
-                            
-                            <div class="blog__area-item-content pt-0">
-                                <div>
-                                    <h4>Investment Returns by Business</h4>
-                                    <canvas id="investmentReturns" width="600" height="600"></canvas>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 mb-30">
-                        <div class="blog__area-item wow fadeInUp" data-wow-delay="0.4s">
-                            
-                            <div class="blog__area-item-content pt-0">
-                                <div>
-                                    <h4>Pledged Funds and Funding Progress</h4>
-                                    <canvas id="pledgedFundsProgress" width="600" height="600"></canvas>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 mb-30">
-                        <div class="blog__area-item wow fadeInUp" data-wow-delay="0.4s">
-                            <div class="blog__area-item-content pt-0">
-                                <div>
-                                    <h4>Portfolio Diversification</h4>
-                                    <canvas id="portfolioDiversification" ></canvas>
-                                </div>  
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-     </div>
+
     {% endblock content %}
+    
+    
     <div class="footer__area-copyright custom-footer pt-35 pb-35" style="background: #030A15; margin-left: 250px;">
         <div class="container">
             <div class="row align-items-center">
@@ -221,10 +149,39 @@
 
 
 <!-- Scroll Top Start -->
-<div class="scroll-top"> <i class="flaticon-up-arrow"></i>
-</div>
+    <div class="scroll-top"> <i class="flaticon-up-arrow"></i>
+    </div>
 
     <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var dropdownBtns = document.getElementsByClassName('dropdown-btn');
+            for (var i = 0; i < dropdownBtns.length; i++) {
+                dropdownBtns[i].addEventListener('click', function() {
+                    this.classList.toggle('active');
+                    var dropdownContainer = this.nextElementSibling;
+                    if (dropdownContainer.style.display === 'block') {
+                        dropdownContainer.style.display = 'none';
+                    } else {
+                        dropdownContainer.style.display = 'block';
+                    }
+                });
+            }
+            var swiper = new Swiper(".testimonial-slider", {
+                direction: "horizontal",
+                slidesPerView: 1,
+                spaceBetween: 5,
+                centeredSlides: true,
+                pagination: {
+                  el: ".swiper-pagination",
+                  clickable: true,
+                },
+                navigation: {
+                  nextEl: ".swiper-button-next",
+                  prevEl: ".swiper-button-prev",
+                },
+              });
+        });
+
         // Sample Data
         const portfolioData = {
             labels: ['Tech', 'Healthcare', 'Finance', 'Energy', 'Retail'],
@@ -296,34 +253,6 @@
                     y: { stacked: true }
                 }
             }
-        });
-        document.addEventListener('DOMContentLoaded', function() {
-            var dropdownBtns = document.getElementsByClassName('dropdown-btn');
-            for (var i = 0; i < dropdownBtns.length; i++) {
-                dropdownBtns[i].addEventListener('click', function() {
-                    this.classList.toggle('active');
-                    var dropdownContainer = this.nextElementSibling;
-                    if (dropdownContainer.style.display === 'block') {
-                        dropdownContainer.style.display = 'none';
-                    } else {
-                        dropdownContainer.style.display = 'block';
-                    }
-                });
-            }
-            var swiper = new Swiper(".testimonial-slider", {
-              direction: "horizontal",
-              slidesPerView: 1,
-              spaceBetween: 5,
-              centeredSlides: true,
-              pagination: {
-                el: ".swiper-pagination",
-                clickable: true,
-              },
-              navigation: {
-                nextEl: ".swiper-button-next",
-                prevEl: ".swiper-button-prev",
-              },
-            });
         });
     </script>
 

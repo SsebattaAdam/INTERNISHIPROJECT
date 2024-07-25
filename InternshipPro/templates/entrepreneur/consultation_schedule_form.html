@@ -1,4 +1,4 @@
-{% extends "entrepreneur/homepage1.html" %}
+{% extends "user_sidebar.html" %}
 {% block title %}Schedule Details | Bizconnect{% endblock title %}
 {% load static %}
 
@@ -20,7 +20,7 @@
                 <div class="register wow fadeInUp" data-wow-delay="0.4s">
                     <h4 class="mb-35">All Fields with (*) are required.</h4>
                     <div class="register-form">
-                        <form action="{% url 'schedule_meeting' %}" method="post">
+                        <form action="{% url 'schedule_meeting' completed_request.id %}" method="post">
                             {% csrf_token %}
                             <div class="row">
                                 <div class="col-md-6 mb-30">
@@ -44,7 +44,8 @@
                                 <div class="col-md-6 mb-30">
                                     <div class="register-form-group">
                                         <label>Start Time <span style="color: red;">*</span></label>
-                                        <input type="time" id="start_time" name="start_time" value="{{completed_request.consultation_time}}" placeholder="{{ completed_request.consultation_time }}" readonly />
+                                        <input type="time" id="start_time" name="start_time" value="{{ completed_request.consultation_time|time:'H:i' }}" readonly />
+
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-30">
@@ -64,12 +65,17 @@
                                         <label>Select Consultation Package <span style="color: red;">*</span></label>
                                         <select id="consultation_package" name="consultation_package" required>
                                             <option value="">Select a package</option>
-                                            {% for package in consultation_packages %}
-                                            <option value="{{ package.id }}">{{ package.title }}</option>
-                                            {% endfor %}
+                                            {% if consultation_packages.exists %}
+                                                {% for package in consultation_packages %}
+                                                    <option value="{{ package.id }}">{{ package.title }}</option>
+                                                {% endfor %}
+                                            {% else %}
+                                                <option value="" disabled>No packages available</option>
+                                            {% endif %}
                                         </select>
                                     </div>
                                 </div>
+                                
                                 
                             </div>
                             <div class="row">

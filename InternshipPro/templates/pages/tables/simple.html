@@ -238,65 +238,40 @@
 
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Striped Full Width Table</h3>
+                  <h3 class="card-title">Striped Full Width Table</h3>
               </div>
               <!-- /.card-header -->
-              <div class="card-body p-0">
-                <table class="table table-striped">
-                  <thead>
-                    <tr>
-                      <th style="width: 10px">#</th>
-                      <th>Task</th>
-                      <th>Progress</th>
-                      <th style="width: 40px">Label</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>1.</td>
-                      <td>Update software</td>
-                      <td>
-                        <div class="progress progress-xs">
-                          <div class="progress-bar progress-bar-danger" style="width: 55%"></div>
-                        </div>
-                      </td>
-                      <td><span class="badge bg-danger">55%</span></td>
-                    </tr>
-                    <tr>
-                      <td>2.</td>
-                      <td>Clean database</td>
-                      <td>
-                        <div class="progress progress-xs">
-                          <div class="progress-bar bg-warning" style="width: 70%"></div>
-                        </div>
-                      </td>
-                      <td><span class="badge bg-warning">70%</span></td>
-                    </tr>
-                    <tr>
-                      <td>3.</td>
-                      <td>Cron job running</td>
-                      <td>
-                        <div class="progress progress-xs progress-striped active">
-                          <div class="progress-bar bg-primary" style="width: 30%"></div>
-                        </div>
-                      </td>
-                      <td><span class="badge bg-primary">30%</span></td>
-                    </tr>
-                    <tr>
-                      <td>4.</td>
-                      <td>Fix and squish bugs</td>
-                      <td>
-                        <div class="progress progress-xs progress-striped active">
-                          <div class="progress-bar bg-success" style="width: 90%"></div>
-                        </div>
-                      </td>
-                      <td><span class="badge bg-success">90%</span></td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-              <!-- /.card-body -->
+              <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Forwarded Request Details</h3>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body p-0">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th style="width: 10px">#</th>
+                                <th>Title</th>
+                                <th>Description</th>
+                                <th>Text Area</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for forward in forward %}
+                            <tr>
+                                <td>1.</td>
+                                <td>{{ forward.title }}</td>
+                                <td>{{ forward.description }}</td>
+                                <td>{{ forward.text_area }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <!-- /.card-body -->
             </div>
+              <!-- /.card-body -->
+          </div>
             <!-- /.card -->
           </div>
           <!-- /.col -->
@@ -414,133 +389,49 @@
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Expandable Table</h3>
+                <h3 class="card-title">Recieved Message</h3>
               </div>
               <!-- ./card-header -->
               <div class="card-body">
                 <table class="table table-bordered table-hover">
                   <thead>
                     <tr>
-                      <th>#</th>
-                      <th>User</th>
-                      <th>Date</th>
+                      <th>ID</th>
+                      <th>Title</th>
+                      <th>Description</th>
+                      <th>Comments</th>
                       <th>Status</th>
-                      <th>Reason</th>
+                      <th>Created At</th>
+                      <th>Updated At</th>
+                      <th>Meeting ID</th>
+                      <th>Action</th> <!-- New Action Column -->
                     </tr>
                   </thead>
                   <tbody>
-                    <tr data-widget="expandable-table" aria-expanded="false">
-                      <td>183</td>
-                      <td>John Doe</td>
-                      <td>11-7-2014</td>
-                      <td>Approved</td>
-                      <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                    </tr>
-                    <tr class="expandable-body">
-                      <td colspan="5">
-                        <p>
-                          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-                        </p>
-                      </td>
-                    </tr>
-                    <tr data-widget="expandable-table" aria-expanded="true">
-                      <td>219</td>
-                      <td>Alexander Pierce</td>
-                      <td>11-7-2014</td>
-                      <td>Pending</td>
-                      <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                    </tr>
-                    <tr class="expandable-body">
-                      <td colspan="5">
-                        <p>
-                          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-                        </p>
-                      </td>
-                    </tr>
-                    <tr data-widget="expandable-table" aria-expanded="true">
-                      <td>657</td>
-                      <td>Alexander Pierce</td>
-                      <td>11-7-2014</td>
-                      <td>Approved</td>
-                      <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                    </tr>
-                    <tr class="expandable-body">
-                      <td colspan="5">
-                        <p>
-                          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-                        </p>
-                      </td>
-                    </tr>
-                    <tr data-widget="expandable-table" aria-expanded="false">
-                      <td>175</td>
-                      <td>Mike Doe</td>
-                      <td>11-7-2014</td>
-                      <td>Denied</td>
-                      <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                    </tr>
-                    <tr class="expandable-body">
-                      <td colspan="5">
-                        <p>
-                          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-                        </p>
-                      </td>
-                    </tr>
-                    <tr data-widget="expandable-table" aria-expanded="false">
-                      <td>134</td>
-                      <td>Jim Doe</td>
-                      <td>11-7-2014</td>
-                      <td>Approved</td>
-                      <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                    </tr>
-                    <tr class="expandable-body">
-                      <td colspan="5">
-                        <p>
-                          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-                        </p>
-                      </td>
-                    </tr>
-                    <tr data-widget="expandable-table" aria-expanded="false">
-                      <td>494</td>
-                      <td>Victoria Doe</td>
-                      <td>11-7-2014</td>
-                      <td>Pending</td>
-                      <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                    </tr>
-                    <tr class="expandable-body">
-                      <td colspan="5">
-                        <p>
-                          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-                        </p>
-                      </td>
-                    </tr>
-                    <tr data-widget="expandable-table" aria-expanded="false">
-                      <td>832</td>
-                      <td>Michael Doe</td>
-                      <td>11-7-2014</td>
-                      <td>Approved</td>
-                      <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                    </tr>
-                    <tr class="expandable-body">
-                      <td colspan="5">
-                        <p>
-                          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-                        </p>
-                      </td>
-                    </tr>
-                    <tr data-widget="expandable-table" aria-expanded="false">
-                      <td>982</td>
-                      <td>Rocky Doe</td>
-                      <td>11-7-2014</td>
-                      <td>Denied</td>
-                      <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                    </tr>
-                    <tr class="expandable-body">
-                      <td colspan="5">
-                        <p>
-                          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-                        </p>
-                      </td>
-                    </tr>
+                    {% for request in reply_requests %}
+                      <tr data-widget="expandable-table" aria-expanded="false">
+                        <td>{{ request.id }}</td>
+                        <td>{{ request.title }}</td>
+                        <td>{{ request.description }}</td>
+                        <td>{{ request.comments }}</td>
+                        <td>{{ request.get_status_display }}</td>
+                        <td>{{ request.created_at|date:"d-m-Y" }}</td>
+                        <td>{{ request.updated_at|date:"d-m-Y" }}</td>
+                        <td>{{ request.meeting_id }}</td>
+                        <td>
+                          <!-- Action Button or Link -->
+                          <a href="{% url 'forward_request' request.id %}" class="btn btn-primary 
+                          {% if request.status == 'SENT' %} disabled{% endif %}">Forward</a>
+                        </td>
+                      </tr>
+                      <tr class="expandable-body">
+                        <td colspan="9">
+                          <p>
+                            <!-- Additional details or expandable content here if needed -->
+                          </p>
+                        </td>
+                      </tr>
+                    {% endfor %}
                   </tbody>
                 </table>
               </div>
@@ -549,6 +440,7 @@
             <!-- /.card -->
           </div>
         </div>
+        
         <!-- /.row -->
         <div class="row">
           <div class="col-12">

@@ -27,6 +27,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# Custom User Model
+AUTH_USER_MODEL = 'Bizconnect.CustomUser'
 
 # Application definition
 
@@ -48,6 +50,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'Bizconnect.middleware.SessionManagementMiddleware',
 ]
 
 ROOT_URLCONF = 'InternshipPro.urls'
@@ -130,9 +133,19 @@ STATICFILES_DIRS = [
 # Use database-backend sessions
 SESSION_ENGINE = 'django.contrib.sessions.backends.db'
 # Session expiration
-SESSION_COOKIE_AGE = 3600 # 1 hour
+SESSION_TIMEOUT = 3600
+SESSION_COOKIE_AGE = SESSION_TIMEOUT 
 SESSION_SAVE_EVERY_REQUEST = True # Reset the session timer on each request
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+# Email Sender
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'bizconnectintern@gmail.com'
+EMAIL_HOST_PASSWORD = 'gjqnupmznzfqtcsa'
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER

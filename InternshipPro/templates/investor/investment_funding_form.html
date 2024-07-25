@@ -1,4 +1,4 @@
-{% extends 'investor/investorHomepage3.html' %}{% block title %}Fundings | Bizconnect{% endblock title %}{% load static %}
+{% extends 'user_sidebar.html' %}{% block title %}Fundings | Bizconnect{% endblock title %}{% load static %}
 
 {% block content %}
 <div class="content wrapper mt-80">
@@ -21,25 +21,25 @@
                 <div class="register wow fadeInUp" data-wow-delay="0.8s">
                     <h4 class="mb-35">All Fields with (*) are required.</h4>
                     <div class="register-form">
-                        <form action="#" method="post">
+                        <form action="{% url 'investment_funding_form' deal.id %}" method="post">
                             {% csrf_token %}
                             <div class="row">
                                 <div class="col-md-6 mb-30">
                                     <div class="register-form-group">
                                         <label>Title <span style="color: red;">*</span></label>
-                                        <input readonly type="text" name="title" required value="{{ title }}">
+                                        <input readonly type="text" name="title" required value="{{ deal.title }}">
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-30">
                                     <div class="register-form-group">
                                         <label>Industry <span style="color: red;">*</span></label>
-                                        <input readonly type="text" name="industry" required value="{{ industry }}">
+                                        <input readonly type="text" name="industry" required value="{{ deal.industry }}">
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-30">
                                     <div class="register-form-group">
                                         <label>Valuation <span style="color: red;">*</span></label>
-                                        <input readonly type="number" name="valuation" placeholder="Valuation" required value="{{ valuation }}">
+                                        <input readonly type="number" name="valuation" placeholder="Valuation" required value="{{ deal.valuation }}">
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-30">

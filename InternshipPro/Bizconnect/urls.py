@@ -13,26 +13,27 @@ urlpatterns = [
   path('service/', views.service, name = 'service'),
   path('service_details/', views.service_detail, name = 'service_details'),
   path('get_started/', views.get_startednow, name = 'get_started'),
+  path("membership/", views.after_register, name="after_register"),
   
   ## These are the entrepreneurs' urls
-  path('entrepreneurs/', views.homepage1, name = 'homepage1'),
+  path('dashboard/', views.homepage1, name = 'homepage1'),
   path('entrepreneur/ideals/', views.business_ideals, name = 'business_ideals'),
   path("entrepreneur/ideal/form/", views.business_ideal_form , name="business_ideal_form"),
   path("entrepreneur/requests/", views.service_requests, name="service_requests"),
   path("entrepreneur/requests/form/", views.service_request_form, name="expert_request_form"),
   path("entrepreneur/schedule/", views.consultation_schedule, name="consultation_schedule"),
-  path("entrepreneur/schedule/form/", views.consultation_schedule_form, name="consultation_schedule_form"),
+  path("entrepreneur/schedule/form/<int:request_id>/", views.consultation_schedule_form, name="consultation_schedule_form"),
+  
   path("entrepreneur/investment/deals/", views.investment_deals, name="investment_deals"),
   path("entrepreneur/investment/deals/form/", views.investment_deal_form, name="investment_deal_form"),
   
   ## These are the Investors' urls
-  path('investors/', views.investorhomepage, name = 'investorhomepage'),
   path("investor/fundings/", views.investment_fundings, name="investment_fundings"),
-  path("investor/funding/form/", views.investment_funding_form, name="investment_funding_form"),
+  path("investor/funding/form/<int:deal_id>/", views.investment_funding_form, name="investment_funding_form"),
   path('submit-investor/', views.submit_investor_form, name='submit_investor_form'),
-  path('submit-investor_deals/', views.investor_deals, name='investordeals'),
+  path('investors/investor_deals/', views.investor_deals, name='investor_deals'),
+  path('business_idea/<int:idea_id>/', views.businessidea_detail, name='businessidea_detail'),
   ## These are the Experts' urls
-  path('experts/', views.experthomepage, name = 'experthomepage'),
   path('expert/library/', views.resources, name = 'resources'),
   path("expert/library/form/", views.resource_form, name="resource_form"),
   path("expert/requests/", views.assistance_request, name="assistance_request"),
@@ -59,17 +60,21 @@ urlpatterns = [
 
   #admin urls
   path('tables/', views.allTables, name='allTables'),
-  # path('list_requestsmade/', views.list_requestsmade, name='list_requestsmade1'),
-
   path('loginAdmin/', views.loginAdmin, name='loginAdmin'),
-  path('logout/', views.logout, name='logout'),
+  path('logoutAdmin/', views.logout2, name='logout2'),
   path('admin2/', views.admin2, name='admin2'),
   path('approve_request/<int:request_id>/', views.approve_request, name='approve_request'),
   path('create_package/', views.create_consultation_package, name='create_package'),
 
-  path('schedule_meeting/', views.schedule_meeting, name='schedule_meeting'),
+  path('schedule_meeting/<int:request_id>/', views.schedule_meeting4theent, name='schedule_meeting'),
 
 
   path('update-meeting-status/<int:meeting_id>/<str:status>/', views.update_meeting_status, name='update_meeting_status'),
 
+
+  path('reply-requests/', views.replay_requests_made, name='replay_requests'),
+  path('reply_madenow/', views.replay_requests_madetothemeeting, name='replay_requests_madetothemeeting'),
+
+
+ path('forward_request/<int:request_id>/', views.forward_request, name='forward_request'),
 ]
