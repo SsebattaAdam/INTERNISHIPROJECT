@@ -3,20 +3,22 @@
 {% block content %}
 <div class="content wrapper mt-80">
     <div class="testimonial__area section-padding wow fadeInUp">
-		<div class="container">
-			<div class="row align-items-center">
-				<div class="col-xl-5 col-lg-6 lg-mb-30 " data-wow-delay="0.4s">
-					<div class="testimonial__area-title">
-						<span class="section-top mb-15">Expert Consultation</span>
-						<h2 class="mb-45">Approved Requests</h2>						
-					</div>
-					<div class="testimonial__area-button">
-						<div class="testimonial__area-button-prev swiper-button-prev"><i class="flaticon-arrow-left"></i></div>
-						<div class="testimonial__area-button-next swiper-button-next"><i class="flaticon-arrow-right"></i></div>
-					</div>
-                    
-				</div>
-				<div class="col-xl-7 col-lg-6">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-xl-5 col-lg-6 lg-mb-30 " data-wow-delay="0.4s">
+                    <div class="testimonial__area-title">
+                        <span class="section-top mb-15">Expert Consultation</span>
+                        <h2 class="mb-45">Approved Requests</h2>
+                    </div>
+                    <div class="testimonial__area-button">
+                        <div class="testimonial__area-button-prev swiper-button-prev"><i
+                                class="flaticon-arrow-left"></i></div>
+                        <div class="testimonial__area-button-next swiper-button-next"><i
+                                class="flaticon-arrow-right"></i></div>
+                    </div>
+
+                </div>
+                <div class="col-xl-7 col-lg-6">
                     {% if completed_requests %}
                     <div class="swiper testimonial-slider">
                         <div class="swiper-wrapper">
@@ -29,8 +31,10 @@
                                     <p>{{ request.description }}</p>
                                     <div class="col-xl-6 col-lg-6 col-md-6 mt-35">
                                         <div class="solution__area-right lg-center">
-                                            <a class="theme-bg-btn" href="{% url 'consultation_schedule_form' request.id %}">Schedule now </i></a>						
-                                        </div>					
+                                            <a class="theme-bg-btn"
+                                                href="{% url 'consultation_schedule_form' request.id %}">Schedule now
+                                                </i></a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -41,32 +45,35 @@
                     {% else %}
                     <h4 class="t-center">No requests are visible at the moment.</h4>
                     {% endif %}
-					                       				
-				</div>
-                	
-			</div>
+
+                </div>
+
+            </div>
             <div class="col-xl-6 col-lg-6 col-md-6 mt-35">
                 <div class="solution__area-right lg-center">
-                    <a class="theme-bg-btn" href="{% url 'expert_request_form' %}">Create your request now <i class="flaticon-arrow-right"></i></a>						
-                </div>					
-			</div>
-		</div>
-	</div>
+                    <a class="theme-bg-btn" href="{% url 'expert_request_form' %}">Create your request now <i
+                            class="flaticon-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="testimonial__area section-padding wow fadeInUp">
-		<div class="container">
-			<div class="row align-items-center">
-				<div class="col-xl-5 col-lg-6 lg-mb-30 " data-wow-delay="0.4s">
-					<div class="testimonial__area-title">
-						<span class="section-top mb-15">Expert Consultation</span>
-						<h2 class="mb-45">Expert Replies</h2>						
-					</div>
-					<div class="testimonial__area-button">
-						<div class="testimonial__area-button-prev swiper-button-prev"><i class="flaticon-arrow-left"></i></div>
-						<div class="testimonial__area-button-next swiper-button-next"><i class="flaticon-arrow-right"></i></div>
-					</div>
-                    
-				</div>
-				<div class="col-xl-7 col-lg-6">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-xl-5 col-lg-6 lg-mb-30 " data-wow-delay="0.4s">
+                    <div class="testimonial__area-title">
+                        <span class="section-top mb-15">Expert Consultation</span>
+                        <h2 class="mb-45">Expert Replies</h2>
+                    </div>
+                    <div class="testimonial__area-button">
+                        <div class="testimonial__area-button-prev swiper-button-prev"><i
+                                class="flaticon-arrow-left"></i></div>
+                        <div class="testimonial__area-button-next swiper-button-next"><i
+                                class="flaticon-arrow-right"></i></div>
+                    </div>
+
+                </div>
+                <div class="col-xl-7 col-lg-6">
                     {% if replies %}
                     <div class="swiper testimonial-slider">
                         <div class="swiper-wrapper">
@@ -75,8 +82,11 @@
                                 <div class="testimonial__area-item-content mb-30">
                                     <i class="flaticon-quote"></i>
                                     <h5>{{ reply.title}}</h5>
-                                    <h6><a href="{{ reply.resource.supporting_documents.url }}">Supporting Documents</a></h6>
+                                    <h6></h6>
                                     <p>{{ reply.description }}</p>
+                                    <div class="blog__details-left-related-tag align-items-baseline mt-20">
+                                        <a href="{{ reply.resource.supporting_documents.url }}">Supporting Documents</a>
+                                    </div>
                                 </div>
                             </div>
                             {% endfor %}
@@ -86,11 +96,11 @@
                     {% else %}
                     <h4 class="t-center">No replies are visible at the moment.</h4>
                     {% endif %}
-					                       				
-				</div>
-                	
-			</div>
-		</div>
-	</div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock content %}
