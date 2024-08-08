@@ -16,6 +16,8 @@
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <!-- Tempusdominus Bootstrap 4 -->
   <link rel="stylesheet" href="{% static 'plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css' %}">
+  <!-- Bootstrap Color Picker -->
+  <link rel="stylesheet" href="{% static 'plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css' %}">
   <!-- iCheck -->
   <link rel="stylesheet" href="{% static 'plugins/icheck-bootstrap/icheck-bootstrap.min.css' %}">
   <!-- JQVMap -->
@@ -26,6 +28,15 @@
   <link rel="stylesheet" href="{% static 'plugins/overlayScrollbars/css/OverlayScrollbars.min.css' %}">
   <!-- Daterange picker -->
   <link rel="stylesheet" href="{% static 'plugins/daterangepicker/daterangepicker.css' %}">
+  <!-- Select2 -->
+  <link rel="stylesheet" href="{% static 'plugins/select2/css/select2.min.css' %}">
+  <link rel="stylesheet" href="{% static 'plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css' %}">
+  <!-- Bootstrap4 Duallistbox -->
+  <link rel="stylesheet" href="{% static 'plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css' %}">
+  <!-- BS Stepper -->
+  <link rel="stylesheet" href="{% static 'plugins/bs-stepper/css/bs-stepper.min.css' %}">
+  <!-- dropzonejs -->
+  <link rel="stylesheet" href="{% static 'plugins/dropzone/min/dropzone.min.css' %}">
   <!-- summernote -->
   <link rel="stylesheet" href="{% static 'plugins/summernote/summernote-bs4.min.css' %}">
 </head>
@@ -150,45 +161,22 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-          <li class="nav-item menu-open">
-            <a href="#" class="nav-link active">
+          <li class="nav-item">
+            <a href="{% url "admin_dashboard" %}" class="nav-link active">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Dashboard
-                <i class="right fas fa-angle-left"></i>
               </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="./index.html" class="nav-link active">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Dashboard v1</p>
-                </a>
-              </li>
-            
-            </ul>
+            </a>            
           </li>
          
-        
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="{% url "charts" %}" class="nav-link">
               <i class="nav-icon fas fa-chart-pie"></i>
               <p>
                 Charts
-                <i class="right fas fa-angle-left"></i>
               </p>
             </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="pages/charts/chartjs.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>ChartJS</p>
-                </a>
-              </li>
-           
-            
-             
-            </ul>
           </li>
          
           <li class="nav-item">
@@ -200,7 +188,25 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
-                          </ul>
+              <li class="nav-item">
+                <a href="{% url "general_forms" %}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>General</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{% url "advanced_forms" %}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Advanced</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{% url "validation_forms" %}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Validation</p>
+                </a>
+              </li>
+            </ul>
           </li>
           <li class="nav-item">
             <a href="#" class="nav-link">
@@ -228,7 +234,7 @@
           </li>
           
           <li class="nav-item">
-            <a href="pages/calendar.html" class="nav-link">
+            <a href="{% url "calendar" %}" class="nav-link">
               <i class="nav-icon far fa-calendar-alt"></i>
               <p>
                 Calendar
@@ -237,7 +243,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="pages/gallery.html" class="nav-link">
+            <a href="{% url "gallery" %}" class="nav-link">
               <i class="nav-icon far fa-image"></i>
               <p>
                 Gallery
@@ -255,24 +261,30 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="pages/mailbox/mailbox.html" class="nav-link">
+                <a href="{% url "mailbox" %}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Inbox</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="pages/mailbox/compose.html" class="nav-link">
+                <a href="{% url "compose_mail" %}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Compose</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="pages/mailbox/read-mail.html" class="nav-link">
+                <a href="{% url "read_mail" %}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Read</p>
                 </a>
               </li>
             </ul>
+          </li>
+          <li class="nav-item">
+            <a href="{% url 'logout2' %}" class="nav-link">
+              <i class="far fa-circle nav-icon"></i>
+              <p>Logout</p>
+            </a>
           </li>
           <li class="nav-item">
            
@@ -298,12 +310,7 @@
                 </a>
               </li>
 
-              <li class="nav-item">
-                <a href="{% url 'logout2' %}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Logout</p>
-                </a>
-              </li>
+              
               
            
             </ul>

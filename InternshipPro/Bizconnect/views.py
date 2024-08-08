@@ -53,7 +53,7 @@ def get_startednow(request):
 def after_register(request):
     return render(request, 'after_register.html')
 
-## entrepreneurs
+#################### Entrepreneurs #############################
 def register_entrepreneur(request):
     return render(request, 'entrepreneur/register_entrepreneur.html')
  
@@ -157,7 +157,7 @@ def investment_deals(request):
 def investment_deal_form(request):
     return render(request, 'entrepreneur/investment_deal_form.html')
 
-## Investors
+################# Investors ###########################
 def register_investor(request):
     return render(request, 'investor/register_investor.html')
 
@@ -244,7 +244,7 @@ def businessidea_detail(request, idea_id):
         # Handle invalid entity type
         return render(request, 'error.html', {'error': 'Invalid entity type.'})
     
-## Experts
+################## Experts ############################
 def register_expert(request):
     if request.method == 'POST':
         surname = request.POST.get('surname')
@@ -479,7 +479,7 @@ from django.core.files.storage import FileSystemStorage
 from .models import BusinessIdeas
 
 
-# admin views
+############ admin views ####################
 
 @login_required(login_url='loginAdmin')
 def logout2(request):
@@ -493,11 +493,12 @@ def loginAdmin(request):
         user = authenticate(request, username= username, password= password )
         if user is not None and user.user_type == "admin":
             login(request, user)
-            return redirect('admin2')
+            return redirect('admin_dashboard')
         else:
             return render(request, 'login2.html', {'error': 'Invalid credentials'})
     return render(request, 'login2.html')
 
+login_required(login_url='loginAdmin')
 def admin2(request):
     return render(request, 'index2.html')
 
@@ -532,8 +533,45 @@ def approve_request(request, request_id):
     experts = ExpertRegistration.objects.filter(user_type='expert')
     return render(request, 'pages/tables/approve_request.html', {'request': service_request, 'experts': experts})
 
+@login_required(login_url='loginAdmin')
+def charts(request):
+    return render(request, 'pages/charts/chartjs.html')
 
-#end of admin views
+@login_required(login_url='loginAdmin')
+def general_forms(request):
+    return render(request, 'pages/forms/general.html')
+
+@login_required(login_url='loginAdmin')
+def advanced_forms(request):
+    return render(request, 'pages/forms/advanced.html')
+
+@login_required(login_url='loginAdmin')
+def validation_forms(request):
+    return render(request, 'pages/forms/validation.html')
+
+@login_required(login_url='loginAdmin')
+def mailbox(request):
+    return render(request, 'pages/mailbox/mailbox.html')
+
+@login_required(login_url='loginAdmin')
+def compose_mail(request):
+    return render(request, 'pages/mailbox/compose.html')
+
+@login_required(login_url='loginAdmin')
+def read_mail(request):
+    return render(request, 'pages/mailbox/read-mail.html')
+
+@login_required(login_url='loginAdmin')
+def admin_calendar(request):
+    return render(request, 'pages/calendar.html')
+
+@login_required(login_url='loginAdmin')
+def admin_gallery(request):
+    return render(request, 'pages/gallery.html')
+
+
+
+##################### end of admin views  #########################
 
 @login_required(login_url='login')
 def create_investment_deal(request):

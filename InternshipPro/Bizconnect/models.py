@@ -268,7 +268,7 @@ class InvestmentFunds(models.Model):
         ('Phone', 'Phone'),
     ])
     notes = models.TextField()
-    supporting_documents = models.FileField(upload_to='supporting_documents/', null=True, blank=True)
+    supporting_documents = models.FileField(upload_to='attachments/', null=True, blank=True)
     investor = models.ForeignKey(Investor,  on_delete=models.CASCADE, related_name='investment_fund')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -285,7 +285,7 @@ class Resource(models.Model):
         ('Template', 'Template'),
         ('Practice', 'Best Practice'),
     ])
-    supporting_documents = models.FileField(upload_to='supporting_documents/', null=True, blank=True)
+    supporting_documents = models.FileField(upload_to='attachments/', null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
