@@ -224,7 +224,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="pages/tables/data.html" class="nav-link">
+                <a href="{% url "data_tables" %}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>DataTables</p>
                 </a>
@@ -276,6 +276,35 @@
                 <a href="{% url "read_mail" %}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Read</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon far fa-user"></i>
+              <p>
+                Users
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{% url "users_entr" %}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Entrepreneurs</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{% url "users_expert" %}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Experts</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{% url "users_investor" %}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Investors</p>
                 </a>
               </li>
             </ul>

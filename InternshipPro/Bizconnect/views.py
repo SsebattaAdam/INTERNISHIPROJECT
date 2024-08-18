@@ -5,16 +5,16 @@ from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_list_or_404, render, redirect
 from django.contrib import auth, messages
 from django.contrib.auth.hashers import make_password
-from .models import CustomUser, InvestmentFunds, Registration, ExpertRegistration, InvestmentDeal, Resource
+from .models import CustomUser, InvestmentFunds, ServiceRequest, BusinessIdeas, Registration, ExpertRegistration, InvestmentDeal, Resource, ConsultationPackage, ScheduledMeeting
 from django.contrib.auth import authenticate, login, logout
 from django.core.files.storage import FileSystemStorage
 from django.shortcuts import render, get_object_or_404
-from .models import BusinessIdeas
-from django.contrib.auth.decorators import permission_required, login_required
-from django.core.mail import send_mail, EmailMessage
+from django.contrib.auth.decorators import login_required
+from django.core.mail import EmailMessage
 import random
 import string
 from InternshipPro import settings
+from django.views.decorators.http import require_POST
 
 def generate_password(name):
     special_characters = "!@#$%^&*()"
@@ -53,7 +53,7 @@ def get_startednow(request):
 def after_register(request):
     return render(request, 'after_register.html')
 
-#################### Entrepreneurs #############################
+###################### Entrepreneurs #############################
 def register_entrepreneur(request):
     return render(request, 'entrepreneur/register_entrepreneur.html')
  
@@ -157,7 +157,7 @@ def investment_deals(request):
 def investment_deal_form(request):
     return render(request, 'entrepreneur/investment_deal_form.html')
 
-################# Investors ###########################
+####################### Investors ###########################
 def register_investor(request):
     return render(request, 'investor/register_investor.html')
 
@@ -244,7 +244,7 @@ def businessidea_detail(request, idea_id):
         # Handle invalid entity type
         return render(request, 'error.html', {'error': 'Invalid entity type.'})
     
-################## Experts ############################
+########################### Experts ############################
 def register_expert(request):
     if request.method == 'POST':
         surname = request.POST.get('surname')
@@ -254,8 +254,10 @@ def register_expert(request):
         contact = request.POST.get('contact')
         district = request.POST.get('district')
         country = request.POST.get('country')
-        knowledge = request.POST.getlist('knowledge')
-        experience = request.POST.getlist('experience')
+        industries = request.POST.getlist('industry')
+        services = request.POST.getlist('service')
+        knowledge = ', '.join(industries)
+        experience = ', '.join(services)
         achievements = request.POST.get('achievements')
         references = request.POST.get('references')
         
@@ -479,7 +481,7 @@ from django.core.files.storage import FileSystemStorage
 from .models import BusinessIdeas
 
 
-############ admin views ####################
+######################### admin views ############################
 
 @login_required(login_url='loginAdmin')
 def logout2(request):
@@ -517,7 +519,6 @@ def allTables(request):
     return render(request, 'pages/tables/simple.html', context)
 
 
-from .models import ServiceRequest
 
 @login_required(login_url='loginAdmin')
 def approve_request(request, request_id):
@@ -569,9 +570,72 @@ def admin_calendar(request):
 def admin_gallery(request):
     return render(request, 'pages/gallery.html')
 
+@login_required(login_url='loginAdmin')
+def admin_users_entr(request):
+    entrepreneurs = Registration.objects.all()
+    return render(request, 'pages/users/entrepreneurs.html', {'entrs': entrepreneurs})
+
+@login_required(login_url='loginAdmin')
+def admin_users_expert(request):
+    experts = ExpertRegistration.objects.all()
+    return render(request, 'pages/users/experts.html', {'experts': experts})
+
+@login_required(login_url='loginAdmin')
+def admin_users_investor(request):
+    investors = Investor.objects.all()
+    return render(request, 'pages/users/investors.html', {'investors': investors})
+
+@login_required(login_url='loginAdmin')
+def table_data(request):
+    entrepreneurs = Registration.objects.all()
+    experts = ExpertRegistration.objects.all()
+    investors = Investor.objects.all()
+    ideas = BusinessIdeas.objects.all()
+    requests = ServiceRequest.objects.all()
+    deals = InvestmentDeal.objects.all()
+    funds = InvestmentFunds.objects.all()
+    scheduled_meetings = ScheduledMeeting.objects.all()
+    context = {
+        'entrepreneurs': entrepreneurs,
+        'experts': experts,
+        'investors': investors,
+        'ideas': ideas,
+        'requests': requests,
+        'deals': deals,
+        'funds': funds,
+        'meetings': scheduled_meetings,
+    }
+    return render(request, 'pages/tables/data.html', context)
+
+@login_required(login_url='loginAdmin')
+@require_POST
+def update_meeting_status(request, meeting_id, status):
+    meeting = get_object_or_404(ScheduledMeeting, id=meeting_id)
+    
+    if status == 'Denied':
+        denial_reason = request.POST.get('denial_reason', '')
+        meeting.status = 'Denied'
+        meeting.denial_reason = denial_reason
+    elif status == 'Approved':
+        meeting.status = 'Approved'
+    elif status == 'Pending':
+        meeting.status = 'Pending'
+    
+    meeting.save()
+    return redirect('allTables')
 
 
-##################### end of admin views  #########################
+@login_required(login_url='loginAdmin')
+def forward_request(request_id):
+    request_instance = get_object_or_404(ReplyRequest, id=request_id)
+    service_request = get_object_or_404(ServiceRequest, id=request_instance.service_request.id)
+    service_request.status = 'Concluded'
+    service_request.save()
+    request_instance.status = 'SENT'
+    request_instance.save()
+
+
+####################### end of admin views  #########################
 
 @login_required(login_url='login')
 def create_investment_deal(request):
@@ -599,9 +663,6 @@ def create_investment_deal(request):
 
     return redirect('investment_deals')
 
-
-#consultation packages
-from .models import ConsultationPackage, ScheduledMeeting
 
 @login_required(login_url='login')
 def create_consultation_package(request):
@@ -676,24 +737,6 @@ def schedule_meeting4theent(request, request_id):
     return redirect('consultation_schedule_form', context)
 
 
-from django.views.decorators.http import require_POST
-
-@login_required(login_url='loginAdmin')
-@require_POST
-def update_meeting_status(request, meeting_id, status):
-    meeting = get_object_or_404(ScheduledMeeting, id=meeting_id)
-    
-    if status == 'Denied':
-        denial_reason = request.POST.get('denial_reason', '')
-        meeting.status = 'Denied'
-        meeting.denial_reason = denial_reason
-    elif status == 'Approved':
-        meeting.status = 'Approved'
-    elif status == 'Pending':
-        meeting.status = 'Pending'
-    
-    meeting.save()
-    return redirect('allTables')
 
 
 from .models import Investor
@@ -819,12 +862,3 @@ def replay_requests_madetothemeeting(request):
  
         return redirect('homepage1')  
     return render(request, 'expert/reply.html')
-
-@login_required(login_url='loginAdmin')
-def forward_request(request_id):
-    request_instance = get_object_or_404(ReplyRequest, id=request_id)
-    service_request = get_object_or_404(ServiceRequest, id=request_instance.service_request.id)
-    service_request.status = 'Concluded'
-    service_request.save()
-    request_instance.status = 'SENT'
-    request_instance.save()
