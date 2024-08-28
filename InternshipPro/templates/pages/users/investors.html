@@ -31,21 +31,20 @@
                 <h3 class="card-title">Investors</h3>
               </div>
               <!-- /.card-header -->
-              <div class="card-body">
-                <table id="example2" class="table table-bordered table-hover">
+              <div class="card-body table-responsive p-0">
+                <table id="example2" class="table table-bordered table-hover text-nowrap">
                   <thead>
                   <tr>
                     <th>Surname</th>
                     <th>First Name</th>
                     <th>Gender</th>
                     <th>Email Address</th>
+                    <th>Company</th>
                     <th>Contact</th>
-                    <th>District</th>
                     <th>Country</th>
-                    <th>Knowledge</th>
-                    <th>Experience</th>
-                    <th>Achievements</th>
-                    <th>References</th>
+                    <th>Investment Preferences</th>
+                    <th>Capital Availability</th>
+                    <th>Additional Information</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -56,19 +55,18 @@
                       <td>{{investor.firstname}}</td>
                       <td>{{investor.gender}}</td>
                       <td>{{investor.email}}</td>
+                      <td>{{investor.company}}</td>
                       <td>{{investor.contact}}</td>
-                      <td>{{investor.district}}</td>
                       <td>{{investor.country}}</td>
-                      <td>{{investor.knowledge}}</td>
-                      <td>{{investor.experience}}</td>
-                      <td>{{investor.achievements}}</td>
-                      <td>{{investor.references}}</td>
+                      <td>{{investor.investment_preferences}}</td>
+                      <td>{{investor.capital}}</td>
+                      <td>{{investor.information}}</td>
                       
                     </tr>
                     {% endfor %}
                     {% else %}
                     <tr>
-                      <td>No Investors Present currently</td>
+                      <td style="height: 4rem;" colspan="11">No Investors Present currently</td>
                                             
                     </tr>
                     {% endif %}                              
@@ -80,13 +78,12 @@
                     <th>First Name</th>
                     <th>Gender</th>
                     <th>Email Address</th>
+                    <th>Company</th>
                     <th>Contact</th>
-                    <th>District</th>
                     <th>Country</th>
-                    <th>Knowledge</th>
-                    <th>Experience</th>
-                    <th>Achievements</th>
-                    <th>References</th>
+                    <th>Investment Preferences</th>
+                    <th>Capital Availability</th>
+                    <th>Additional Information</th>
                   </tr>
                   </tfoot>
                 </table>
