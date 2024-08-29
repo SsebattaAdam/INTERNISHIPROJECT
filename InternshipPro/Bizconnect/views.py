@@ -720,14 +720,6 @@ def charts(request):
     return render(request, 'pages/charts/chartjs.html')
 
 @login_required(login_url='loginAdmin')
-def charts_flot(request):
-    return render(request, 'pages/charts/flot.html')
-
-@login_required(login_url='loginAdmin')
-def charts_inline(request):
-    return render(request, 'pages/charts/inline.html')
-
-@login_required(login_url='loginAdmin')
 def general_forms(request):
     return render(request, 'pages/forms/general.html')
 
