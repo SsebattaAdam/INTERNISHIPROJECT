@@ -1,18 +1,19 @@
-{% extends "index2.html" %} {% block title%}All tables listed | Bizconnect{%endblock%} {% load static%} {% block content %}
+{% extends "index2.html" %}{% block title %}Consultation Packages | Bizconnect {% endblock title %} {% load static %}
 
-  <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
+{% block content %}
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>DataTables</h1>
+            <h1>Consultation Packages</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">DataTables</li>
+              <li class="breadcrumb-item active">Consultation Packages</li>
             </ol>
           </div>
         </div>
@@ -28,45 +29,36 @@
             <!-- /.card -->
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Investors</h3>
+                <h3 class="card-title">Packages</h3>
               </div>
               <!-- /.card-header -->
               <div class="card-body table-responsive p-0">
                 <table id="example2" class="table table-bordered table-hover text-nowrap">
                   <thead>
                   <tr>
-                    <th>Surname</th>
-                    <th>First Name</th>
-                    <th>Gender</th>
-                    <th>Email Address</th>
-                    <th>Company</th>
-                    <th>Contact</th>
-                    <th>Country</th>
-                    <th>Investment Preferences</th>
-                    <th>Capital Availability</th>
-                    <th>Additional Information</th>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Type</th>
+                    <th>Price</th>
+                    <th>Assigned Expert</th>
+                    
                   </tr>
                   </thead>
                   <tbody>
-                    {% if investors %}
-                    {% for investor in investors %}
+                    {% if packages %}
+                    {% for package in packages %}
                     <tr>
-                      <td>{{investor.surname}}</td>
-                      <td>{{investor.firstname}}</td>
-                      <td>{{investor.gender}}</td>
-                      <td>{{investor.email}}</td>
-                      <td>{{investor.company}}</td>
-                      <td>{{investor.contact}}</td>
-                      <td>{{investor.country}}</td>
-                      <td>{{investor.investment_preferences}}</td>
-                      <td>{{investor.capital}}</td>
-                      <td>{{investor.information}}</td>
-                      
+                      <td>{{package.title}}</td>
+                      <td>{{package.description}}</td>
+                      <td>{{package.package_type}}</td>
+                      <td>{{package.package_price}}</td>
+                      <td>{{package.expert}}</td>
+                                            
                     </tr>
                     {% endfor %}
                     {% else %}
                     <tr>
-                      <td style="height: 4rem;" colspan="11">No Investors Present currently</td>
+                      <td style="height: 4rem;" colspan="11">No Packages Present currently</td>
                                             
                     </tr>
                     {% endif %}                              
@@ -74,16 +66,11 @@
                   </tbody>
                   <tfoot>
                   <tr>
-                    <th>Surname</th>
-                    <th>First Name</th>
-                    <th>Gender</th>
-                    <th>Email Address</th>
-                    <th>Company</th>
-                    <th>Contact</th>
-                    <th>Country</th>
-                    <th>Investment Preferences</th>
-                    <th>Capital Availability</th>
-                    <th>Additional Information</th>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Type</th>
+                    <th>Price</th>
+                    <th>Assigned Expert</th>
                   </tr>
                   </tfoot>
                 </table>
@@ -133,5 +120,4 @@
     });
   });
 </script>
-  {% endblock content %}
- 
+{% endblock content %}

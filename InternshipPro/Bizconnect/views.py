@@ -697,7 +697,7 @@ def allTables(request):
         'reply_requests': reply_requests,
         'forward': forward
     }
-    return render(request, 'pages/tables/simple.html', context)
+    return render(request, 'admin/tables/simple.html', context)
 
 
 
@@ -713,58 +713,86 @@ def approve_request(request, request_id):
         service_request.save()
         return redirect('allTables')
     experts = ExpertRegistration.objects.filter(user_type='expert')
-    return render(request, 'pages/tables/approve_request.html', {'request': service_request, 'experts': experts})
+    return render(request, 'admin/tables/approve_request.html', {'request': service_request, 'experts': experts})
 
 @login_required(login_url='loginAdmin')
 def charts(request):
-    return render(request, 'pages/charts/chartjs.html')
+    return render(request, 'admin/charts/chartjs.html')
 
 @login_required(login_url='loginAdmin')
 def general_forms(request):
-    return render(request, 'pages/forms/general.html')
+    return render(request, 'admin/forms/general.html')
 
 @login_required(login_url='loginAdmin')
 def advanced_forms(request):
-    return render(request, 'pages/forms/advanced.html')
+    return render(request, 'admin/forms/advanced.html')
 
 @login_required(login_url='loginAdmin')
 def validation_forms(request):
-    return render(request, 'pages/forms/validation.html')
+    return render(request, 'admin/forms/validation.html')
 
 @login_required(login_url='loginAdmin')
 def mailbox(request):
-    return render(request, 'pages/mailbox/mailbox.html')
+    return render(request, 'admin/mailbox/mailbox.html')
 
 @login_required(login_url='loginAdmin')
 def compose_mail(request):
-    return render(request, 'pages/mailbox/compose.html')
+    return render(request, 'admin/mailbox/compose.html')
 
 @login_required(login_url='loginAdmin')
 def read_mail(request):
-    return render(request, 'pages/mailbox/read-mail.html')
+    return render(request, 'admin/mailbox/read-mail.html')
 
 @login_required(login_url='loginAdmin')
 def admin_calendar(request):
-    return render(request, 'pages/calendar.html')
+    return render(request, 'admin/pages/calendar.html')
 
 @login_required(login_url='loginAdmin')
 def admin_gallery(request):
-    return render(request, 'pages/gallery.html')
+    return render(request, 'admin/pages/gallery.html')
 
 @login_required(login_url='loginAdmin')
 def admin_users_entr(request):
     entrepreneurs = Registration.objects.all()
-    return render(request, 'pages/users/entrepreneurs.html', {'entrs': entrepreneurs})
+    return render(request, 'admin/users/entrepreneurs.html', {'entrs': entrepreneurs})
 
 @login_required(login_url='loginAdmin')
 def admin_users_expert(request):
     experts = ExpertRegistration.objects.all()
-    return render(request, 'pages/users/experts.html', {'experts': experts})
+    return render(request, 'admin/users/experts.html', {'experts': experts})
 
 @login_required(login_url='loginAdmin')
 def admin_users_investor(request):
     investors = Investor.objects.all()
-    return render(request, 'pages/users/investors.html', {'investors': investors})
+    return render(request, 'admin/users/investors.html', {'investors': investors})
+
+@login_required(login_url='loginAdmin')
+def admin_proposals(request):
+    return render(request, 'admin/pages/proposals.html')
+
+@login_required(login_url='loginAdmin')
+def admin_requests(request):
+    return render(request, 'admin/pages/assistance_requests.html')
+
+@login_required(login_url='loginAdmin')
+def admin_meetings(request):
+    return render(request, 'admin/pages/meetings.html')
+
+@login_required(login_url='loginAdmin')
+def admin_investment_deals(request):
+    return render(request, 'admin/pages/investment_deals.html')
+
+@login_required(login_url='loginAdmin')
+def admin_investment_funds(request):
+    return render(request, 'admin/pages/investment_funds.html')
+
+@login_required(login_url='loginAdmin')
+def admin_packages(request):
+    return render(request, 'admin/pages/packages.html')
+
+@login_required(login_url='loginAdmin')
+def admin_reply_mail(request):
+    return render(request, 'admin/pages/reply_mail.html')
 
 @login_required(login_url='loginAdmin')
 def table_data(request):
@@ -786,7 +814,7 @@ def table_data(request):
         'funds': funds,
         'meetings': scheduled_meetings,
     }
-    return render(request, 'pages/tables/data.html', context)
+    return render(request, 'admin/tables/data.html', context)
 
 @login_required(login_url='loginAdmin')
 @require_POST

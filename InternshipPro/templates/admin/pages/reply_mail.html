@@ -1,18 +1,19 @@
-{% extends "index2.html" %} {% block title%}All tables listed | Bizconnect{%endblock%} {% load static%} {% block content %}
+{% extends "index2.html" %}{% block title %}Reply Mails | Bizconnect {% endblock title %} {% load static %}
 
-  <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
+{% block content %}
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>DataTables</h1>
+            <h1>Reply Mails</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">DataTables</li>
+              <li class="breadcrumb-item active">Reply Mails</li>
             </ol>
           </div>
         </div>
@@ -28,65 +29,48 @@
             <!-- /.card -->
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Business Experts</h3>
+                <h3 class="card-title">Replies</h3>
               </div>
               <!-- /.card-header -->
               <div class="card-body table-responsive p-0">
                 <table id="example2" class="table table-bordered table-hover text-nowrap">
                   <thead>
                   <tr>
-                    <th>Surname</th>
-                    <th>First Name</th>
-                    <th>Gender</th>
-                    <th>Email Address</th>
-                    <th>Contact</th>
-                    <th>District</th>
-                    <th>Country</th>
-                    <th>Knowledge</th>
-                    <th>Experience</th>
-                    <th>Achievements</th>
-                    <th>References</th>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Scheduled Meeting</th>
+                    <th>Comments</th>
+                    <th>Resources</th>
+                    
                   </tr>
                   </thead>
                   <tbody>
-                    {% if experts %}
-                    {% for expert in experts %}
+                    {% if replies %}
+                    {% for reply in replies %}
                     <tr>
-                      <td>{{expert.surname}}</td>
-                      <td>{{expert.firstname}}</td>
-                      <td>{{expert.gender}}</td>
-                      <td>{{expert.email}}</td>
-                      <td>{{expert.contact}}</td>
-                      <td>{{expert.district}}</td>
-                      <td>{{expert.country}}</td>
-                      <td>{{expert.knowledge}}</td>
-                      <td>{{expert.experience}}</td>
-                      <td>{{expert.achievements}}</td>
-                      <td>{{expert.references}}</td>
-                      
+                      <td>{{reply.title}}</td>
+                      <td>{{reply.description}}</td>
+                      <td>{{reply.meeting.title}}</td>
+                      <td>{{reply.comments}}</td>
+                      <td>{{reply.resource}}</td>
+                                            
                     </tr>
                     {% endfor %}
                     {% else %}
                     <tr>
-                      <td style="height: 4rem;" colspan="11">No Experts Present currently</td>
+                      <td style="height: 4rem;" colspan="11">No Replies Present currently</td>
                                             
                     </tr>
-                    {% endif %}     
+                    {% endif %}                              
                   
                   </tbody>
                   <tfoot>
                   <tr>
-                    <th>Surname</th>
-                    <th>First Name</th>
-                    <th>Gender</th>
-                    <th>Email Address</th>
-                    <th>Contact</th>
-                    <th>District</th>
-                    <th>Country</th>
-                    <th>Knowledge</th>
-                    <th>Experience</th>
-                    <th>Achievements</th>
-                    <th>References</th>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Scheduled Meeting</th>
+                    <th>Comments</th>
+                    <th>Resources</th>
                   </tr>
                   </tfoot>
                 </table>
@@ -136,5 +120,4 @@
     });
   });
 </script>
-  {% endblock content %}
- 
+{% endblock content %}

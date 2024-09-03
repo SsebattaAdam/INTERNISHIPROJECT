@@ -1,0 +1,139 @@
+{% extends "index2.html" %}{% block title %}Assistance Requests | Bizconnect {% endblock title %} {% load static %}
+
+{% block content %}
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Assistance Requests</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">Assistance Requests</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            
+            <!-- /.card -->
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Requests</h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body table-responsive p-0">
+                <table id="example2" class="table table-bordered table-hover text-nowrap">
+                  <thead>
+                  <tr>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Industry</th>
+                    <th>Target Market</th>
+                    <th>Consultation Time</th>
+                    <th>Consultation Date</th>
+                    <th>Urgency level</th>
+                    <th>Attachments</th>
+                    <th>Comments</th>
+                    <th>Entrepreneur</th>
+                    <th>Assigned Expert</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                    {% if requests %}
+                    {% for request in requests %}
+                    <tr>
+                      <td>{{request.business_idea}}</td>
+                      <td>{{request.description}}</td>
+                      <td>{{request.industry}}</td>
+                      <td>{{request.target_market}}</td>
+                      <td>{{request.consultation_time}}</td>
+                      <td>{{request.consultation_date}}</td>
+                      <td>{{request.urgency_level}}</td>
+                      <td>{{request.attachment}}</td>
+                      <td>{{request.comments}}</td>
+                      <td>{{request.requester.firstname}}</td>
+                      <td>{{request.assigned_expert.firstname}}</td>
+                    </tr>
+                    {% endfor %}
+                    {% else %}
+                    <tr>
+                      <td style="height: 4rem;" colspan="11">No Assistance Requests present currently</td>
+                                            
+                    </tr>
+                    {% endif %}                              
+                  
+                  </tbody>
+                  <tfoot>
+                  <tr>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Industry</th>
+                    <th>Target Market</th>
+                    <th>Consultation Time</th>
+                    <th>Consultation Date</th>
+                    <th>Urgency level</th>
+                    <th>Attachments</th>
+                    <th>Comments</th>
+                    <th>Entrepreneur</th>
+                    <th>Assigned Expert</th>
+                  </tr>
+                  </tfoot>
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+      </div>
+      <!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+  <!-- DataTables  & Plugins -->
+<script src="{% static 'plugins/datatables/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'plugins/datatables-bs4/js/dataTables.bootstrap4.min.js' %}"></script>
+<script src="{% static 'plugins/datatables-responsive/js/dataTables.responsive.min.js' %}"></script>
+<script src="{% static 'plugins/datatables-responsive/js/responsive.bootstrap4.min.js' %}"></script>
+<script src="{% static 'plugins/datatables-buttons/js/dataTables.buttons.min.js' %}"></script>
+<script src="{% static 'plugins/datatables-buttons/js/buttons.bootstrap4.min.js' %}"></script>
+<script src="{% static 'plugins/jszip/jszip.min.js' %}"></script>
+<script src="{% static 'plugins/pdfmake/pdfmake.min.js' %}"></script>
+<script src="{% static 'plugins/pdfmake/vfs_fonts.js' %}"></script>
+<script src="{% static 'plugins/datatables-buttons/js/buttons.html5.min.js' %}"></script>
+<script src="{% static 'plugins/datatables-buttons/js/buttons.print.min.js' %}"></script>
+<script src="{% static 'plugins/datatables-buttons/js/buttons.colVis.min.js' %}"></script>
+<!-- Page specific script -->
+<script>
+  $(function () {
+    $("#example1").DataTable({
+      "responsive": true, "lengthChange": false, "autoWidth": false,
+      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+    $('#example2').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+      "responsive": true,
+    });
+  });
+</script>
+{% endblock content %}
