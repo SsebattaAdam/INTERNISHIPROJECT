@@ -1,0 +1,140 @@
+{% extends "index2.html" %} {% block title%}All tables listed | Bizconnect{%endblock%} {% load static%} {% block content %}
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Business Experts</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">Business Experts</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            
+            <!-- /.card -->
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Business Experts</h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body table-responsive p-0">
+                <table id="example2" class="table table-bordered table-hover text-nowrap">
+                  <thead>
+                  <tr>
+                    <th>Surname</th>
+                    <th>First Name</th>
+                    <th>Gender</th>
+                    <th>Email Address</th>
+                    <th>Contact</th>
+                    <th>District</th>
+                    <th>Country</th>
+                    <th>Knowledge</th>
+                    <th>Experience</th>
+                    <th>Achievements</th>
+                    <th>References</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                    {% if experts %}
+                    {% for expert in experts %}
+                    <tr>
+                      <td>{{expert.surname}}</td>
+                      <td>{{expert.firstname}}</td>
+                      <td>{{expert.gender}}</td>
+                      <td>{{expert.email}}</td>
+                      <td>{{expert.contact}}</td>
+                      <td>{{expert.district}}</td>
+                      <td>{{expert.country}}</td>
+                      <td>{{expert.knowledge}}</td>
+                      <td>{{expert.experience}}</td>
+                      <td>{{expert.achievements}}</td>
+                      <td>{{expert.references}}</td>
+                      
+                    </tr>
+                    {% endfor %}
+                    {% else %}
+                    <tr>
+                      <td style="height: 4rem;" colspan="11">No Experts Present currently</td>
+                                            
+                    </tr>
+                    {% endif %}     
+                  
+                  </tbody>
+                  <tfoot>
+                  <tr>
+                    <th>Surname</th>
+                    <th>First Name</th>
+                    <th>Gender</th>
+                    <th>Email Address</th>
+                    <th>Contact</th>
+                    <th>District</th>
+                    <th>Country</th>
+                    <th>Knowledge</th>
+                    <th>Experience</th>
+                    <th>Achievements</th>
+                    <th>References</th>
+                  </tr>
+                  </tfoot>
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+      </div>
+      <!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+  <!-- DataTables  & Plugins -->
+<script src="{% static 'plugins/datatables/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'plugins/datatables-bs4/js/dataTables.bootstrap4.min.js' %}"></script>
+<script src="{% static 'plugins/datatables-responsive/js/dataTables.responsive.min.js' %}"></script>
+<script src="{% static 'plugins/datatables-responsive/js/responsive.bootstrap4.min.js' %}"></script>
+<script src="{% static 'plugins/datatables-buttons/js/dataTables.buttons.min.js' %}"></script>
+<script src="{% static 'plugins/datatables-buttons/js/buttons.bootstrap4.min.js' %}"></script>
+<script src="{% static 'plugins/jszip/jszip.min.js' %}"></script>
+<script src="{% static 'plugins/pdfmake/pdfmake.min.js' %}"></script>
+<script src="{% static 'plugins/pdfmake/vfs_fonts.js' %}"></script>
+<script src="{% static 'plugins/datatables-buttons/js/buttons.html5.min.js' %}"></script>
+<script src="{% static 'plugins/datatables-buttons/js/buttons.print.min.js' %}"></script>
+<script src="{% static 'plugins/datatables-buttons/js/buttons.colVis.min.js' %}"></script>
+<!-- Page specific script -->
+<script>
+  $(function () {
+    $("#example1").DataTable({
+      "responsive": true, "lengthChange": false, "autoWidth": false,
+      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+    $('#example2').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+      "responsive": true,
+    });
+  });
+</script>
+  {% endblock content %}
+ 
