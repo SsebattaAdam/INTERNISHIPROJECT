@@ -1,106 +1,159 @@
-{% extends "index2.html" %}{% block title %}Scheduled Meetings | Bizconnect {% endblock title %} {% load static %}
-
-{% block content %}
+{% extends "index2.html" %}{% block title %}Scheduled Meetings | Bizconnect {%
+endblock title %} {% load static %} {% block content %}
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1>Scheduled Meetings</h1>
-          </div>
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Scheduled Meetings</li>
-            </ol>
-          </div>
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1>Scheduled Meetings</h1>
         </div>
-      </div><!-- /.container-fluid -->
-    </section>
-
-    <!-- Main content -->
-    <section class="content">
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-12">
-            
-            <!-- /.card -->
-            <div class="card">
-              <div class="card-header">
-                <h3 class="card-title">Meetings</h3>
-              </div>
-              <!-- /.card-header -->
-              <div class="card-body table-responsive p-0">
-                <table id="example2" class="table table-bordered table-hover text-nowrap">
-                  <thead>
-                  <tr>
-                    <th>Title</th>
-                    <th>Entrepreneur</th>
-                    <th>Assistance Request</th>
-                    <th>Assigned Expert</th>
-                    <th>Consultation Date</th>
-                    <th>Start Time</th>
-                    <th>End Time</th>
-                    <th>Consultation Package</th>
-                    <th>Denial Reason</th>
-                  </tr>
-                  </thead>
-                  <tbody>
-                    {% if meetings %}
-                    {% for meeting in meetings %}
-                    <tr>
-                      <td>{{meeting.title}}</td>
-                      <td>{{meeting.entrepreneur}}</td>
-                      <td>{{meeting.service_request}}</td>
-                      <td>{{meeting.expert_name}}</td>
-                      <td>{{meeting.consultation_date}}</td>
-                      <td>{{meeting.start_time}}</td>
-                      <td>{{meeting.end_time}}</td>
-                      <td>{{meeting.consultation_package}}</td>
-                      <td>{{meeting.plan}}</td>
-                      
-                    </tr>
-                    {% endfor %}
-                    {% else %}
-                    <tr>
-                      <td style="height: 4rem;" colspan="11">No Meetings Present currently</td>
-                                            
-                    </tr>
-                    {% endif %}                              
-                  
-                  </tbody>
-                  <tfoot>
-                  <tr>
-                    <th>Title</th>
-                    <th>Entrepreneur</th>
-                    <th>Assistance Request</th>
-                    <th>Assigned Expert</th>
-                    <th>Consultation Date</th>
-                    <th>Start Time</th>
-                    <th>End Time</th>
-                    <th>Consultation Package</th>
-                    <th>Denial Reason</th>
-                  </tr>
-                  </tfoot>
-                </table>
-              </div>
-              <!-- /.card-body -->
-            </div>
-            
-          </div>
-          <!-- /.col -->
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item active">Scheduled Meetings</li>
+          </ol>
         </div>
-        <!-- /.row -->
       </div>
-      <!-- /.container-fluid -->
-    </section>
-    <!-- /.content -->
-  </div>
-  <!-- /.content-wrapper -->
+    </div>
+    <!-- /.container-fluid -->
+  </section>
 
-  <!-- DataTables  & Plugins -->
+  <!-- Main content -->
+  <section class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12">
+          <!-- /.card -->
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">Meetings</h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body table-responsive p-0">
+              <table
+                id="example2"
+                class="table table-bordered table-hover text-nowrap"
+              >
+                <thead>
+                  <tr>
+                    <th>Title</th>
+                    <th>Entrepreneur</th>
+                    <th>Assistance Request</th>
+                    <th>Assigned Expert</th>
+                    <th>Consultation Date</th>
+                    <th>Start Time</th>
+                    <th>End Time</th>
+                    <th>Consultation Package</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% if meetings %} {% for meeting in meetings %}
+                  <tr>
+                    <td>{{meeting.title}}</td>
+                    <td>{{meeting.entrepreneur.firstname}}</td>
+                    <td>{{meeting.service_request}}</td>
+                    <td>{{meeting.expert_name}}</td>
+                    <td>{{meeting.consultation_date}}</td>
+                    <td>{{meeting.start_time}}</td>
+                    <td>{{meeting.end_time}}</td>
+                    <td>{{meeting.consultation_package}}</td>
+                    <td>
+                      {% if meeting.status == 'Approved' %}
+                      <span class="tag tag-success">Approved</span>
+                      {% elif meeting.status == 'Pending' %}
+                      <span class="tag tag-warning">Pending</span>
+                      {% else %}
+                      <span class="tag tag-danger">Denied</span>
+                      {% endif %}
+                    </td>
+                    <td>
+                      <form
+                        action="{% url 'update_meeting_status' meeting.id 'Approved' %}"
+                        method="post"
+                        style="display: inline"
+                      >
+                        {% csrf_token %}
+                        <button class="btn btn-success btn-sm" type="submit">
+                          Approve
+                        </button>
+                      </form>
+                      <button
+                        class="btn btn-danger btn-sm"
+                        onclick="showDenialReason({{ meeting.id }})"
+                      >
+                        Deny
+                      </button>
+                      <form
+                        id="denial-form-{{ meeting.id }}"
+                        action="{% url 'update_meeting_status' meeting.id 'Denied' %}"
+                        method="post"
+                        style="display: none"
+                      >
+                        {% csrf_token %}
+                        <textarea
+                          name="denial_reason"
+                          placeholder="Reason for denial"
+                          rows="2"
+                          cols="20"
+                        ></textarea>
+                        <button class="btn btn-danger btn-sm" type="submit">
+                          Submit Denial
+                        </button>
+                      </form>
+                      <form
+                        action="{% url 'update_meeting_status' meeting.id 'Pending' %}"
+                        method="post"
+                        style="display: inline"
+                      >
+                        {% csrf_token %}
+                        <button class="btn btn-warning btn-sm" type="submit">
+                          Pending
+                        </button>
+                      </form>
+                    </td>
+                  </tr>
+                  {% endfor %} {% else %}
+                  <tr>
+                    <td style="height: 4rem" colspan="11">
+                      No Meetings Present currently
+                    </td>
+                  </tr>
+                  {% endif %}
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <th>Title</th>
+                    <th>Entrepreneur</th>
+                    <th>Assistance Request</th>
+                    <th>Assigned Expert</th>
+                    <th>Consultation Date</th>
+                    <th>Start Time</th>
+                    <th>End Time</th>
+                    <th>Consultation Package</th>
+                    <th>Status</th>
+                    <th>actions</th>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+            <!-- /.card-body -->
+          </div>
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+  </section>
+  <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+<!-- DataTables  & Plugins -->
 <script src="{% static 'plugins/datatables/jquery.dataTables.min.js' %}"></script>
 <script src="{% static 'plugins/datatables-bs4/js/dataTables.bootstrap4.min.js' %}"></script>
 <script src="{% static 'plugins/datatables-responsive/js/dataTables.responsive.min.js' %}"></script>
@@ -116,18 +169,24 @@
 <!-- Page specific script -->
 <script>
   $(function () {
-    $("#example1").DataTable({
-      "responsive": true, "lengthChange": false, "autoWidth": false,
-      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-    $('#example2').DataTable({
-      "paging": true,
-      "lengthChange": false,
-      "searching": false,
-      "ordering": true,
-      "info": true,
-      "autoWidth": false,
-      "responsive": true,
+    $("#example1")
+      .DataTable({
+        responsive: true,
+        lengthChange: false,
+        autoWidth: false,
+        buttons: ["copy", "csv", "excel", "pdf", "print", "colvis"],
+      })
+      .buttons()
+      .container()
+      .appendTo("#example1_wrapper .col-md-6:eq(0)");
+    $("#example2").DataTable({
+      paging: true,
+      lengthChange: false,
+      searching: false,
+      ordering: true,
+      info: true,
+      autoWidth: false,
+      responsive: true,
     });
   });
 </script>
